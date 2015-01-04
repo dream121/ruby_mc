@@ -1,0 +1,32 @@
+div.page-header
+  h1 Experiment Values
+
+  p.help-block These are trusted values to be used by our backend system when Optimizely's Javascript assigns a specific experiment variation to a user. For example, if a user is assigned the variation named "$19.99" for the experiment "Pricing Test 1" (submitted to our backend as hidden form params), we don't want to simply parse that raw value as the final product price, since form parameters can be faked. Instead, in our order processing logic, we can search the Experiment Values table for the experiment named "Pricing Test 1" with variation "$19.99", then use get the actual price by looking for the row with key "price", and finally using the trusted value "1999".
+
+table.table.table-striped
+  thead
+    tr
+      th ID
+      th Experiment
+      th Variation
+      th Key
+      th Value
+      th Actions
+
+  tbody
+  - @experiment_values.each do |experiment_value|
+    tr
+      td= experiment_value.id
+      td= experiment_value.experiment
+      td= experiment_value.variation
+      td= experiment_value.key
+      td= experiment_value.value
+      td
+        - if policy(experiment_value).edit?
+          = link_to 'Edit', edit_experiment_value_path(experiment_value), class: 'btn btn-default'
+          '
+        - if policy(experiment_value).destroy?
+          = link_to 'Destroy', experiment_value_path(experiment_value), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-mini btn-danger'
+
+- if policy(ExperimentValue).create?
+  = link_to 'New Experiment Value', new_experiment_value_path, class: 'btn btn-primary'

@@ -1,0 +1,37 @@
+div.page-header
+  h1 Listing course_facts
+
+table.table.table-striped
+  thead
+    tr
+      th ID
+      th Course
+      th Kind
+      th Position
+      th Icon
+      th Number
+      th Title
+      th Description
+      th Actions
+
+  tbody
+  - @course_facts.each do |course_fact|
+    tr
+      /td= link_to_if can?(:show, course_fact), course_fact.id, course_fact_path(course_fact)
+      td= link_to course_fact.id, course_fact_path(course_fact)
+      td= course_fact.course
+      td= course_fact.kind
+      td= course_fact.position
+      td= course_fact.icon
+      td= course_fact.number
+      td= course_fact.title
+      td= course_fact.description
+      td
+        /- if can? :edit, course_fact
+          = link_to 'Edit', edit_course_fact_path(course_fact), class: 'btn btn-mini'
+          '
+        /- if can? :destroy, course_fact
+          = link_to 'Destroy', course_fact_path(course_fact), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-mini btn-danger'
+
+/- if can? :create, CourseFact
+  = link_to 'New Course fact', new_course_fact_path, class: 'btn btn-primary'

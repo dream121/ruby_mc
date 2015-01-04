@@ -1,0 +1,14 @@
+= simple_form_for([@product, @recommendation]) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :position, autofocus: true
+    = f.association :related_product
+
+  .form-actions
+    = f.button :submit, class: 'btn btn-primary'
+    '
+    = link_to 'Back to Product', product_path(@product), class: 'btn btn-default'
+    '
+    - if @recommendation.persisted?
+      = link_to 'Destroy', product_recommendation_path(@product, @recommendation), method: :delete, class: 'btn btn-danger', data: { confirm: "Are you sure?" }

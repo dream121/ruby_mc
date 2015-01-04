@@ -1,0 +1,20 @@
+.open-close
+  -unless cart.coupon
+    a.opener id="discount-code-opener" href="#" apply discount code
+    .slide
+      = form_tag(add_coupon_path, { id: 'coupon-form', class: "form-discount validate-form", data: { userid: @current_user.id }, method: :post }) do
+        fieldset
+          .form-row
+            = text_field_tag 'code', @cart.coupon.try(:code), class: 'required', id: 'discount-code', size: '10', placeholder: 'Discount code'
+            .submit-holder.absolute
+              input type="submit" value="apply" id="coupon-submit"
+  - else
+    a.opener id="discount-code-opener" href="#" discount code applied
+    .slide
+      = form_tag(add_coupon_path, { id: 'coupon-form', class: "form-discount validate-form", data: { userid: @current_user.id }, method: :post }) do
+        fieldset
+          p id="discount-text-container"
+            strong Vogue discount applied
+            span #{price_in_dollars(@cart.coupon.price)} off one class
+strong.total id="total-price" total #{price_in_dollars order_total}
+

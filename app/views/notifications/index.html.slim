@@ -1,0 +1,12 @@
+.notifactions
+  h1 All notifications
+  .holder
+    .container
+      section.class-section
+        header
+          strong.sorted-by
+            | #{@comment_notifications.count} notifactions sorted by
+            = link_to "most recent", notifications_path, remote: true
+          h3 Replies to your past comments &amp; Posts
+        .discussion-block
+          = render 'all_notifications'

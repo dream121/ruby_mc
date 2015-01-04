@@ -1,0 +1,4 @@
+<p id="discount-text-container">
+  <strong>Vogue discount applied</strong>
+  <span>$<%= obj.amount %> off one class</span>
+</p>

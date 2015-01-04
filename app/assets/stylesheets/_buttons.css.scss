@@ -1,0 +1,40 @@
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+.button-link {
+  display: block;
+  margin: 0 auto 16px;
+  width: 260px;
+  color: #fff;
+  border: none;
+  padding: 0;
+  border: 0;
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  font-size: 24px;
+  line-height: 59px;
+  height: 59px;
+  font-weight: $body-font-weight-extralight;
+  background: #be3f3f;
+}
+.button-link:hover {
+  color: white;
+  background: #e44b4b;
+}

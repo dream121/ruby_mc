@@ -1,0 +1,15 @@
+.comment.commentable.depth-1 data-topic='true'
+  .row
+    .user.col-sm-1.col-xs-2
+      = image_tag current_user.decorate.avatar_url, class: 'img-circle img-responsive'
+      h3 You
+
+    .input-wrapper.col-sm-11.col-xs-10
+      .details.top
+        = render 'course_comments/comment_input', comment: @comment
+    .spinner.hidden Submitting...
+
+  - if replies
+    .replies
+      - @comment.children.order(:created_at).each do |comment|
+        = render 'course_comments/comment', comment: comment

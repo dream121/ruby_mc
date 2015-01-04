@@ -1,0 +1,8 @@
+
+.container
+  h1 Editing question
+  = render 'form'
+  = link_to 'Show', @question
+  br
+  = link_to 'Back', "/courses/#{@question.course_id}/office-hours/index"
+

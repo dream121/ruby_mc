@@ -1,0 +1,16 @@
+= simple_form_for([@course, @email_template]) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :kind, collection: @course.email_template_kinds
+    = f.input :from, autofocus: true
+    = f.input :subject
+    = f.input :body, input_html: { cols: 80, rows: 12 }
+
+  .form-actions
+    = f.button :submit, class: 'btn btn-primary'
+    - if @email_template.persisted?
+      '
+      = link_to 'Delete', course_email_template_path(@course, @email_template), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger'
+    '
+    = link_to 'List', course_email_templates_path(@course), class: 'btn btn-default'

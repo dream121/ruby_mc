@@ -1,0 +1,8 @@
+.row
+  .col-lg-2.col-md-3.col-sm-4
+    = form_tag(refund_order_payment_path(@order, @payment), method: :put, role: 'form') do |f|
+      .form-group
+        label for='amount' Refund Amount
+        = text_field_tag('amount', params[:amount], class: 'form-control')
+
+      = button_tag 'Refund', class: 'btn btn-default'

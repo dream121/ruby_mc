@@ -1,0 +1,14 @@
+.form-holder.cart
+  .container.twocolumns.top-spacer-25
+    .col-md-5.col
+      strong.title Your purchase
+      - if @cart.products.any?
+        - physical_items = 0
+        = render partial: 'cart_form', locals: { cart: @cart }
+        = render partial: 'coupon_form', locals: { cart: @cart, order_total: @order_total }
+      - else
+        h2.empty-cart.text-centered.top-margin-large Your cart is empty
+        h5.empty-cart.text-centered = link_to "Select a class to continue", root_path
+    .col-md-7.col
+      = render partial: 'checkout_form', locals: { order: @order, order_total: @order_total }
+= render partial: 'js_items'

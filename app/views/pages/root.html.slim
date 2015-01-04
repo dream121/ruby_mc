@@ -1,0 +1,11 @@
+- content_for :header do
+  = render "layouts/head"
+- if current_user
+  = render partial: 'signed_in',
+    locals: { home_page: @home_page }
+- else
+  = render partial: 'signed_out',
+    locals: { home_page: @home_page,
+      my_courses: @my_courses,
+      recommended_courses: @recommended_courses,
+      coming_courses: @coming_courses }

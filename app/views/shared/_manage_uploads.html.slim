@@ -1,0 +1,20 @@
+.hero-uploads data-course-id="#{parent.id}" data-p2h="skip"
+  h2 Enrolled Heroes
+
+  p.help-block Hero uploads to be displayed by CMS.
+  p= link_to 'Add Hero', api_v1_course_uploads_path(parent.id), class: 'add-hero-image btn btn-default'
+
+  .hero-upload-items.row
+    - parent.uploads.each_slice(4) do |slice|
+      .row
+        - slice.each do |u|
+          div class="col-sm-6 col-md-3 hero-item hero-item-#{u.id}" data-upload-id="#{u.id}"
+            .thumbnail
+              img src="#{u.url}"
+              .caption
+                p
+                  = form_for u, url: api_v1_course_upload_path(parent.id, u), remote: true do |f|
+                    = f.select :kind, parent.enrolled_hero_kinds, { include_blank: true }, class: 'upload-kind-select'
+                p= link_to 'Delete', api_v1_course_upload_path(parent.id, u), method: :delete, class: 'hero-destroy btn btn-danger', remote: true, confirm: 'Delete upload?'
+
+

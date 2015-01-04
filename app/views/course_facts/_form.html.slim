@@ -1,0 +1,29 @@
+= simple_form_for([@course, @course_fact], url: course_fact_path(@course, @course_fact)) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :kind, collection: @course_fact.fact_kinds, hint: 'Facts are grouped on the marketing page by "kind".'
+    = f.input :position, hint: 'Numeric display order on marketing page (1, 2, 3)'
+    = f.input :icon, hint: 'Optional: either an SVG file ("icn-video.svg"), or a Font Awesome or Glyphicons class ("fa fa-star"). If an image is uploaded using "Add Image", that will be displayed instead.'
+    = f.input :number, hint: 'Optional: number to display for a statistic'
+    = f.input :title
+    = f.input :description
+
+  .form-actions
+    = f.button :submit, class: 'btn btn-primary'
+    '
+    = link_to 'Back to Course', edit_course_path(@course), class: 'btn btn-default'
+
+- if @course_fact.persisted?
+  p
+  - if @course_fact.image
+    h2 Image
+
+    .row
+      .col-sm-6.col-md-3
+        .thumbnail
+          img src="#{@course_fact.image.image.url(:original)}"
+          .caption
+            p= link_to 'Delete', course_fact_image_path(@course, @course_fact), method: :delete, class: 'btn btn-danger', confirm: 'Delete image?'
+  - else
+    p= link_to 'Add Image', new_course_fact_image_path(@course, @course_fact), class: 'btn btn-default'

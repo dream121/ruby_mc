@@ -1,0 +1,28 @@
+div.page-header
+  h1= "#{@reviews.length} Reviews"
+
+table.table.table-striped
+  thead
+    tr
+      th Course
+      th User
+      th Name
+      th Location
+      th Review
+      th Rating
+      th Visible
+      th Featured
+      th Position
+
+  tbody
+  - @reviews.each do |review|
+    tr
+      td= link_to review.course.title, review.course
+      / td= link_to review.user.name, review.user
+      td= review.name
+      td= review.location
+      td= link_to (review.review[0..100] + '...'), edit_course_review_path(review.course, review)
+      td= review.rating
+      td= review.visible ? 'x' : nil
+      td= review.featured ? 'x' : nil
+      td= review.position

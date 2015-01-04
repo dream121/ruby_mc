@@ -1,0 +1,5 @@
+<% if params[:instructor] == 'true' %>
+  <%= render partial: 'user_profiles/instructor_show' %>
+<% else %>
+  <%= render partial: 'user_profiles/student_show' %>
+<% end %>

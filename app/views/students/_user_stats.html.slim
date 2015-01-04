@@ -1,0 +1,20 @@
+ul.user-stat
+  li
+    a href="#"
+      span.icon
+        i.iconn-class
+      strong.number= total_courses
+      | #{'class'.pluralize(total_courses)}
+  li
+    a href="#"
+      span.icon
+        i.iconn-pen
+      strong.number 12
+      | assignments
+  li
+    a href="#"
+      span.icon
+        i.iconn-discuss
+      - total_comments_for_user = total_comments_by(profile.user)
+      strong.number= total_comments_for_user
+      | #{'comment'.pluralize(total_comments_for_user)}

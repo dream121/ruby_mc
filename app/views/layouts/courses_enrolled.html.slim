@@ -1,0 +1,21 @@
+doctype html
+html lang="en"
+  = render partial: 'layouts/head'
+  body class="inner #{controller.action_name}" id="#{controller.controller_name}"
+    = render 'shared/navigation/navbar'
+    .push-wrapper
+      #wrapper
+        - if @course.initial_enrolled_image
+          .visual.visual-block.enrolled-course style=("background-image: none")
+            #enrolled_hero_video
+              img src=@course.initial_enrolled_image.url
+              video loop="" preload="" autoplay=""
+                source src=upload_s3_url(@course.initial_enrolled_video.key) type="video/mp4"
+              /= video_tag(upload_s3_url(@course.initial_enrolled_video.key), id: 'class_hero_video', class: 'video-js')
+              /= image_tag(@course.class_image.url, class: 'class_hero_image')
+            = render "courses/columns_holder"
+        - else
+          .visual.visual-block style="background-image: url(#{@course.image_url(:enrolled_hero)});"
+            = render "courses/columns_holder"
+        = yield
+      = render 'shared/footer'

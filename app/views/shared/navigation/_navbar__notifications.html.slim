@@ -1,0 +1,30 @@
+li.mobile-hidden
+  - icon_color = @new_notification_count > 0 ? ' red' : ' gray'
+  div class="header-content-container-comment-section#{icon_color}"
+    - unless @new_notification_count < 1
+      span.header-content-container-reply-count = @new_notification_count
+  .nav-module-element-content-wrapper
+    ul
+      li
+        span.nav-module-element-subheading replies to your past comments
+      /! Start Notification
+      - @comment_notifications.each do |comment_notification|
+        - comment_notification = comment_notification.decorate
+        - viewed_class = comment_notification.notifications.first.viewed == true ? ' viewed' : ' not-viewed'
+        li class="nav-module-element-notification#{viewed_class}"
+          = link_to watch_course_chapter_path(comment_notification.course,
+            comment_notification.chapter, comment_id: comment_notification.id ) do
+            span.nav-module-element-source
+              | #{comment_notification.chapter.number}. #{comment_notification.chapter.title}
+            .grid
+              .mc-col-1-4
+                = image_tag(comment_notification.comment_user_profile_image_url, 
+                  class: 'nav-module-element-avatar-image')
+              .mc-col-3-4.nav-module-element-reply-quote
+                span &ldquo;#{truncate_text(comment_notification.comment)}&rdquo;
+              .mc-col-1-4
+              .mc-col-3-4.nav-module-element-reply-attribution
+                span
+                  | #{comment_notification.created_at_human} ago by #{comment_notification.comment_user_user_name}
+      li.nav-module-element-see-all
+        span see all replies

@@ -1,0 +1,23 @@
+div.page-header
+  h1 Products
+
+  - if policy(Product).create?
+    = link_to 'New Product', new_product_path, class: 'btn btn-primary'
+
+table.table.table-striped
+  thead
+    tr
+      th ID
+      th Product Name
+      th Course
+      th Price
+      th Kind
+
+  tbody
+  - @products.each do |product|
+    tr
+      td= product.id
+      td= link_to product.name, product_path(product)
+      td= product.course && link_to(product.course.title, edit_course_path(product.course))
+      td= price_in_dollars product.price
+      td= product.kind

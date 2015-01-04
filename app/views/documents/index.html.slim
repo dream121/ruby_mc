@@ -1,0 +1,25 @@
+div.page-header
+  h1 Listing documents
+
+table.table.table-striped
+  thead
+    tr
+      th ID
+      th Kind
+      th Actions
+
+  tbody
+  - @documents.each do |document|
+    tr
+      /td= link_to_if can?(:show, document), document.id, document_path(document)
+      td= link_to document.id, document_path(document)
+      td= document.kind
+      td
+        /- if can? :edit, document
+          = link_to 'Edit', edit_document_path(document), class: 'btn btn-mini'
+          '
+        /- if can? :destroy, document
+          = link_to 'Destroy', document_path(document), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-mini btn-danger'
+
+/- if can? :create, Document
+  = link_to 'New Document', new_document_path, class: 'btn btn-primary'

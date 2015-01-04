@@ -1,0 +1,19 @@
+= simple_form_for([@course, @chapter]) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :number, autofocus: true, hint: 'The chapter number no longer determines the sort number it is for display only'
+    = f.input :duration, hint: 'Plain-text value that is displayed to the user, e.g.: "4:33"'
+    = f.input :title
+    = f.input :abstract, input_html: { cols: 80, rows: 3 }, hint: 'The short description that appears under the chapter in the chapters list'
+    = f.input :video_description, input_html: { cols: 80, rows: 3 }, hint: 'The short description of the lesson video'
+    = f.input :brightcove_id, hint: 'The numeric video ID as provided by the Brightcove dashboard, e.g. "2746311537001"'
+    = f.input :slug, hint: 'For use in the chapter URL. Set automatically if left blank.'
+    = f.input :is_bonus, hint: 'true or false only'
+    = f.input :unlock_qty, hint: 'This is the number of chapters a user must watch before this video is unlocked', value: 0
+
+  p
+  .form-actions
+    = f.button :submit, class: 'btn btn-primary'
+    '
+    = link_to 'Back to Course', edit_course_path(@course), class: 'btn btn-default'

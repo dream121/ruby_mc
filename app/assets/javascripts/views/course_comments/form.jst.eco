@@ -1,0 +1,20 @@
+<div class="post-reply post reply reply latent">
+  <div class="input-wrapper for-input">
+    <!--<img src="" class="img avatar alignleft"/>-->
+    <img src="http://www.gravatar.com/avatar/6ea4618e756ea25c72ae0b27af237f05?s=50&d=identicon" class="img avatar alignleft" width=100 height=100 />
+    <form class="reply-form">
+      <div class="area-block">
+        <textarea data-parent-id="<%= @parentId %>" row="3"></textarea>
+      </div><!-- end area-block -->
+      <div class="comment-box">
+        <input class="button course-comment-input" 
+          name="commit" 
+          type="submit" 
+          value="comment">
+      </div><!-- end comment-box -->
+    </form><!-- end form -->
+  </div><!-- end input-wrapper -->
+</div><!-- end post-reply reply-->
+<div class="holder" style="clear:both; padding-top: 25px;">
+  <a class="post-button reply">Reply to this comment</a>
+</div><!-- end holder -->

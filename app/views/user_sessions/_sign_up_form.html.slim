@@ -1,0 +1,22 @@
+= form_tag "/auth/identity/register" do
+  - if @identity && @identity.errors.any?
+    - @identity = @identity.decorate
+    .alert-error
+      strong Please fix these errors:
+      ul
+        - @identity.errors.full_messages.each do |msg|
+          li= msg
+      - case @identity.link_to_sign_in
+      - when :facebook
+        = link_to "Please sign in with Facebook.", '/auth/facebook'
+      - when :email
+        = link_to "Sign in?", sign_in_path
+
+  .form-group
+    = text_field_tag :email, @identity.try(:email), { placeholder: 'Email', class: 'form-control' }
+  .form-group
+    = password_field_tag :password, nil, { placeholder: 'Password', class: 'form-control' }
+  .form-group
+    = password_field_tag :password_confirmation, nil, { placeholder: 'Confirm Password', class: 'form-control' }
+  .form-group
+    = submit_tag("Sign Up", class: 'btn btn-large btn-success')

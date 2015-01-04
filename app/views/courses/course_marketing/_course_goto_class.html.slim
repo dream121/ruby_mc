@@ -1,0 +1,33 @@
+.visual.visual-block data-lowerlimit="1120"
+  .columns-holder
+    .button-and-title-wrapper
+      .course-preview-button
+        i
+          span.icon-svg
+      h1
+        = course.instructor_name
+        span.marketing= course.title
+    .container
+      .columns
+        .column
+          span.icon.icon-svg8.marketing
+            =course.chapters.size
+          h3.marketing video lessons
+          p #{course.short_description}
+        .column
+          span.icon.icon-svg18.marketing
+            img alt=("image description") height="31" onerror=("this.onerror=null; this.src='images/icon18.png'") src=image_path('exampleimages/icon18.svg') width="73" /
+          h3.marketing Q&amp;a with #{course.instructor_first_name}
+          p Send #{course.instructor_first_name} your video questions or comments about class material
+        .column
+          span.icon.icon-price
+            em>
+            = price_in_dollars(course.price)
+          - first_chapter = course.chapters.order(:number).first
+          - if first_chapter && policy(first_chapter).watch?
+            = link_to 'Go to Class', enrolled_course_path(course), class: 'button-link', id: 'goto-class-button-link'
+          - else
+            = link_to 'Take the Class', add_product_path(course.product.id), rel: 'nofollow', class: 'button-link', id: 'goto-class-button-link'
+          a.share href="#"
+            span.icon-svg2
+            | Share, gift or audit

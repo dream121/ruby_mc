@@ -1,0 +1,37 @@
+.page-header
+  h1 Editing payment
+
+dl.dl-horizontal
+  dt Amount Paid
+  dd
+    span.text-success= price_in_dollars @payment.amount
+  dt Amount Refunded
+  dd
+    span.text-danger= price_in_dollars @payment.amount_refunded
+
+= render 'refund_form'
+
+- if @payment.response
+  h3 Payment
+  dl.dl-horizontal
+    - @payment.response.each do |k,v|
+      - next if %w(card refunds).include?(k)
+      dt= k
+      dd= v
+
+  - if @payment.response['card']
+    h3 Card
+    dl.dl-horizontal
+      - @payment.response['card'].each do |k,v|
+        dt= k
+        dd= v
+
+  - if @payment.response['refunds'].try(:any?)
+    h3 Refunds
+    - @payment.response['refunds'].each do |refund|
+      dl.dl-horizontal
+        - refund.each do |k,v|
+          dt= k
+          dd= v
+
+= link_to 'Go to Order', @order, class: 'btn btn-default'

@@ -1,0 +1,11 @@
+.detail-container.col-md-10.col-sm-12
+  .instructor-statement
+    .course-overview
+      .reviews
+        - if @course.reviews.visible.any?
+          - @course.reviews.visible.order('featured DESC, position, created_at DESC').each do |r|
+            = render partial: 'shared/star_rating', locals: { rating: r.rating, count: 0 }
+            blockquote
+              = r.review
+              br
+              = "- #{r.name}, #{r.location}"

@@ -1,0 +1,14 @@
+doctype html
+html lang="en"
+  = render 'layouts/head'
+  body.profile
+    = render 'shared/navigation/navbar'
+    .push-wrapper
+      #wrapper
+        .visual.visual-block
+          .bg.center
+            - unless @instructor.hero_url.blank?
+              = image_tag @instructor.hero_url, width: '1182', height: '735', style: "width: 1182px"
+          = render 'user_profiles/user_info_instructor'
+        = yield
+      = render 'shared/footer'

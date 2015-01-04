@@ -1,0 +1,7 @@
+.hero-wrapper.container id="class_hero" style=("background-image: url(#{@course.image_url(:class_hero)})")
+  .gradient
+.course-video-preview.video-wide.container
+  #video-metadata data-video-id=@course.intro_video_id data-course-title=@course.title
+  = brightcove_script_source
+  = marketing_video_player @course.intro_video_id
+.jumbotron

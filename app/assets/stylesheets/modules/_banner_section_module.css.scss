@@ -1,0 +1,130 @@
+/* The Module should contain any related mixins specific to the module and */
+/* It should also contain any related Media Queries */
+/* banner-section module lays out the horizontal banner sections of pages like course_path*/
+@mixin banner-section($background-color: #251717, $height: 428px, $max-width: 1200px) {
+  background: $background-color;
+  position: relative;
+  .banner-section-module-background-wrapper {
+    position: relative;
+    display: block;
+    min-height: $height;
+    max-width: $max-width;
+    margin: 0 auto;
+    .container {
+      height: inherit;
+    }
+  }
+  .banner-section-module-image-right {
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .banner-section-module-image-bg {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .banner-section-module-image {
+    width: 100%
+  }
+}
+
+.banner-section-module {
+  @include banner-section(#170E0E, 428px, 1200px);
+}
+
+.banner-section-module.core-skills {
+  @include banner-section(#170E0E, 428px, 1200px);
+  .banner-section-module-container {
+    @extend .container;
+    position: relative;
+  }
+}
+
+.banner-section-module.intro-section {
+  @include banner-section(#170E0E, 428px, 1200px);
+  .banner-section-module-background-wrapper {
+    background-color: #f7f3ee;
+  }
+}
+
+.banner-section-module.review-section {
+  @include banner-section(#170E0E, 528px, 1200px);
+  .banner-section-module-background-wrapper {
+    background-size: cover;
+    position: relative;
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: -moz-linear-gradient(top,  rgba(171,152,98,0) 0%, rgba(171,152,98,0.09) 52%, rgba(171,152,98,0.11) 64%, rgba(143,127,82,0.12) 67%, rgba(0,0,0,0.46) 82%, rgba(1,1,1,0.48) 83%, rgba(14,9,9,1) 93%, rgba(23,14,14,1) 100%); /* FF3.6+ */
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(171,152,98,0)), color-stop(52%,rgba(171,152,98,0.09)), color-stop(64%,rgba(171,152,98,0.11)), color-stop(67%,rgba(143,127,82,0.12)), color-stop(82%,rgba(0,0,0,0.46)), color-stop(83%,rgba(1,1,1,0.48)), color-stop(93%,rgba(14,9,9,1)), color-stop(100%,rgba(23,14,14,1))); /* Chrome,Safari4+ */
+      background: -webkit-linear-gradient(top,  rgba(171,152,98,0) 0%,rgba(171,152,98,0.09) 52%,rgba(171,152,98,0.11) 64%,rgba(143,127,82,0.12) 67%,rgba(0,0,0,0.46) 82%,rgba(1,1,1,0.48) 83%,rgba(14,9,9,1) 93%,rgba(23,14,14,1) 100%); /* Chrome10+,Safari5.1+ */
+      background: -o-linear-gradient(top,  rgba(171,152,98,0) 0%,rgba(171,152,98,0.09) 52%,rgba(171,152,98,0.11) 64%,rgba(143,127,82,0.12) 67%,rgba(0,0,0,0.46) 82%,rgba(1,1,1,0.48) 83%,rgba(14,9,9,1) 93%,rgba(23,14,14,1) 100%); /* Opera 11.10+ */
+      background: -ms-linear-gradient(top,  rgba(171,152,98,0) 0%,rgba(171,152,98,0.09) 52%,rgba(171,152,98,0.11) 64%,rgba(143,127,82,0.12) 67%,rgba(0,0,0,0.46) 82%,rgba(1,1,1,0.48) 83%,rgba(14,9,9,1) 93%,rgba(23,14,14,1) 100%); /* IE10+ */
+      background: linear-gradient(to bottom,  rgba(171,152,98,0) 0%,rgba(171,152,98,0.09) 52%,rgba(171,152,98,0.11) 64%,rgba(143,127,82,0.12) 67%,rgba(0,0,0,0.46) 82%,rgba(1,1,1,0.48) 83%,rgba(14,9,9,1) 93%,rgba(23,14,14,1) 100%); /* W3C */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ab9862', endColorstr='#170e0e',GradientType=0 ); /* IE6-9 */
+    }
+  }
+}
+@media screen and (max-width: 1199px) {
+  .banner-section-module.core-skills {
+    .banner-section-module-image-bg {
+      width: 1200px;
+    }
+
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .banner-section-module.intro-section {
+    .banner-section-module-background-wrapper {
+      min-height: 300px;
+    }
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .banner-section-module.intro-section {
+    .banner-section-module-background-wrapper {
+      min-height: 271px;
+    }
+  }
+  .banner-section-module.core-skills {
+    .banner-section-module-image-bg {
+      width: 100%;
+      position: static;
+      display: block;
+    }
+    .banner-section-module-container {
+      position: static;
+    }
+  }
+}
+@media screen and (max-width: 979px) {
+}
+
+@media screen and (max-width: 767px) {
+  .banner-section-module.intro-section {
+    .banner-section-module-background-wrapper {
+      min-height: 189px;
+    }
+    .banner-section-module-image-right.james {
+      margin-top:10px;
+      height: 125px;
+      position: relative;
+      float:right;
+    }
+  }
+  .banner-section-module.core-skills {
+    .banner-section-module-image-bg {
+      width: 150%;
+    }
+  }
+}
+

@@ -1,0 +1,14 @@
+= simple_form_for([@parent, @document], html: { multipart: true }) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :title, hint: 'The document title for display purposes (may be different from actual filename).'
+    = f.input :kind, hint: 'Course downloads will be displayed in groups using this value.'
+    = f.input :url, hint: 'Optional. If a URL is provided, this "document" will appear as an outgoing web link instead of a file download.'
+    = f.file_field :document
+
+  p
+  .form-actions
+    = f.button :submit, class: 'btn btn-primary'
+    '
+    = link_to 'Back to Course', @parent, class: 'btn btn-default'

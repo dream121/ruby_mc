@@ -1,0 +1,18 @@
+.selling-points
+  - @course.facts.headline.each do |headline|
+    .selling-point
+      .row
+        .img
+          - if headline.image
+            = image_tag(headline.image.image.url(:original), class: 'img-responsive')
+        .selling-point-text
+          h5= headline.title
+          p= headline.description
+
+.selling-points-footer.hidden-xs.hidden-sm
+  .selling-points-spacer
+    div
+  .selling-points-spacer
+    div
+  .selling-points-spacer
+    div

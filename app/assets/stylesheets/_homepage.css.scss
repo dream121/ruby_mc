@@ -1,0 +1,74 @@
+#pages.root {
+  .visual {
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+  }
+}
+
+#background {
+  position: relative;
+}
+#background #background-image img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  width: 105%;
+  max-width: 1400px;
+  height: auto;
+  margin: 0 auto;
+}
+
+#homepage-hero {
+}
+
+#homepage-hero .mc-logo {
+  margin-top: 150px;
+  margin-bottom: 350px;
+}
+
+#homepage-hero img {
+  margin: 0 auto;
+  display: block;
+  max-width: 365px;
+}
+#homepage-hero .link-holder {
+  position: absolute;
+  top: 61.5%;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  top: 75.5%
+}
+#homepage-hero .link{
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 22px;
+}
+#homepage-hero .link {
+  color: #cab9c3;
+  text-decoration: none;
+}
+#homepage-hero .link span {
+  -moz-transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+  font-size: 11px;
+  margin: 5px 6px 0 8px;
+  vertical-align: top;
+  display: inline-block;
+}
+#homepage-hero .caption {
+  position: absolute;
+  right: 10.3%;
+  bottom: 13%;
+  text-transform: uppercase;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 300;
+}
+#homepage-hero .caption {
+  bottom: 21.4%;
+  color: #cab9c3;
+}

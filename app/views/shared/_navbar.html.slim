@@ -1,0 +1,159 @@
+- if controller.action_name == 'show_enrolled'
+  header#header.shared-header
+    .nav-background id="#{nav_bg_id}"
+      .bg
+      table
+        tr
+          td
+          td.shadow-text
+            span.brand STERCLAS
+          td
+      .cornice
+        .cornice-text.height-45
+          .bg
+          span.brand id=""
+            =image_tag('mc-logo-nav@2x.png', id: 'mc-nav-image', class: "negative-spacer-#{neg_height}")
+
+    nav.navbar.navbar-default role='navigation'
+      .container-navbar.container
+
+        ul.nav.navbar-nav.pull-left.left-side
+          li.hidden-xs.full-width-link
+            a href=courses_path « more classes
+          li.visible-xs.dropdown
+            a.dropdown-toggle href='#' data-toggle='dropdown'
+              i.fa.fa-bars
+            ul.dropdown-menu.site-menu
+              li= link_to 'All Courses', courses_path
+              li= link_to 'About Us', '/about-us'
+              li= link_to 'Terms of Use', terms_path
+              li= link_to 'Privacy Policy', privacy_path
+
+        ul.nav.navbar-nav.pull-right.right-side
+          - if current_user
+            li.dropdown.full-width-link
+              a.dropdown-toggle href='#' data-toggle='dropdown'
+                span.hidden-xs Your Master Account »
+                i.fa.fa-user.visible-xs
+              ul.dropdown-menu.account-menu
+                - products_count = current_user.cart ? current_user.cart.products.count : 0
+                -if products_count > 0
+                  li= link_to "Cart (#{products_count})", user_cart_path
+                li= link_to 'Sign Out', sign_out_path, {:title => current_user.email}
+                - if policy(Course).create? || policy(Instructor).create? || policy(Order).index? || policy(Cart).index?
+                  li.divider
+                  - if policy(User).index?
+                    li= link_to 'Users', users_path
+                  - if policy(Order).index?
+                    li= link_to 'Orders', orders_path
+                  - if policy(Cart).index?
+                    li= link_to 'Carts', carts_path
+                  - if policy(CourseReview).index?
+                    li= link_to 'Reviews', reviews_path
+                  - if policy(Instructor).index?
+                    li= link_to 'Instructors', instructors_path
+                  - if policy(Product).index?
+                    li= link_to 'Products', products_path
+                  - if policy(Course).create?
+                    li= link_to 'New Course', new_course_path
+                  - if policy(ExperimentValue).index?
+                    li= link_to 'Experiment Values', experiment_values_path
+
+                - if @course && policy(@course).update?
+                  li.divider
+                  li= link_to 'Course Edit', edit_course_path(@course)
+                  li= link_to 'Course Emails', course_email_templates_path(@course)
+                  li= link_to 'Course Coupons', course_coupons_path(@course)
+                  li= link_to 'Course Users', course_user_courses_path(@course)
+                  li= link_to 'Course Prospects', prospects_course_user_courses_path(@course)
+                  li= link_to 'Course Reviews', course_reviews_path(@course)
+
+          - else
+            - unless controller_name == 'user_sessions'
+              li.hidden-xs
+                a#modal_button.account data-target="#modal_sign_form" data-toggle="modal" href="#"
+                  | log in
+              li.visible-xs
+                a href=sign_in_path
+                  i.fa.fa-sign-in
+-else
+  .nav-background id="#{nav_bg_id}"
+    .bg
+    table
+      tr
+        td
+        td.shadow-text
+          span.brand STERCLAS
+        td
+    .cornice
+      .cornice-text.height-45
+        .bg
+        span.brand id=""
+          =image_tag('mc-logo-nav@2x.png', id: 'mc-nav-image', class: "negative-spacer-#{neg_height}")
+
+  nav.navbar.navbar-default role='navigation'
+    .container-navbar.container
+
+      ul.nav.navbar-nav.pull-left.left-side
+        li.hidden-xs.full-width-link
+          a href=root_path « more classes
+        li.visible-xs.dropdown
+          a.dropdown-toggle href='#' data-toggle='dropdown'
+            i.fa.fa-bars
+          ul.dropdown-menu.site-menu
+            li= link_to 'All Courses', courses_path
+            li= link_to 'About Us', '/about-us'
+            li= link_to 'Terms of Use', terms_path
+            li= link_to 'Privacy Policy', privacy_path
+
+      ul.nav.navbar-nav.pull-right.right-side
+        - if current_user
+          li.dropdown.full-width-link
+            a.dropdown-toggle href='#' data-toggle='dropdown'
+              span.hidden-xs Your Master Account »
+              i.fa.fa-user.visible-xs
+            ul.dropdown-menu.account-menu
+              - products_count = current_user.cart ? current_user.cart.products.count : 0
+              -if products_count > 0
+                li= link_to "Cart (#{products_count})", user_cart_path
+              li= link_to 'Sign Out', sign_out_path, {:title => current_user.email}
+              - if policy(Course).create? || policy(Instructor).create? || policy(Order).index? || policy(Cart).index?
+                li.divider
+                - if policy(User).index?
+                  li= link_to 'Users', users_path
+                - if policy(Order).index?
+                  li= link_to 'Orders', orders_path
+                - if policy(Cart).index?
+                  li= link_to 'Carts', carts_path
+                - if policy(CourseReview).index?
+                  li= link_to 'Reviews', reviews_path
+                - if policy(Instructor).index?
+                  li= link_to 'Instructors', instructors_path
+                - if policy(Product).index?
+                  li= link_to 'Products', products_path
+                - if policy(Course).create?
+                  li= link_to 'New Course', new_course_path
+                - if policy(ExperimentValue).index?
+                  li= link_to 'Experiment Values', experiment_values_path
+
+              - if @course && policy(@course).update?
+                li.divider
+                li= link_to 'Course Edit', edit_course_path(@course)
+                li= link_to 'Course Emails', course_email_templates_path(@course)
+                li= link_to 'Course Coupons', course_coupons_path(@course)
+                li= link_to 'Course Users', course_user_courses_path(@course)
+                li= link_to 'Course Prospects', prospects_course_user_courses_path(@course)
+                li= link_to 'Course Reviews', course_reviews_path(@course)
+
+        - else
+          - unless controller_name == 'user_sessions'
+            li.hidden-xs
+              a#modal_button.account data-target="#modal_sign_form" data-toggle="modal" href="#"
+                | log in
+            li.visible-xs
+              a href=sign_in_path
+                i.fa.fa-sign-in
+
+
+- if params[:controller] == "courses" and params[:action] == "show_enrolled"
+  = render "courses/columns_holder"

@@ -1,0 +1,26 @@
+/ Container to store facebook-data for javascript
+div [
+  id="facebook-container"
+  data-app_id="#{ENV['FACEBOOK_KEY']}"
+  data-name="#{course_url(@course)}"
+  data-link="#{@course.instructors.first.name}"
+  data-picture="#{@course.image_url(:banner)}"
+  data-caption="teaches you #{@course.skill}"
+  data-description="#{@course.detail.overview}"
+]
+= render 'courses/show/class_hero'
+= render partial: 'courses/course_marketing/course_goto_class',     locals: { course: @course }
+= render partial: 'courses/course_marketing/course_intro',          locals: { course: @course }
+= render partial: 'courses/course_marketing/course_core_skills',    locals: { course: @course, core_skills: @core_skills }
+= render partial: 'courses/course_marketing/course_lesson_plan',    locals: { course: @course }
+= render partial: 'courses/course_marketing/course_reviews',        locals: { course: @course, reviews: @reviews }
+= render partial: 'courses/course_marketing/course_call_to_action', locals: { course: @course, other_courses: @other_courses }
+
+- unless logged_in?
+  javascript:
+    $(".button-link").click(function (e){
+      e.preventDefault();
+      document.cookie = "requested_path=" + $(this).attr("href") + "; path=/";
+      $("#modal_sign_button").trigger("click");
+    });
+

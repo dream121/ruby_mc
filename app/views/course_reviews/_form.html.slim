@@ -1,0 +1,45 @@
+- if @review && @review.errors.any?
+  .alert-error
+    strong Please fix these errors:
+    ul
+      - @review.errors.full_messages.each do |msg|
+        li= msg
+
+= form_for([@course, @review], url: course_review_path(@course, @review)) do |f|
+  / = f.error_notification
+  .form-group
+    = f.label :review, 'Your review'
+    = f.text_area :review, class: 'form-control', rows: 5
+  .form-group
+    = f.label :rating, 'Your rating'
+    = f.hidden_field :rating, class: 'form-control'
+    .stars
+      span.glyphicon.glyphicon-star data-rating=1
+      span.glyphicon.glyphicon-star data-rating=2
+      span.glyphicon.glyphicon-star data-rating=3
+      span.glyphicon.glyphicon-star data-rating=4
+      span.glyphicon.glyphicon-star data-rating=5
+  .form-group
+    = f.label :name, 'Your name to display'
+    = f.text_field :name, class: 'form-control'
+  .form-group
+    = f.label :location, 'Your location to display'
+    = f.text_field :location, class: 'form-control'
+
+  - if policy(@review).moderate?
+    .form-group
+      = f.label :position
+      = f.text_field :position, class: 'form-control'
+    .form-group
+      .checkbox
+        label
+          = f.check_box :visible
+          ' Visible
+    .form-group
+      .checkbox
+        label
+          = f.check_box :featured
+          ' Featured
+
+
+  = f.button :submit, class: 'btn btn-primary'

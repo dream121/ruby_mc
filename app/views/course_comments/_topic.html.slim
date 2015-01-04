@@ -1,0 +1,10 @@
+.panel.commentable
+  .panel-heading
+    h5.panel-title
+      a.row.topic href=course_topic_path(@course, comment)
+        .col-xs-12.col-sm-8.col-lg-10.title
+          span.topic-description= comment.comment
+
+        .hidden-xs.col-sm-4.col-lg-2.topic-comments
+          span>= comment.descendents.count
+          = "comment".pluralize(comment.descendents.count)

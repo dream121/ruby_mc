@@ -1,0 +1,72 @@
+$alert-bg:#cae3b9;
+$assignment-container-bg: #f7f4ef;
+$base-border-color:#7887a0;
+$body-bg: #f7f3ee;
+$body-font-family: 'Raleway', sans-serif;
+$body-font-weight-ultralight: 100;
+$body-font-weight-extralight: 200;
+$body-font-weight-light:      300;
+$body-font-weight-normal:     400;
+$body-font-weight-medium:     500;
+$body-font-weight-semi-bold:  600;
+$body-font-weight-bold:       700;
+$body-font-weight-extra-bold: 800;
+$border-color:#d1d2d6;
+$border-style: solid;
+$button: #be3f3f;
+$element-bg: #796f6d;
+$font: 15px/22px 'Raleway', Arial, sans-serif;
+$font-family-sans-serif: $body-font-family;
+$gray-color: #deddd9;
+$header-font-family: $body-font-family;
+$james-deletion-color: #63be3f;
+$link-color: #be3f3f;
+$link-hover-color: #be3f3f;
+$medium-font: 500;
+$number-font-family:          'Abril Fatface', cursive;
+$red-color: #be3e3d;
+$safe-font:Arial,Helvetica, sans-serif;
+$screen-height-medium: 880px;
+$screen-height-small: 746px;
+$student-body-bg: #4e5768;
+$tan-bg: $assignment-container-bg;
+$text-color: #4d5767;
+$text-edit-font-family: 'EB Garamond', serif; 
+$text-edit-text-color: rgba(77, 87, 103, 0.9);
+$user-deletion-color: #bf3f40;
+$white-color: #fff;
+
+$custom-font-family:          'Abril Fatface', cursive;
+
+// colors:
+$background-darker: #111214;  // darkest box background on marketing page
+$background-lighter: #222325; // darkest box background on marketing page
+$blue-gray: #3d4555;          // 100% guarantee
+$blue-gray-dark: #1d1f24;     // module background
+$blue-gray-darkest: #111213;  // module background
+$border-gray: #5c5c5c;
+$browse-page-blue: #3c4451;
+$gold: #ead88f;               // chapter titles
+$gray-dark: #4d4f51;          // numbers
+$gray-dark-blue: #4d5767;
+$gray-medium: #777;           // home page headline
+$gray-medium-light: #878787;
+$gray-light: #cccccc;         // body text
+$gray-lighter: #eaeaea;       // featured quote text
+$green: #36ae60;
+$header-color: #fff;
+$muted-red: #9a3a3b;          // for the cart remove button
+$navbar-background-color: rgba(0,0,0,0.75);
+$navbar-text-color: rgba(255,255,255,0.75);
+$red: #ce4545;                // bottom border, stars
+
+
+// forums:
+$condensed-font-family:     $body-font-family;
+$red-highlight:             #fd0101;
+$gray-header:               $gray-lighter;
+$screen-iphone-portrait:    320px !default;
+$screen-lg: 992px;
+$sidebar-padding-top: 20px;
+$sidebar-padding-sides: 30px;
+$sidebar-margin-bottom: 40px;

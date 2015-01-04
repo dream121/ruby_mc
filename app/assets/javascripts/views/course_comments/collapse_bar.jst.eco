@@ -1,0 +1,14 @@
+<div class="show-block comment-collapse"
+  id="<%= @course_comments.uuid %>"
+  data-next-url="<%= @course_comments.nextUrl %>"
+  data-prev-url="<%= @course_comments.prevUrl %>"
+  data-view-template-path="views/course_comments/comment"
+  data-trigger-id="<%= @course_comments.uuid %>"
+  data-view-container="<%= @course_comments.viewContainerId %>"
+  data-root-node="course_comments"
+  data-object-node="course_comment"
+  >
+  <div class="collapse-bar">
+    <span id="collapse-reply-text">Expand <%= @course_comments.collapseText %></span> 
+  </div><!-- end collapse-bar -->
+</div><!-- end show-block comment-collapse -->

@@ -1,0 +1,17 @@
+- if review.persisted?
+  .box.review-course-box
+    h3= "#{user.first_name.pluralize} class review"
+    - rating = review.rating
+    - unless rating.nil?
+      ul.stars
+        - (1..rating).each do |i|
+          li.rating-star.on
+        - (rating...5).each do |i|
+          li.rating-star
+    - unless review.review.blank?
+      div.review-container
+        = image_tag 'quote_top.png', class: 'quote-top'
+        div.review-text
+          = review.review
+        = image_tag 'quote_bottom.png', class: 'quote-bottom'
+

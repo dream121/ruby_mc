@@ -1,0 +1,38 @@
+
+= render "courses/office_hours_header"
+.container
+  .row
+    h3
+      | Manage Questions and Answers for #{@course.title}
+  .row.open-questions
+    table
+      thead
+        tr
+          th Question
+          th Subject
+          th Position
+          th Visible?
+          th User
+          th Answerd?
+          th
+          th
+          th
+      tbody
+        - @questions.each do |question|
+          tr
+            - if question.video.path.nil?
+              td
+                strong= question.text_question
+            - else
+              td= video_tag question.video.url, controls: true
+            td= question.subject
+            td= question.position
+            td= question.visibility
+            td= question.user.name
+            td= !question.answer.nil?
+            td= link_to 'Respond', new_question_answer_path(question)
+            td= link_to 'Edit', edit_question_path(question)
+            td= link_to 'Destroy', question, method: :delete, data:   confirm: 'Are you sure?'  
+    br
+#footer-buffer
+

@@ -1,0 +1,38 @@
+.user-info
+  .container
+    = link_to("back", :back, class: 'back')
+    -if policy(@profile).update?
+      a.edit-profile href="#"
+        i.iconn-pencil
+        | edit your profile
+    .photo
+      = image_tag(@profile.user.decorate.user_profile_img_url, alt: 'image description', width: '150', height: '150')
+      -if policy(@profile).update?
+        a.edit href="#"
+          i.iconn-pencil
+    .about
+      .headline-info
+        h1.display_name data-field-name="display_name" data-default-value= I18n.t('profile_defaults.display_name') data-account-value="#{user.full_name}" data-profile-value="#{@profile.display_name}"
+          = @profile.display_name
+        p
+          span.tagline data-field-name="tagline" data-default-value= I18n.t('profile_defaults.tagline') data-profile-value="#{@profile.tagline}"
+            - if needs_separator? profile
+              = profile.tagline + " | "
+            - else
+              = profile.tagline
+
+          span.city data-field-name="city" data-profile-value="#{@profile.city}"
+            = profile.city
+          span.country data-field-name="country" data-profile-value="#{@profile.country}"
+            = profile.country
+        -if policy(@profile).update?
+          a.edit href="#"
+            i.iconn-pencil
+
+      -if policy(@profile).update?
+        .headline-form style="display:none;"
+          = render '/students/headline_form'
+    /! end about
+    = render '/students/user_stats'
+  /! end container
+/! end user-info

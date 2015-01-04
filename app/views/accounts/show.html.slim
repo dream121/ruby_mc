@@ -1,0 +1,13 @@
+.page-header
+  h1 Account
+
+  h2
+    = user_avatar(@user)
+    '
+    span= @user.name
+
+  h3= @user.email
+
+dl
+
+= link_to 'Edit', edit_account_path, class: 'btn btn-default'

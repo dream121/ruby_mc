@@ -1,0 +1,16 @@
+/* Links Module */
+@mixin lm-link ($font-size: 15px, $font-weight: 400) {
+  cursor: pointer;
+  color:#BE3F3F;
+  text-transform: uppercase;
+  font-size: $font-size;
+  font-weight: $font-weight;
+}
+
+.link-module-link-normal {
+  @include lm-link(15px, 400);
+}
+
+.link-module-link-medium {
+  @include lm-link(22px, 500);
+}

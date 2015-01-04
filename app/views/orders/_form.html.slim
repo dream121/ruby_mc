@@ -1,0 +1,10 @@
+= simple_form_for(@order) do |f|
+  = f.error_notification
+
+  .form-inputs
+    p Admin-editable fields here...
+
+  .form-actions
+    = f.button :submit, class: 'btn btn-primary'
+    '
+    = link_to 'Back', orders_path, class: 'btn'

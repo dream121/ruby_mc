@@ -1,0 +1,15 @@
+= simple_form_for([@user_course.user, @user_course]) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :access
+    .form-group
+      label.control-label.col-xs-2= User
+      .controls.col-xs-4= link_to @user_course.user.name, user_path(@user_course.user)
+
+    .form-group
+      label.control-label.col-xs-2= Course
+      .controls.col-xs-4= link_to @user_course.course.title, edit_course_path(@user_course.course)
+
+  .form-actions
+    = f.button :submit, class: 'btn btn-primary'

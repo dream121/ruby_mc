@@ -1,0 +1,73 @@
+/* Text Box Module -- this modules should contain self contained */
+/* styling for a heading text, body-text and links  */
+/* It should also contain any related media queries */
+/* as well as any mixins specific to this module */
+@mixin mc-text-box($width: 69.71%, $top-margin: 50px) {
+  position: relative;
+  width: $width;
+  margin-top: $top-margin;
+  z-index: 500;
+  .text-box-module-intro-text-heading {
+    font-size: 40px;
+    line-height: 62px;
+    margin: 5px 0 33px;
+    font-weight: 200;
+  }
+  .text-box-module-intro-text-body {
+    font-size: 22px;
+    line-height: 32px;
+    margin: 0 0 25px;
+    font-weight: 300;
+  }
+}
+.text-box-module {
+  @include mc-text-box(59.71%, 50px);
+}
+
+/* Text Box Module Media Queries */
+@media screen and (max-width: 1024px) {
+  .text-box-module {
+    margin-top: 35px; 
+    .text-box-module-intro-text-heading {
+      line-height: 40px;
+    }
+    .text-box-module-intro-text-body {
+      font-size: 16px;
+      line-height:22px;
+    }
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .text-box-module {
+    margin-top: 35px; 
+    .text-box-module-intro-text-heading {
+      line-height: 40px;
+    }
+    .text-box-module-intro-text-body {
+      font-size: 16px;
+      line-height:22px;
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .text-box-module {
+    margin-top: 10px;
+    width: 100%;
+    .text-box-module-intro-text-heading {
+      font-size: 27px; 
+      line-height: 27px;
+      margin-bottom: 10px;
+    }
+    .link-module-link-medium {
+      font-size: 15px;
+    }
+    .link-module-link-normal {
+      font-size: 14px; 
+    }
+    .text-box-module-intro-text-body { 
+      margin-bottom: 15px; 
+    }
+  }
+}

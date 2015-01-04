@@ -1,0 +1,20 @@
+head
+  title Accomplice
+  = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+  - if ENV['SKIP_INTERNET'] == 'true'
+    link href="//vjs.zencdn.net/4.9/video-js.css" rel="stylesheet"
+    script src="//vjs.zencdn.net/4.9/video.js" type="text/javascript"
+  = include_gon(:init => true)
+  = javascript_include_tag 'application', 'data-turbolinks-track' => true
+  = csrf_meta_tag
+  meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+  style [touch-action="none"]{ -ms-touch-action: none; touch-action: none; }[touch-action="pan-x"]{ -ms-touch-action: pan-x; touch-action: pan-x; }[touch-action="pan-y"]{ -ms-touch-action: pan-y; touch-action: pan-y; }[touch-action="scroll"],[touch-action="pan-x pan-y"],[touch-action="pan-y pan-x"]{ -ms-touch-action: pan-x pan-y; touch-action: pan-x pan-y; }
+  - if ENV['SKIP_INTERNET'] == 'true'
+    script type="text/javascript" src="https://js.stripe.com/v2/"
+  link href='http://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,900,800' rel='stylesheet' type='text/css'
+  meta name="user-metadata" data-km-identity=@km_identity data-user-id=current_user.try(:id)
+  - if ENV['SKIP_INTERNET'] == 'true'
+    script type="text/javascript" src=ENV["OPTIMIZELY_SRC"]
+    = render partial: 'layouts/typekit'
+    = render partial: 'layouts/google_analytics'
+    = render partial: 'layouts/kiss'

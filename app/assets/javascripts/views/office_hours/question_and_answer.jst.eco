@@ -1,0 +1,78 @@
+<div class="row question" id="<%= @question.id %>">
+  <div class="question-subject col-md-12">
+    <%= @question.subject %>
+  </div>
+</div>
+<div class="row videos mc-interaction"></div>
+<div class="row videos mc-interaction2">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-sm-offset-0 col-md-6 col-md-offset-0 col-lg-6 col-lg-offset-0 mc-question">
+      <div class="office-hours-image-wrapper">
+        <img src="/assets/q.png" class="img-responsive symbol" />
+        <img src="//placehold.it/448x252/ffffff/ffffff" class="img-responsive dialog" />
+        <% if @question.text_question && @question.text_question.length > 0: %>
+          <div class="q-and-a-video text">
+            <%= @question.text_question %>
+          </div>
+        <% else if @question.brightcove_id && @question.brightcove_id.length > 0: %>
+          <div class="q-and-a-video">
+            <object class="BrightcoveExperience" height="252" id="VideoPlayer" width="448"><param name="bgcolor" value="#FFFFFF" />
+              <param name="playerID" value="<%= @question.brightcove_id %>" />
+              <param name="playerKey" value="AQ~~,AAACfm5YCLE~,QvFK8KCmpdsFIY4MHAczuHrGz7MXp3pQ" />
+              <param name="isVid" value="true" />
+              <param name="isUI" value="true" />
+              <param name="autoStart" value="false" />
+              <param name="dynamicStreaming" value="true" />
+              <param name="htmlFallback" value="true" />
+              <param name="includeAPI" value="true" />
+              <param name="templateLoadHandler" value="MC.video.onTemplateLoad" />
+              <param name="templateReadyHandler" value="MC.video.onTemplateReady" />
+              <param name="@videoPlayer" value="<%= @question.brightcove_id %>" />
+            </object>
+          </div>
+        <% end %>
+      </div>
+      <div class="col-xs-12 text-align-center interaction-dialog">
+        <div class="span blue-highlight question-submitted-by">
+          Question submitted by <%= @question.user_name %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-6 col-sm-offset-0 col-md-6 col-md-offset-0 col-lg-6 col-lg-offset-0 mc-answer">
+      <div class="office-hours-image-wrapper">
+        <img src="/assets/a.png" class="img-responsive symbol" />
+        <img src="//placehold.it/448x252/ffffff/ffffff" class="img-responsive dialog" />
+        <div class="q-and-a-video">
+          <object class="BrightcoveExperience" height="252" id="VideoPlayer" width="448"><param name="bgcolor" value="#FFFFFF" />
+            <param name="playerID" value="<%= @question.answer_brightcove_id %>" />
+            <param name="playerKey" value="AQ~~,AAACfm5YCLE~,QvFK8KCmpdsFIY4MHAczuHrGz7MXp3pQ" />
+            <param name="isVid" value="true" />
+            <param name="isUI" value="true" />
+            <param name="autoStart" value="false" />
+            <param name="dynamicStreaming" value="true" />
+            <param name="htmlFallback" value="true" />
+            <param name="includeAPI" value="true" />
+            <param name="templateLoadHandler" value="MC.video.onTemplateLoad" />
+            <param name="templateReadyHandler" value="MC.video.onTemplateReady" />
+            <param name="@videoPlayer" value="<%= @question.answer_brightcove_id %>" />
+          </object>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-xs-12 col-sm-6 col-sm-offset-0 col-md-6 col-md-offset-0 col-lg-6 col-lg-offset-0 text-align-center interaction-dialog">
+      <div class="span blue-highlight answer-submitted-by">
+        Video answer submitted by <%= @question.answer_user_name %>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="office-hours-image-wrapper">
+        <div class="divider"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<script type="text/javascript">brightcove.createExperiences();</script>

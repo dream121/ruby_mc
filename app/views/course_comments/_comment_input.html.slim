@@ -1,0 +1,20 @@
+- new_comment = CourseComment.new(parent: comment)
+- new_comment.comment = "Add your comment here"
+- if @chapter
+  - chapter = @chapter.id
+= simple_form_for(new_comment, html: { id: 'dzone', multipart: true }, url:"#{course_comments_path(@course.to_param, comment.to_param, :parent_id => comment.id, :chapter => chapter)}", method: :post) do |f|
+  = f.error_notification
+  / = f.file_field :image
+  .area-block
+    / redundant data for ajax implementationc
+    = f.text_area :comment, class: "form-control", rows:"3", data: { "url" => course_comments_path(@course.to_param), "parent-id" => comment.id, "chapter" => chapter}
+    input id="image_url" name="image_url" type="hidden"
+  .comment-box
+    .photo
+      div id="fp-thumb"
+      .file-upload-image id="fp-clicker"
+        a href="#" 
+          img alt="File Upload" src=image_path('exampleimages/icon2.svg') /
+          .file-upload-text add a photo or video
+    = f.button :submit, class: 'button course-comment-input', value: 'comment'
+    

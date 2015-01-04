@@ -1,0 +1,62 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.stripe.com/v1/charges
+    body:
+      encoding: US-ASCII
+      string: amount=10000&currency=usd&card=tok_102o8F2zE6DXCiQZn9iHsBIM&description=Payment%20Description
+    headers:
+      Accept:
+      - '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Stripe/v1 RubyBindings/1.8.8
+      Authorization:
+      - Bearer sk_test_nyjKshCzw50unEHfPc5VzYE6
+      Content-Type:
+      - application/x-www-form-urlencoded
+      X-Stripe-Client-User-Agent:
+      - '{"bindings_version":"1.8.8","lang":"ruby","lang_version":"2.0.0 p247 (2013-06-27)","platform":"x86_64-darwin12.3.0","publisher":"stripe","uname":"Darwin
+        carbontoast.local 12.5.0 Darwin Kernel Version 12.5.0: Sun Sep 29 13:33:47
+        PDT 2013; root:xnu-2050.48.12~1/RELEASE_X86_64 x86_64"}'
+      Content-Length:
+      - '93'
+  response:
+    status:
+      code: 402
+      message: Payment Required
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Wed, 23 Oct 2013 18:04:37 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '214'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store
+      Access-Control-Max-Age:
+      - '300'
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+    body:
+      encoding: UTF-8
+      string: |
+        {
+          "error": {
+            "message": "An error occurred while processing your card. Try again in a little bit.",
+            "type": "card_error",
+            "code": "processing_error",
+            "charge": "ch_102o8G2zE6DXCiQZFyweOORe"
+          }
+        }
+    http_version: 
+  recorded_at: Wed, 23 Oct 2013 18:04:40 GMT
+recorded_with: VCR 2.6.0

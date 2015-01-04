@@ -1,0 +1,22 @@
+doctype html
+html lang="en" id="ng-app" ng-app="masterclassApp"
+  = yield :header
+  body [class="inner inner2 #{controller.action_name}" 
+    id="#{controller.controller_name}"
+    data-app_id="#{ENV['FACEBOOK_KEY']}"
+    data-link="#{@home_page.fb_link}"
+    data-picture="#{@home_page.image_url(:banner)}"
+    data-caption="#{@home_page.fb_headline}"
+    data-description="#{@home_page.fb_description}"]
+    = render 'shared/navigation/navbar'
+    .push-wrapper
+      #background
+        #background-image
+          = image_tag('usher-hero@2x.jpg')
+      #wrapper
+        .visual
+          = render 'pages/root_gallary'
+        = yield
+      = render 'shared/footer'
+      = render 'shared/sign_modals'
+  = yield :javascript

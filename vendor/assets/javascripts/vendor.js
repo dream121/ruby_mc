@@ -1,0 +1,16 @@
+//= require jquery-1.8.3.min
+//= require ./p2h/jquery.main2.js
+//= require retinaScripts
+//= require jquery_ujs
+//= require jquery.sticky
+//= require lightbox-2.6.min
+//= require lightbox.js
+// require lightbox-plugin
+//= require underscore-min
+//= require bootstrap1
+//= require angular
+//= require angular-resource
+//= require angular-rails-templates
+//= require dropzone
+//= require wireupreply
+//= require jquery-ui

@@ -1,0 +1,31 @@
+div.page-header
+  h1 Listing cart_products
+
+table.table.table-striped
+  thead
+    tr
+      th ID
+      th Price
+      th Qty
+      th Cart
+      th Product
+      th Actions
+
+  tbody
+  - @cart_products.each do |cart_product|
+    tr
+      /td= link_to_if can?(:show, cart_product), cart_product.id, cart_product_path(cart_product)
+      td= link_to cart_product.id, cart_product_path(cart_product)
+      td= cart_product.price
+      td= cart_product.qty
+      td= cart_product.cart
+      td= cart_product.product
+      td
+        /- if can? :edit, cart_product
+          = link_to 'Edit', edit_cart_product_path(cart_product), class: 'btn btn-mini'
+          '
+        /- if can? :destroy, cart_product
+          = link_to 'Destroy', cart_product_path(cart_product), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-mini btn-danger'
+
+/- if can? :create, CartProduct
+  = link_to 'New Cart product', new_cart_product_path, class: 'btn btn-primary'

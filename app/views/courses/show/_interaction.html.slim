@@ -1,0 +1,11 @@
+.class-interaction.class-features
+  h4.course-section-header
+    'Class Interaction
+  .class-features-row
+    - @course.facts.interaction.each do |interaction|
+      .class-feature
+        .class-feature-content
+          .class-feature-count
+            i class=interaction.icon
+          h4= interaction.title
+          p= interaction.description

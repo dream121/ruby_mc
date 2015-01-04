@@ -1,0 +1,29 @@
+p= "#{@user.first_name}:"
+
+- @order.order_products.each do |order_product|
+  - if order_product.product.course.present?
+    - course = order_product.product.course.decorate
+    p= "Congrats! You're in. You are now officially an accomplice of #{course.instructor_name}. #{course.instructor_first_name} is going to email you soon about the course, but for now, here's your order confirmation."
+
+    'Class:
+    = "#{course.instructor_name} - #{course.title}"
+    br
+    'Price:
+    = price_in_dollars_text(order_product.price)
+    br
+    'Class link:
+    = link_to enrolled_course_url(course), enrolled_course_url(course)
+    br
+  - else
+    span= order_product.product.name
+    br
+    span= price_in_dollars_text(order_product.price)
+    br
+
+p If you have any questions, anxieties or need help -- just let us know. Email us back or call us.
+
+span - The Accomplice Team
+br
+span team@goaccomplice.com
+br
+span Phone #1-888-983-2614

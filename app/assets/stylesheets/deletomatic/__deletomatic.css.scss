@@ -1,0 +1,191 @@
+#student-assignment {
+  #student-assignment-container {
+    .content-row.reflection-text-row {
+      margin-top: 5px;
+      margin-bottom: 40px;
+      text-align: center;
+      span {
+      }
+      span.reminder-text {
+        color: $red-color;
+      }
+    }
+    .content-row {
+      float:left;
+      clear: both;
+      margin-top: 30px;
+      padding-left: 30px;
+      padding-right: 30px;
+      width: 100%;
+      div {
+        float: left;
+      }
+
+      .avatar-container {
+        width: 10%;
+        img {
+          height: 100px;
+          width: 100px;
+        }
+      }
+      .content-container {
+        p {
+          margin-top: 0px;
+          line-height: 22px;
+        }
+
+        width: 90%;
+        padding-left: 30px;
+      }
+      .comment-container {
+        width: 66%; 
+        padding-left: 30px;
+        textarea {
+          border: 1px solid $gray-color;
+          font-size: 22px;
+          line-height: 36px;
+          height: 190px;
+          padding: 20px;
+          resize: none;
+          width: 100%;
+        }
+      }
+      .attachment-container {
+        width: 24%;
+        padding-left: 30px;
+        div.attachment-icon-box {
+          background: $white-color;
+          border: 1px solid $gray-color;
+          clear: both;
+          height: 100px;
+          padding-top: 20px;
+          width: 100%;
+          img {
+            display: block;
+            margin: 0 auto; 
+          }
+          p {
+            color: $red-color;
+            font-size: 14px;
+            line-height: 18px;
+            font-weight: $body-font-weight-semi-bold;
+            margin: 5px auto;
+            padding-left: 61px;
+            padding-right: 61px;
+            text-align: center;
+            text-transform: uppercase;
+          }
+        }
+        .comment-button {
+          @include red-button(30px, 100%);
+        }
+      }
+    }
+    ul.results {
+      background: $white-color;
+      padding-top: 13px;
+      padding-bottom: 13px;
+      text-transform: uppercase;
+
+      li {
+        line-height: 22px;
+        text-align: center;
+        width: 16%;
+        border-right: 1px solid #deddd9;
+
+        .score-label {
+          font-size: 14px; 
+          font-weight: $body-font-weight-semi-bold;
+        }
+        .value {
+          font-size: 22px;  
+          font-weight: $body-font-weight-extra-bold;
+        }
+      } 
+      li:first-child {
+        color: $red-color;
+      }
+      li:last-child {
+        border-right: none;
+      }
+    }
+    .white-example-box {
+      height:90px;
+      background: $white-color;
+    }
+    .modal-body {
+      .box {
+        background: $white-color;
+        font-family: $text-edit-font-family;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        overflow: auto;
+        p.editor {
+          color: $text-edit-text-color;
+          font-size: 33px;
+          line-height: 46px;
+          margin-top: 0px;
+          padding: 20px 40px 20px 40px;
+        }
+        br {
+          content: " ";
+          display: block;
+          margin: 40px 0;
+        }
+      }
+      .text-edit-box {
+        height: 500px;
+        p.editor::selection {
+          background: $user-deletion-color;
+          color: $white-color;
+        }
+      }
+      .text-result-box {
+        height: 420px;
+        p.editor {
+          -webkit-touch-callout: none;
+          -webkit-user-select: none;
+          -khtml-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+        }
+      }
+      strike {
+        text-decoration: none; 
+        background-image: linear-gradient(transparent 22px,#bf3f40 22px,#bf3f40 26px,transparent 26px);
+      }
+      strike.green {
+        background-image: linear-gradient(transparent 22px,#63be3f 22px,#63be3f 26px,transparent 26px);
+      }
+      ul.result-statistics {
+        li {
+          font-weight: $body-font-weight-light;
+          width: 33%;
+          span.results-category {
+            font-family: $text-edit-font-family;
+            font-size: 33px;
+          }
+          span.results-value {
+            font-weight: $body-font-weight-extra-bold;
+          }
+        }
+        li:nth-child(1) {
+          text-align: left;
+        }
+        li:nth-child(2) {
+          text-align: center;
+        }
+        li:nth-child(3) {
+          text-align: right;
+        }
+      }
+    }
+    .underlay {
+      transform: translate(0, 37px);
+      -webkit-transform: translate(0, 37px);
+      color: transparent;
+    }
+  }
+}
+

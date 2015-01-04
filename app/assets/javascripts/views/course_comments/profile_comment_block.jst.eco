@@ -1,0 +1,24 @@
+<% if @comments.length: %>
+  <% for comment in @comments: %>
+    <div class="post">
+      <div class="holder">
+        <img alt="<%= comment.user.full_name %>" class="alignleft" height="100" src="<%= comment.user.image_url %>" width="100">
+        <div class="video">
+        <% if comment.image_url: %>
+          <div class="thumbnail-lightbox">
+            <img src="<%= comment.image_url %>" alt="image desc" width="177" height="100" />
+            <a href="<%= comment.image_url %>" class="play" data-lightbox="image-<%= comment.id %>">
+              <img src="/assets/icons/icon5.svg" alt="image desc" width="26" height="35" onerror="this.onerror=null; this.src='images/icon5.png'" />
+            </a>
+          </div>
+        <% end %>
+        </div><!--video-->
+        <div class="text-holder">
+          <span class="name">Posted on <a href="<%= comment.chapter_href %>"><%= comment.chapter.padded_number %>. <%= comment.chapter.title %></a></span>
+          <p><%= comment.comment %></p>
+          <a class="goto" href="<%= comment.discussion_href %>">Go to discussion<i class="iconn-arrow"></i></a>
+        </div><!--end text-holder-->
+      </div><!--end holder-->
+     </div>
+  <% end %>
+<% end %>

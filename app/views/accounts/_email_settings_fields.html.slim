@@ -1,0 +1,41 @@
+.open-close
+  a.opener href="#"  email settings
+  .slide
+    p Let Master Class know when you would like to be emailed:
+    .form-row.big
+      = text_field_tag "user[email_settings][email]",  \
+        @user.email_settings_email, \
+        { class: 'default', placeholder: 'Email address' }
+    strong.title Enrolled classes
+    ul
+      li
+        label for="check01"
+          input#hidden01 name="user[email_settings][enrolled_classes][answered_question]" type="hidden" value="#{user.email_never_option_value}"
+          input#check01  name="user[email_settings][enrolled_classes][answered_question]" type="checkbox" value="#{user.email_now_option_value}" checked=user.email_settings_enrolled_classes_answered_question_checkbox_state
+            span.text When the instructor answers your question
+      li
+        label for="check02"
+          input#hidden02 name="user[email_settings][enrolled_classes][reply_at_me]" type="hidden" value="#{user.email_never_option_value}"
+          input#reply_at_me name="user[email_settings][enrolled_classes][reply_at_me]" type="checkbox" value="#{user.email_now_option_value}" checked=user.reply_at_me_checkbox_state
+            span.text When another student replies to my lesson comment
+        ul.rad-list id="radio-list"
+          li
+            label for="rad01"
+              input#rad01 name="user[email_settings][enrolled_classes][reply_at_me]" type="radio" value="#{user.email_now_option_value}" checked=user.reply_at_me_now_radio_state
+                span.text When it happens
+          li
+            label for="rad02"
+              input#rad02 name="user[email_settings][enrolled_classes][reply_at_me]" type="radio" value="#{user.email_daily_option_value}" checked=user.reply_at_me_daily_radio_state
+                span.text Once a day at most
+    strong.title general information
+    ul
+      li
+        label for="check03"
+          input#hidden03 name="user[email_settings][general_info][new_class_available]" type="hidden" value="#{user.email_never_option_value}" 
+          input#check03 name="user[email_settings][general_info][new_class_available]" type="checkbox" value="#{user.email_now_option_value}" checked=user.new_class_available_checkbox_state
+            span.text When new classes are available
+      li
+        label for="check04"
+          input#hidden04 name="user[email_settings][general_info][monthly_newsletter]" type="hidden" value="#{user.email_never_option_value}"
+          input#check04 name="user[email_settings][general_info][monthly_newsletter]" type="checkbox" value="#{user.email_now_option_value}" checked=user.monthly_newsletter_checkbox_state
+            span.text With the Master Class monthly newsletter

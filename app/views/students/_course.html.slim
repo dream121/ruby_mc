@@ -1,0 +1,29 @@
+.item-block
+  span data-alt=("image description") data-picture=""
+    span data-src=course.image_url(:banner)
+    span data-media="(-webkit-min-device-pixel-ratio:1.5), (min-resolution:144dpi)" data-src=course.image_url(:banner)
+    span data-height="141" data-media="(max-width:767px)" data-src=course.image_url(:banner) data-width="160"
+    span data-media="(max-width:767px) and (-webkit-min-device-pixel-ratio:1.5)), (max-width:767px) and (min-resolution:144dpi)" data-src=course.image_url(:banner)
+    /![if (lt IE 9) &amp; (!IEMobile)]
+      | <span data-src="images/img32.jpg"></span
+    /! Fallback content for non-JS browsers. Same img src as the initial, unqualified source element.
+    noscript
+      = image_tag course.image_url(:banner),  alt: "image description", size: "971x351"
+
+  .caption-box
+    h2.text-holder
+      span.name= course.instructor.name
+      | #{course.title}
+  - if policy(@profile).update?
+    = render partial: 'students/course_rating_form', locals: { course: course, review: course.latest_review || course.course.reviews.build }
+  - else
+    = render partial: 'students/course_rating', locals: { course: course, review: course.latest_review || course.course.reviews.build }
+/! end item-block
+.holder
+  h3= "#{profile.belongs_to(current_user) ? 'Your' : user.first_name.pluralize} assignment showcase"
+  = render partial: 'students/assignments'
+  a name="#{course.course_id}"
+  - if course.contributions.length > 0
+    h3= "#{profile.belongs_to(current_user) ? 'Your' : user.first_name.pluralize} discussion contributions"
+    = render partial: 'students/contributions', locals: { course: course, contributions: course.contributions }
+/! holder

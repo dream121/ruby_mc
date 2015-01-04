@@ -1,0 +1,11 @@
+div.page-header
+  h1 Instructors
+
+  - if policy(Instructor).create?
+    = link_to 'New Instructor', new_instructor_path, class: 'btn btn-default'
+
+table.table.table-striped
+  tbody
+  - @instructors.each do |instructor|
+    tr
+      td= link_to instructor.name, instructor_path(instructor)

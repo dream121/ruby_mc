@@ -1,0 +1,69 @@
+section.banner-section-module.review-section
+  .banner-section-module-background-wrapper style="background-image: url(#{course.image_url(:class_review)})"
+    .container style="position: relative;"
+      input.content-box-module-click-event id="course-review-trigger" type="checkbox"
+      .content-box-module-outer-wrapper
+        .content-box-module-inner-wrapper
+          - reviews.each_with_index do |cr, index|
+            - review_user = cr.user.decorate
+            .content-box-module.text-center.course-reviews
+              .content-box-module-content
+                - unless index > 0
+                  span.content-box-module-small-header #{course.student_count_formatted} students enrolled
+                  ul.stars-module
+                    - star_ratings = course.get_star_format
+                    - star_ratings[:full].times do
+                      li.rating-star
+                        a.stars-module-star href="#"
+                          span.masterclass-icon-star-full
+                    - star_ratings[:half].times do
+                      li.rating-star
+                        a.stars-module-star href="#"
+                          span.masterclass-icon-star-half
+                    - star_ratings[:empty].times do
+                      li.rating-star
+                        a.stars-module-star href="#"
+                          span.masterclass-icon-star-empty
+                span.icon-svg5.content-box-module-quote.content-box-module-opening-quote
+                p.content-box-module-description = cr.review
+                span.icon-svg4.content-box-module-quote.content-box-module-closing-quote
+                - unless index > 0
+                  label.content-box-module-link for="course-review-trigger"
+                    | more reviews
+                    span.content-box-module-arrow.icon-svg3
+                - else
+                  .content-box-module-user-box
+                    = image_tag(review_user.user_profile_img_url)
+                    .content-box-module-user-stats
+                      span= cr.name
+                      br
+                      span= cr.location
+      .columns-holder.course-review-columns
+        .container.course-review-columns-container
+          .columns
+            .column
+              span.icon.icon-svg9 100%
+              h3 guaranteed
+              p We’re sure you will love this class or your money back.
+            .column
+              span.icon.icon-svg17
+                img [
+                  alt=("image description") 
+                  height="47" 
+                  onerror=("this.onerror=null; this.src='images/icon17.png'") 
+                  src=image_path('exampleimages/icon17.svg') 
+                  width="79"
+                ] /
+              h3 any device
+              p Your class will play on any device that connects to the internet.
+            .column
+              span.icon.icon-svg18.marketing
+                img [
+                  alt=("image description") 
+                  height="31"
+                  onerror=("this.onerror=null; this.src='images/icon18.png'") 
+                  src=image_path('exampleimages/icon18.svg') 
+                  width="73"
+                 ] /
+              h3 never expires
+              p Take the class at your own pace and in your own time.

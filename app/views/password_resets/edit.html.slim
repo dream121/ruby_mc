@@ -1,0 +1,19 @@
+.page-header
+  h1 Reset Password
+
+= form_for @identity, url: password_reset_path(params[:id]) do |f|
+  - if @identity.errors.any?
+    .alert-error
+      strong Please fix these errors:
+      ul
+        - @identity.errors.full_messages.each do |message|
+          li= message
+
+  .form-group
+    = f.label :password
+    = f.password_field :password, class: 'form-control'
+  .form-group
+    = f.label :password_confirmation
+    = f.password_field :password_confirmation, class: 'form-control'
+  .form-group
+    = submit_tag("Reset Password", class: 'btn btn-large btn-success')

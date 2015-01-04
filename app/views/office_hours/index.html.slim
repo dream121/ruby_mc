@@ -1,0 +1,29 @@
+script language="JavaScript" src="//ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js" 
+= render "header"
+- if @questions.size != 0
+  #questions-and-answers.container
+    = brightcove_script_source
+    - @questions.each do |question|
+      = render "question_and_answer", question: question, questions: @questions
+  - unless @showing_all
+    = render "show_more_divider"
+= render partial: 'new_question_form', locals: { course: @course, question: @question }
+#footer-buffer
+/'! Button trigger modal
+button#webcam-modal-launcher.btn.btn-primary.btn-lg.hidden data-target="#myModal" data-toggle="modal" 
+/! Modal
+#myModal.modal.fade aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" 
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close data-dismiss="modal" type="button" 
+          span aria-hidden="true"  &times;
+          span.sr-only Close
+        h4#myModalLabel.modal-title Record a question
+      .modal-body
+        #webcam
+      .modal-footer
+        button#startRecording.left.btn.btn-danger.hidden type="button"  Start Recording
+        button#stopRecording.left.btn.btn-primary.hidden type="button"  Finish Recording
+        button.btn.btn-default data-dismiss="modal" type="button"  Close
+

@@ -1,0 +1,23 @@
+.detail-container.col-md-10.col-sm-12
+  .instructor-statement
+    .course-overview
+      .statement.hidden-xs== @course.lessons_introduction
+
+      h4.header
+        span lesson plan
+      ul.lessons
+        - @course.chapters.order(:number).each do |chapter|
+          li.row
+            .col-xs-8.col-sm-3.number= "Lesson #{chapter.number}"
+            .col-xs-12.col-sm-7.title== chapter.title
+            .col-xs-4.col-sm-2.time= chapter.duration
+
+      h4.header
+        span what's included
+      .included.row
+        .col-md-4
+          h5== "#{pluralize(@course.total_video_duration, 'minute').gsub(/([\d]+)/,'<div>\1</div>')} of video"
+        .col-md-4
+          h5== pluralize(@course.chapters.length, 'chapter').gsub(/([\d]+)/,'<div>\1</div>')
+        .col-md-4
+          h5== pluralize(@course.documents.length, 'assignments').gsub(/([\d]+)/,'<div>\1</div>')

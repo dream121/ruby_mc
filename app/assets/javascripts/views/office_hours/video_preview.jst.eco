@@ -1,0 +1,7 @@
+<h4>YOUR WEBCAM QUESTION</h4>
+<video id="<%= @obj[0].url.split('.')[0] %>"
+  class="video-js vjs-default-skin"
+  width="270"
+  height="150">
+  <source src="<%= @obj[0].url %>" type="video/x-flv" />
+</video>

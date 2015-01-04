@@ -1,0 +1,32 @@
+div.page-header
+  h1 Carts
+
+table.table.table-striped
+  thead
+    tr
+      th ID
+      th Name
+      th Email
+      th Products
+      th Created
+      th Emailed
+      th Error
+      th Actions
+
+  tbody
+  - @carts.each do |cart|
+    - cart = cart.decorate
+    tr
+      td= link_to cart.id, cart
+      td= cart.user.name
+      td= cart.user.email
+      td
+        - cart.cart_products.each do |cart_product|
+          = cart_product.product.name
+          br
+      td= cart.created_at
+      td= cart.reminder_count
+      td.text-danger= cart.error_code
+      td
+        - if policy(cart).destroy?
+          = link_to 'Destroy', cart_path(cart), method: :delete, data: { confirm: "Are you sure?" }

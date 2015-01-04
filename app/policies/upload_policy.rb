@@ -1,0 +1,2 @@
+class UploadPolicy < CoursePolicy
+end

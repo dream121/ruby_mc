@@ -1,0 +1,15 @@
+h2 Images
+
+p.help-block Upload images to be displayed by the CMS.
+
+p= link_to 'Add Image', send(new_path, parent), class: 'btn btn-default'
+
+- parent.images.each_slice(4) do |group|
+  .row
+    - group.each do |i|
+      .col-sm-6.col-md-3
+        .thumbnail
+          img src="#{i.image.url(:original)}"
+          .caption
+            h3= i.kind
+            p= link_to 'Delete', send(image_path, parent, i), method: :delete, class: 'btn btn-danger', confirm: 'Delete image?'

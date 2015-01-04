@@ -1,0 +1,55 @@
+.review-course-box {
+  .review-container {
+    text-align: center;
+
+    img {
+      display: inline-block;
+      width: auto;
+      height: auto;
+
+      &.quote-top {
+        margin-bottom: 5px;
+      }
+
+      &.quote-bottom {
+        margin-top: 5px;
+      }
+    }
+  }
+
+  form.review_rating {
+    .stars {
+      .rating-star {
+        cursor: pointer;
+      }
+    }
+  }
+  .stars {
+    .rating-star {
+      background-image: url(star.svg);
+      background-size: cover;
+      width: 30px;
+      height: 30px;
+      &.on {
+        background-image: url(star2.svg);
+      }
+    }
+  }
+
+  .review_rating {
+    input {
+      &.course-review-submit {
+        margin-top: 20px;
+        margin-bottom: 0;
+      }
+    }
+
+    textarea {
+      color: #000;
+    }
+
+    .review-container {
+      overflow: visible !important;
+    }
+  }
+}

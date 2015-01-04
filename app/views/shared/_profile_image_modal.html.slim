@@ -1,0 +1,17 @@
+- if current_user
+  - u = current_user.decorate
+  
+#profile-image-modal.modal.fade.bs-example3-modal-lg aria-hidden="true" tabindex="-1" aria-labelledby="myLargeModalLabel" role="dialog"
+  .modal-dialog.modal-lg
+    #audrey-image-content.modal-content
+      /.modal-header
+        h1.modal-title Profile Images
+      .modal-body
+        #uploader data-current-user-id="#{current_user.id}"
+          input type="file" id="file-upload"
+      /.modal-footer
+        span.btn.btn-default.btn-file
+          | Upload Image
+          input type="file"
+        button#audrey-image-content-save-button.btn.btn-primary type="button"
+          | Save changes

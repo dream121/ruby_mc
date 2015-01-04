@@ -1,0 +1,15 @@
+.list-row
+  .list-block
+    h2
+      | resources
+      a href="#" onClick="window.print()"  print all
+    .list
+      ul.print-list
+        - @course.documents.group_by(&:kind).each do |kind, documents|
+          - if kind.downcase == "pdf"
+            - documents.each do |document|
+              li
+                span.ico-pdf
+                h3= document.title
+                | This PDF is a helpful guide.
+                = link_to " Print pdf", download_course_document_path(@course, document)

@@ -1,0 +1,39 @@
+= render partial: "courses/office_hours_header"
+
+.container
+  .row
+    h3
+      | Manage Questions and Answers for #{@course.title}
+  .row.open-questions
+    table
+      thead
+        tr
+          th Question
+          th Subject
+          th Position
+          th Visible?
+          th User
+          th Answered?
+          th
+          th
+          th
+      tbody
+        - @questions.each do |question|
+          tr
+            - if !question.text_question.blank?
+              td= question.text_question
+            - elsif !question.brightcove_id.blank?
+              td placeholder for brightcove video
+            - else
+              td placeholder for question.source_url
+            td= question.subject
+            td= question.position
+            td= question.visibility
+            td= question.user_name
+            td= !question.answer.nil?
+            td= link_to 'Respond', answer_course_office_hour_path(@course, question), class: 'response', data: { questionid: question.id, userid: current_user.id }
+            td= link_to 'Edit', edit_course_office_hour_path(@course, question)
+            td= link_to 'Destroy', course_office_hour_path(@course,question), method: :delete
+    br
+#footer-buffer
+

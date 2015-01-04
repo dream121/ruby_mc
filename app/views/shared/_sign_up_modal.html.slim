@@ -1,0 +1,31 @@
+form#create_account.form-horizontal action="/auth/identity/register" method="post" role="form" 
+  /! Button trigger modal
+  #modal_create_button data-target="#modal_create_form" data-toggle="modal" 
+  /! Modal
+  #modal_create_form.modal.fade.auth aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" style=("display: none;") tabindex="-1" 
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close aria-hidden="true" data-dismiss="modal" type="button" 
+          p#myModalLabel.modal-title Create An Account
+        .modal-body
+          button.modal-button.singup_fb type="button" 
+            p Sign up with Facebook
+          p Master Class  will never post on your behalf.
+          p.or OR
+          .email.custom_input
+            input.email_input name="email" placeholder="Email" type="text" /
+            span.caution
+            .error_tooltip Please enter a valid email address.
+          .password.custom_input
+            input.pw_input name="password" placeholder="Password" type="password" /
+            span.caution
+            .error_tooltip
+              | This password doesn't match.
+          .password.custom_input
+            input.confirm_pw_input name="password_confirmation" placeholder="Confirm Password" type="password" /
+          button.modal-button.create type="submit" 
+            p Create Account
+          p.button_desc
+            | Already have an account.?
+            span Sign in.

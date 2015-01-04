@@ -1,0 +1,5 @@
+.row
+  .col-md-10
+    textarea.form-control rows="3" data-url="#{course_comments_path(@course.to_param)}"= comment.comment
+  .col-md-2
+    button class='btn btn-primary' Update

@@ -1,0 +1,2524 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+--
+-- Name: ltree; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS ltree WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION ltree; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION ltree IS 'data type for hierarchical tree-like structures';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: authentications; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE authentications (
+    id integer NOT NULL,
+    provider character varying(255),
+    uid character varying(255),
+    info json,
+    credentials json,
+    user_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE public.authentications OWNER TO postgres;
+
+--
+-- Name: authentications_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE authentications_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.authentications_id_seq OWNER TO postgres;
+
+--
+-- Name: authentications_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE authentications_id_seq OWNED BY authentications.id;
+
+
+--
+-- Name: cart_products; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE cart_products (
+    id integer NOT NULL,
+    price integer,
+    qty integer,
+    cart_id integer,
+    product_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE public.cart_products OWNER TO postgres;
+
+--
+-- Name: cart_products_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE cart_products_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.cart_products_id_seq OWNER TO postgres;
+
+--
+-- Name: cart_products_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE cart_products_id_seq OWNED BY cart_products.id;
+
+
+--
+-- Name: carts; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE carts (
+    id integer NOT NULL,
+    user_id integer,
+    course_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    response json,
+    reminder_count integer,
+    coupon_id integer
+);
+
+
+ALTER TABLE public.carts OWNER TO postgres;
+
+--
+-- Name: carts_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE carts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.carts_id_seq OWNER TO postgres;
+
+--
+-- Name: carts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE carts_id_seq OWNED BY carts.id;
+
+
+--
+-- Name: chapters; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE chapters (
+    id integer NOT NULL,
+    number integer,
+    duration character varying(255),
+    title character varying(255),
+    brightcove_id character varying(255),
+    course_id integer,
+    slug character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    abstract text
+);
+
+
+ALTER TABLE public.chapters OWNER TO postgres;
+
+--
+-- Name: chapters_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE chapters_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.chapters_id_seq OWNER TO postgres;
+
+--
+-- Name: chapters_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE chapters_id_seq OWNED BY chapters.id;
+
+
+--
+-- Name: coupons; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE coupons (
+    id integer NOT NULL,
+    code character varying(255),
+    redemptions integer,
+    max_redemptions integer,
+    price integer,
+    course_id integer,
+    expires_at timestamp without time zone,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE public.coupons OWNER TO postgres;
+
+--
+-- Name: coupons_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE coupons_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.coupons_id_seq OWNER TO postgres;
+
+--
+-- Name: coupons_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE coupons_id_seq OWNED BY coupons.id;
+
+
+--
+-- Name: course_comments; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE course_comments (
+    id integer NOT NULL,
+    course_id integer,
+    user_id integer,
+    title character varying(255),
+    comment text,
+    parent_id integer,
+    hide boolean,
+    votes integer,
+    voters json,
+    "position" integer,
+    path ltree,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    visible boolean
+);
+
+
+ALTER TABLE public.course_comments OWNER TO postgres;
+
+--
+-- Name: course_comments_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE course_comments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.course_comments_id_seq OWNER TO postgres;
+
+--
+-- Name: course_comments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE course_comments_id_seq OWNED BY course_comments.id;
+
+
+--
+-- Name: course_details; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE course_details (
+    id integer NOT NULL,
+    course_id integer,
+    headline text,
+    role character varying(255),
+    skill character varying(255),
+    overview text,
+    invitation_statement text,
+    lessons_introduction text,
+    instructor_motivation text,
+    welcome_statement text,
+    welcome_back_statement text,
+    total_video_duration character varying(255),
+    intro_video_id character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    short_description text,
+    featured_review text
+);
+
+
+ALTER TABLE public.course_details OWNER TO postgres;
+
+--
+-- Name: course_details_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE course_details_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.course_details_id_seq OWNER TO postgres;
+
+--
+-- Name: course_details_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE course_details_id_seq OWNED BY course_details.id;
+
+
+--
+-- Name: course_facts; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE course_facts (
+    id integer NOT NULL,
+    course_id integer,
+    kind character varying(255),
+    "position" integer,
+    icon character varying(255),
+    number character varying(255),
+    title character varying(255),
+    description text,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE public.course_facts OWNER TO postgres;
+
+--
+-- Name: course_facts_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE course_facts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.course_facts_id_seq OWNER TO postgres;
+
+--
+-- Name: course_facts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE course_facts_id_seq OWNED BY course_facts.id;
+
+
+--
+-- Name: course_reviews; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE course_reviews (
+    id integer NOT NULL,
+    review text,
+    rating integer,
+    name character varying(255),
+    location character varying(255),
+    course_id integer,
+    user_id integer,
+    visible boolean DEFAULT false,
+    featured boolean DEFAULT false,
+    "position" integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE public.course_reviews OWNER TO postgres;
+
+--
+-- Name: course_reviews_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE course_reviews_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.course_reviews_id_seq OWNER TO postgres;
+
+--
+-- Name: course_reviews_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE course_reviews_id_seq OWNED BY course_reviews.id;
+
+
+--
+-- Name: courses; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE courses (
+    id integer NOT NULL,
+    title character varying(255),
+    slug character varying(255),
+    price integer,
+    start_date date,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    category character varying(255)
+);
+
+
+ALTER TABLE public.courses OWNER TO postgres;
+
+--
+-- Name: courses_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE courses_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.courses_id_seq OWNER TO postgres;
+
+--
+-- Name: courses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE courses_id_seq OWNED BY courses.id;
+
+
+--
+-- Name: courses_instructors; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE courses_instructors (
+    id integer NOT NULL,
+    course_id integer,
+    instructor_id integer
+);
+
+
+ALTER TABLE public.courses_instructors OWNER TO postgres;
+
+--
+-- Name: courses_instructors_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE courses_instructors_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.courses_instructors_id_seq OWNER TO postgres;
+
+--
+-- Name: courses_instructors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE courses_instructors_id_seq OWNED BY courses_instructors.id;
+
+
+--
+-- Name: documents; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE documents (
+    id integer NOT NULL,
+    kind character varying(255),
+    documentable_id integer,
+    documentable_type character varying(255),
+    document_file_name character varying(255),
+    document_content_type character varying(255),
+    document_file_size integer,
+    document_updated_at timestamp without time zone,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    title character varying(255),
+    url character varying(255)
+);
+
+
+ALTER TABLE public.documents OWNER TO postgres;
+
+--
+-- Name: documents_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE documents_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.documents_id_seq OWNER TO postgres;
+
+--
+-- Name: documents_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE documents_id_seq OWNED BY documents.id;
+
+
+--
+-- Name: email_templates; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE email_templates (
+    id integer NOT NULL,
+    "from" character varying(255),
+    subject character varying(255),
+    body text,
+    course_id integer,
+    kind character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE public.email_templates OWNER TO postgres;
+
+--
+-- Name: email_templates_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE email_templates_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.email_templates_id_seq OWNER TO postgres;
+
+--
+-- Name: email_templates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE email_templates_id_seq OWNED BY email_templates.id;
+
+
+--
+-- Name: experiment_values; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE experiment_values (
+    id integer NOT NULL,
+    experiment character varying(255),
+    variation character varying(255),
+    key character varying(255),
+    value character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE public.experiment_values OWNER TO postgres;
+
+--
+-- Name: experiment_values_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE experiment_values_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.experiment_values_id_seq OWNER TO postgres;
+
+--
+-- Name: experiment_values_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE experiment_values_id_seq OWNED BY experiment_values.id;
+
+
+--
+-- Name: identities; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE identities (
+    id integer NOT NULL,
+    email character varying(255),
+    name character varying(255),
+    password_digest character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    authentication_id integer,
+    password_reset_token character varying(255),
+    password_reset_sent_at timestamp without time zone
+);
+
+
+ALTER TABLE public.identities OWNER TO postgres;
+
+--
+-- Name: identities_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE identities_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.identities_id_seq OWNER TO postgres;
+
+--
+-- Name: identities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE identities_id_seq OWNED BY identities.id;
+
+
+--
+-- Name: images; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE images (
+    id integer NOT NULL,
+    imageable_id integer,
+    imageable_type character varying(255),
+    kind character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    image_file_name character varying(255),
+    image_content_type character varying(255),
+    image_file_size integer,
+    image_updated_at timestamp without time zone
+);
+
+
+ALTER TABLE public.images OWNER TO postgres;
+
+--
+-- Name: images_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE images_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.images_id_seq OWNER TO postgres;
+
+--
+-- Name: images_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE images_id_seq OWNED BY images.id;
+
+
+--
+-- Name: instructors; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE instructors (
+    id integer NOT NULL,
+    name character varying(255),
+    short_bio text,
+    long_bio text,
+    slug character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    email character varying(255),
+    testimonials text,
+    user_id integer
+);
+
+
+ALTER TABLE public.instructors OWNER TO postgres;
+
+--
+-- Name: instructors_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE instructors_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.instructors_id_seq OWNER TO postgres;
+
+--
+-- Name: instructors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE instructors_id_seq OWNED BY instructors.id;
+
+
+--
+-- Name: order_products; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE order_products (
+    id integer NOT NULL,
+    price integer,
+    qty integer,
+    order_id integer,
+    product_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE public.order_products OWNER TO postgres;
+
+--
+-- Name: order_products_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE order_products_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.order_products_id_seq OWNER TO postgres;
+
+--
+-- Name: order_products_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE order_products_id_seq OWNED BY order_products.id;
+
+
+--
+-- Name: orders; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE orders (
+    id integer NOT NULL,
+    user_id integer,
+    course_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    coupon_id integer
+);
+
+
+ALTER TABLE public.orders OWNER TO postgres;
+
+--
+-- Name: orders_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE orders_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.orders_id_seq OWNER TO postgres;
+
+--
+-- Name: orders_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE orders_id_seq OWNED BY orders.id;
+
+
+--
+-- Name: payments; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE payments (
+    id integer NOT NULL,
+    order_id integer,
+    transaction_id character varying(255),
+    response json,
+    amount integer,
+    paid boolean,
+    refunded boolean,
+    amount_refunded integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE public.payments OWNER TO postgres;
+
+--
+-- Name: payments_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE payments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.payments_id_seq OWNER TO postgres;
+
+--
+-- Name: payments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE payments_id_seq OWNED BY payments.id;
+
+
+--
+-- Name: products; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE products (
+    id integer NOT NULL,
+    name character varying(255),
+    price integer,
+    kind character varying(255),
+    course_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE public.products OWNER TO postgres;
+
+--
+-- Name: products_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE products_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.products_id_seq OWNER TO postgres;
+
+--
+-- Name: products_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE products_id_seq OWNED BY products.id;
+
+
+--
+-- Name: recommendations; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE recommendations (
+    id integer NOT NULL,
+    "position" integer,
+    product_id integer,
+    related_product_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE public.recommendations OWNER TO postgres;
+
+--
+-- Name: recommendations_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE recommendations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.recommendations_id_seq OWNER TO postgres;
+
+--
+-- Name: recommendations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE recommendations_id_seq OWNED BY recommendations.id;
+
+
+--
+-- Name: reviews; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE reviews (
+    id integer NOT NULL,
+    course_review text,
+    rating integer,
+    name character varying(255),
+    location character varying(255),
+    course_id integer,
+    user_id integer,
+    visible boolean,
+    featured boolean,
+    "position" integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE public.reviews OWNER TO postgres;
+
+--
+-- Name: reviews_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE reviews_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.reviews_id_seq OWNER TO postgres;
+
+--
+-- Name: reviews_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE reviews_id_seq OWNED BY reviews.id;
+
+
+--
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE schema_migrations (
+    version character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.schema_migrations OWNER TO postgres;
+
+--
+-- Name: user_courses; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE user_courses (
+    id integer NOT NULL,
+    user_id integer,
+    course_id integer,
+    access boolean DEFAULT true,
+    progress json,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    order_id integer,
+    welcomed boolean
+);
+
+
+ALTER TABLE public.user_courses OWNER TO postgres;
+
+--
+-- Name: user_courses_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE user_courses_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.user_courses_id_seq OWNER TO postgres;
+
+--
+-- Name: user_courses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE user_courses_id_seq OWNED BY user_courses.id;
+
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE users (
+    id integer NOT NULL,
+    name character varying(255),
+    provider character varying(255),
+    uid character varying(255),
+    email character varying(255),
+    info json,
+    credentials json,
+    admin boolean,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    permissions json
+);
+
+
+ALTER TABLE public.users OWNER TO postgres;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_id_seq OWNER TO postgres;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE users_id_seq OWNED BY users.id;
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY authentications ALTER COLUMN id SET DEFAULT nextval('authentications_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY cart_products ALTER COLUMN id SET DEFAULT nextval('cart_products_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY carts ALTER COLUMN id SET DEFAULT nextval('carts_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY chapters ALTER COLUMN id SET DEFAULT nextval('chapters_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY coupons ALTER COLUMN id SET DEFAULT nextval('coupons_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY course_comments ALTER COLUMN id SET DEFAULT nextval('course_comments_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY course_details ALTER COLUMN id SET DEFAULT nextval('course_details_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY course_facts ALTER COLUMN id SET DEFAULT nextval('course_facts_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY course_reviews ALTER COLUMN id SET DEFAULT nextval('course_reviews_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY courses ALTER COLUMN id SET DEFAULT nextval('courses_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY courses_instructors ALTER COLUMN id SET DEFAULT nextval('courses_instructors_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY documents ALTER COLUMN id SET DEFAULT nextval('documents_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY email_templates ALTER COLUMN id SET DEFAULT nextval('email_templates_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY experiment_values ALTER COLUMN id SET DEFAULT nextval('experiment_values_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY identities ALTER COLUMN id SET DEFAULT nextval('identities_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY images ALTER COLUMN id SET DEFAULT nextval('images_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY instructors ALTER COLUMN id SET DEFAULT nextval('instructors_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY order_products ALTER COLUMN id SET DEFAULT nextval('order_products_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY orders ALTER COLUMN id SET DEFAULT nextval('orders_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY payments ALTER COLUMN id SET DEFAULT nextval('payments_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY products ALTER COLUMN id SET DEFAULT nextval('products_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY recommendations ALTER COLUMN id SET DEFAULT nextval('recommendations_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY reviews ALTER COLUMN id SET DEFAULT nextval('reviews_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY user_courses ALTER COLUMN id SET DEFAULT nextval('user_courses_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+
+
+--
+-- Data for Name: authentications; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY authentications (id, provider, uid, info, credentials, user_id, created_at, updated_at) FROM stdin;
+1	developer	ai.rasmussen@gmail.com	{"name":"","email":"ai.rasmussen@gmail.com"}	{}	4	2014-01-31 20:18:36.308637	2014-01-31 20:18:36.373504
+2	facebook	907910	{"nickname":"ai.rasmussen","email":"ai_rasmussen@yahoo.com","name":"Aaron Rasmussen","first_name":"Aaron","last_name":"Rasmussen","image":"http://graph.facebook.com/907910/picture?type=square","urls":{"Facebook":"https://www.facebook.com/ai.rasmussen"},"location":"Santa Monica, California","verified":true}	{"token":"CAAHZAGKF3LpcBADivoSiaBRwnRyUlqJDZCpChZC9QmNVD7jOwoZCrPxQq7gk9fCxvi4hOHZCSPeZCOdojltnzGJ3r97Q716gZCDeo1jtrLQZAeVAFGZBE37g16IYPisfLWU8nhnxi7ubnZAsPlQMTDPZCNVeXGilbVv4tfZA5uZBZBMzDIIbJPNZC3qMQ85peeVz5hietUZD","expires_at":1396751090,"expires":true}	5	2014-02-05 02:24:51.605464	2014-02-05 02:24:51.726279
+\.
+
+
+--
+-- Name: authentications_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('authentications_id_seq', 2, true);
+
+
+--
+-- Data for Name: cart_products; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY cart_products (id, price, qty, cart_id, product_id, created_at, updated_at) FROM stdin;
+8	10000	1	1	2	2014-02-10 23:49:20.588644	2014-02-10 23:49:20.588644
+38	999	1	1	1	2014-02-27 00:13:21.311951	2014-02-27 00:13:21.311951
+\.
+
+
+--
+-- Name: cart_products_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('cart_products_id_seq', 38, true);
+
+
+--
+-- Data for Name: carts; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY carts (id, user_id, course_id, created_at, updated_at, response, reminder_count, coupon_id) FROM stdin;
+1	5	\N	2014-02-05 18:05:58.574223	2014-02-12 19:40:20.46396	\N	\N	1
+\.
+
+
+--
+-- Name: carts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('carts_id_seq', 1, true);
+
+
+--
+-- Data for Name: chapters; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY chapters (id, number, duration, title, brightcove_id, course_id, slug, created_at, updated_at, abstract) FROM stdin;
+1	1	3:50	Getting Started	2746311537001	1	getting-started	2014-01-31 20:18:01.761896	2014-01-31 20:18:01.761896	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.
+2	2	3:50	Learning Stuff	2746311537001	1	learning-stuff	2014-01-31 20:18:01.765307	2014-01-31 20:18:01.765307	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.
+3	3	3:50	Wrapping Up	2746311537001	1	wrapping-up	2014-01-31 20:18:01.767569	2014-01-31 20:18:01.767569	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.
+4	1	3:50	Getting Started	2746311537001	2	getting-started-2035cfbd-bbbd-46c6-b6f6-3db08eebb58c	2014-01-31 20:18:01.798761	2014-01-31 20:18:01.798761	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.
+5	2	3:50	Learning Stuff	2746311537001	2	learning-stuff-913c2a6c-4045-4660-8576-66b390021701	2014-01-31 20:18:01.801234	2014-01-31 20:18:01.801234	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.
+6	3	3:50	Wrapping Up	2746311537001	2	wrapping-up-4ccafe87-8985-45c2-b601-c6dd587dc3f9	2014-01-31 20:18:01.80378	2014-01-31 20:18:01.80378	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.
+7	1	3:50	Getting Started	2746311537001	3	getting-started-38eca263-9ffe-4c47-a27c-9245a4e1c977	2014-01-31 20:18:01.835123	2014-01-31 20:18:01.835123	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.
+8	2	3:50	Learning Stuff	2746311537001	3	learning-stuff-d4db0c3c-cce1-4854-ae87-3de11a09b2ee	2014-01-31 20:18:01.837576	2014-01-31 20:18:01.837576	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.
+9	3	3:50	Wrapping Up	2746311537001	3	wrapping-up-61c8b418-b0c0-4b2e-bd25-e376bce1a6c8	2014-01-31 20:18:01.839964	2014-01-31 20:18:01.839964	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.
+10	1	3:50	Getting Started	2746311537001	4	getting-started-935345f9-1f72-49c8-9e8b-e59a5bfc53d0	2014-01-31 20:18:01.870751	2014-01-31 20:18:01.870751	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.
+11	2	3:50	Learning Stuff	2746311537001	4	learning-stuff-22c6367f-3d2e-4e16-98fc-90514161d687	2014-01-31 20:18:01.873356	2014-01-31 20:18:01.873356	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.
+12	3	3:50	Wrapping Up	2746311537001	4	wrapping-up-2b91b817-461e-48ad-8115-28ab04db1c4f	2014-01-31 20:18:01.8757	2014-01-31 20:18:01.8757	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.
+13	1	3:50	Getting Started	2746311537001	5	getting-started-f3d56aeb-895f-4891-8a7e-9fe2521704ad	2014-01-31 20:18:01.955025	2014-01-31 20:18:01.955025	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.
+14	2	3:50	Learning Stuff	2746311537001	5	learning-stuff-ce115fce-b5c6-409c-b357-190d6fa56252	2014-01-31 20:18:01.957368	2014-01-31 20:18:01.957368	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.
+15	3	3:50	Wrapping Up	2746311537001	5	wrapping-up-88ddf929-327b-47d1-a4db-6a0381096645	2014-01-31 20:18:01.959926	2014-01-31 20:18:01.959926	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.
+16	1	3:50	Getting Started	2746311537001	6	getting-started-7d48e88c-50be-4428-806b-9daf74502e40	2014-01-31 20:18:01.990748	2014-01-31 20:18:01.990748	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.
+17	2	3:50	Learning Stuff	2746311537001	6	learning-stuff-b3449c45-3011-4a11-ad1d-c4800c2581ff	2014-01-31 20:18:01.993112	2014-01-31 20:18:01.993112	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.
+18	3	3:50	Wrapping Up	2746311537001	6	wrapping-up-0ac6044c-f0c4-486a-93d1-c06001dc1f54	2014-01-31 20:18:01.995503	2014-01-31 20:18:01.995503	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.
+19	4	5:12	Doing Something Useful	34242323424	1	doing-something-useful	2014-04-04 18:52:57.288269	2014-04-04 18:52:57.502052	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.
+20	6	10:32	Fire Alarms: Why They're Important	234322424	1	fire-alarms-why-they-re-important	2014-04-04 18:53:42.420271	2014-04-04 18:53:42.432085	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.
+21	5	11:20	How to Tell a Chapter From its Number	23423423	1	how-to-tell-a-chapter-from-its-number	2014-04-04 21:20:48.057477	2014-04-04 21:20:48.069047	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.
+\.
+
+
+--
+-- Name: chapters_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('chapters_id_seq', 21, true);
+
+
+--
+-- Data for Name: coupons; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY coupons (id, code, redemptions, max_redemptions, price, course_id, expires_at, created_at, updated_at) FROM stdin;
+1	test1	0	5	5000	6	2015-01-31 08:00:00	2014-02-12 19:39:49.921288	2014-02-12 19:39:49.921288
+\.
+
+
+--
+-- Name: coupons_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('coupons_id_seq', 1, true);
+
+
+--
+-- Data for Name: course_comments; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY course_comments (id, course_id, user_id, title, comment, parent_id, hide, votes, voters, "position", path, created_at, updated_at, visible) FROM stdin;
+61	2	4	\N	Know what's great? 23	54	\N	\N	\N	\N	49.53.54.61	2014-02-06 19:28:01.646518	2014-02-06 19:28:01.646518	t
+1	2	2	some title	This class is awesome	\N	\N	\N	\N	\N	1	2014-02-05 18:39:52.34047	2014-02-05 18:41:40.620051	\N
+62	2	4	\N	crashy?	53	\N	\N	\N	\N	49.53.62	2014-02-06 19:28:36.793961	2014-02-06 19:28:36.793961	t
+3	2	4	\N	This is a new comment thread	\N	\N	\N	\N	1	3	2014-02-05 21:47:12.824107	2014-02-05 21:47:12.824107	t
+63	2	4	\N	Okay everyone, let's look at this image	39	\N	\N	\N	\N	39.63	2014-02-06 19:30:05.953171	2014-02-06 19:30:05.953171	t
+35	2	4	\N	\N	\N	\N	\N	\N	\N	35	2014-02-06 02:14:34.331875	2014-02-06 02:14:34.331875	t
+5	2	4	\N	This should have an image	3	\N	\N	\N	\N	3.5	2014-02-05 22:51:37.665358	2014-02-05 22:54:38.70982	t
+6	2	4	\N	another image	3	\N	\N	\N	\N	3.6	2014-02-05 23:30:11.869928	2014-02-05 23:30:11.869928	t
+64	2	4	\N	Okay everyone, let's look at this image	39	\N	\N	\N	\N	39.64	2014-02-06 19:30:45.948164	2014-02-06 19:30:45.948164	t
+7	2	4	\N	yet another image\n	3	\N	\N	\N	\N	3.7	2014-02-05 23:33:16.710645	2014-02-05 23:33:16.710645	t
+8	2	4	\N	another image comment	3	\N	\N	\N	\N	3.8	2014-02-05 23:34:00.816807	2014-02-05 23:34:00.816807	t
+65	2	4	\N	parent parent	3	\N	\N	\N	\N	3.65	2014-02-06 19:31:21.668169	2014-02-06 19:31:21.668169	t
+10	2	5	\N	testing2	4	\N	\N	\N	\N	3.4.10	2014-02-05 23:57:12.98326	2014-02-05 23:57:12.98326	t
+66	2	4	\N	Testing parent parent	4	\N	\N	\N	\N	3.4.66	2014-02-06 19:31:34.851613	2014-02-06 19:31:34.851613	t
+12	2	4	\N	This photo seems okay I guess	4	\N	\N	\N	\N	3.4.12	2014-02-06 00:05:43.405014	2014-02-06 00:05:43.405014	t
+67	2	4	\N	This is Bread.	4	\N	\N	\N	\N	3.4.67	2014-02-06 19:36:21.400519	2014-02-06 19:36:21.400519	t
+68	2	4	\N	This is Bread.	4	\N	\N	\N	\N	3.4.68	2014-02-06 19:36:40.810683	2014-02-06 19:36:40.810683	t
+15	2	4	\N		3	\N	\N	\N	\N	3.15	2014-02-06 00:27:32.497553	2014-02-06 00:27:32.497553	t
+16	2	4	\N	testing testings	3	\N	\N	\N	\N	3.16	2014-02-06 00:29:01.086736	2014-02-06 00:29:01.086736	t
+13	2	4	\N	Check out my photo!	4	\N	-1	{"up":[],"down":[4]}	\N	3.4.13	2014-02-06 00:10:58.390008	2014-02-06 23:29:02.545635	t
+17	2	4	\N	test	3	\N	\N	\N	\N	3.17	2014-02-06 00:49:35.211829	2014-02-06 00:49:35.211829	t
+9	2	5	\N	Looky!	3	\N	1	{"up":[5],"down":[]}	\N	3.9	2014-02-05 23:55:28.708632	2014-02-07 00:11:13.697419	t
+18	2	4	\N	test	3	\N	\N	\N	\N	3.18	2014-02-06 01:00:47.324624	2014-02-06 01:00:47.324624	t
+14	2	4	\N		3	\N	1	{"up":[5],"down":[]}	\N	3.14	2014-02-06 00:27:29.275576	2014-02-07 00:11:14.577132	t
+19	2	4	\N		3	\N	\N	\N	\N	3.19	2014-02-06 01:02:38.72827	2014-02-06 01:02:38.72827	t
+2	2	5	\N	I agree! So much do I agree	1	\N	1	{"up":[5],"down":[]}	\N	1.2	2014-02-05 18:41:57.354819	2014-02-08 00:19:57.628209	f
+20	2	4	\N		3	\N	\N	\N	\N	3.20	2014-02-06 01:04:54.807027	2014-02-06 01:04:54.807027	t
+21	2	4	\N	test	3	\N	\N	\N	\N	3.21	2014-02-06 01:06:43.188239	2014-02-06 01:06:43.188239	t
+22	2	4	\N	test	3	\N	\N	\N	\N	3.22	2014-02-06 01:07:39.54531	2014-02-06 01:07:39.54531	t
+23	2	4	\N	test	3	\N	\N	\N	\N	3.23	2014-02-06 01:08:15.400936	2014-02-06 01:08:15.400936	t
+24	2	4	\N	test	3	\N	\N	\N	\N	3.24	2014-02-06 01:13:13.860857	2014-02-06 01:13:13.860857	t
+25	2	4	\N	test	3	\N	\N	\N	\N	3.25	2014-02-06 01:13:43.233958	2014-02-06 01:13:43.233958	t
+26	2	4	\N	test	3	\N	\N	\N	\N	3.26	2014-02-06 01:14:01.176303	2014-02-06 01:14:01.176303	t
+27	2	4	\N	test	3	\N	\N	\N	\N	3.27	2014-02-06 01:26:11.584643	2014-02-06 01:26:11.584643	t
+28	2	4	\N	test	3	\N	\N	\N	\N	3.28	2014-02-06 01:26:57.694648	2014-02-06 01:26:57.694648	t
+29	2	4	\N	test	3	\N	\N	\N	\N	3.29	2014-02-06 01:27:10.273755	2014-02-06 01:27:10.273755	t
+30	2	4	\N	\N	\N	\N	\N	\N	\N	30	2014-02-06 02:08:13.632181	2014-02-06 02:08:13.632181	t
+31	2	4	\N	\N	\N	\N	\N	\N	\N	31	2014-02-06 02:08:32.34061	2014-02-06 02:08:32.34061	t
+32	2	4	\N	\N	\N	\N	\N	\N	\N	32	2014-02-06 02:12:19.217444	2014-02-06 02:12:19.217444	t
+33	2	4	\N	\N	\N	\N	\N	\N	\N	33	2014-02-06 02:13:01.857267	2014-02-06 02:13:01.857267	t
+34	2	4	\N	\N	\N	\N	\N	\N	\N	34	2014-02-06 02:14:10.11251	2014-02-06 02:14:10.11251	t
+36	2	4	\N	\N	\N	\N	\N	\N	\N	36	2014-02-06 02:14:46.36949	2014-02-06 02:14:46.36949	t
+37	2	4	\N	\N	\N	\N	\N	\N	\N	37	2014-02-06 02:15:21.353596	2014-02-06 02:15:21.353596	t
+38	2	4	\N	\N	\N	\N	\N	\N	\N	38	2014-02-06 02:18:53.467414	2014-02-06 02:18:53.467414	t
+39	2	4	\N	testing	\N	\N	\N	\N	\N	39	2014-02-06 02:20:47.983912	2014-02-06 02:20:47.983912	t
+4	2	4	\N	Testing	3	\N	\N	\N	\N	3.4	2014-02-05 21:47:36.682175	2014-02-06 18:25:20.728932	t
+40	2	4	\N	Testing	\N	\N	\N	\N	\N	40	2014-02-06 18:25:35.61104	2014-02-06 18:25:35.61104	t
+41	2	4	\N	Testing	\N	\N	\N	\N	\N	41	2014-02-06 18:28:12.469449	2014-02-06 18:28:12.469449	t
+42	2	4	\N	Testing 10:29am	4	\N	\N	\N	\N	3.4.42	2014-02-06 18:29:57.571545	2014-02-06 18:29:57.571545	t
+43	2	4	\N	testing2	\N	\N	\N	\N	\N	43	2014-02-06 18:50:51.774514	2014-02-06 18:50:51.774514	t
+44	2	4	\N	testing2	\N	\N	\N	\N	\N	44	2014-02-06 18:51:34.484145	2014-02-06 18:51:34.484145	t
+45	2	4	\N	10:53	\N	\N	\N	\N	\N	45	2014-02-06 18:53:26.13808	2014-02-06 18:53:26.13808	t
+46	2	4	\N	11:09	\N	\N	\N	\N	\N	46	2014-02-06 19:09:43.024016	2014-02-06 19:09:43.024016	t
+47	2	4	\N	11:10	\N	\N	\N	\N	\N	47	2014-02-06 19:10:10.918887	2014-02-06 19:10:10.918887	t
+48	2	4	\N	Testing	\N	\N	\N	\N	\N	48	2014-02-06 19:13:01.818894	2014-02-06 19:13:01.818894	t
+49	2	4	\N	Testing	\N	\N	\N	\N	\N	49	2014-02-06 19:16:55.714762	2014-02-06 19:16:55.714762	t
+50	2	4	\N	11:20	3	\N	\N	\N	\N	3.50	2014-02-06 19:17:55.899284	2014-02-06 19:17:55.899284	t
+51	2	4	\N	Newest test forever 11:350	4	\N	\N	\N	\N	3.4.51	2014-02-06 19:19:16.223763	2014-02-06 19:19:16.223763	t
+52	2	4	\N	11 thousand	50	\N	\N	\N	\N	3.50.52	2014-02-06 19:19:42.881672	2014-02-06 19:19:42.881672	t
+53	2	4	\N	This ist he first comment	49	\N	\N	\N	\N	49.53	2014-02-06 19:21:52.195552	2014-02-06 19:21:52.195552	t
+54	2	4	\N	Know what's great?	53	\N	\N	\N	\N	49.53.54	2014-02-06 19:22:22.083716	2014-02-06 19:22:22.083716	t
+55	2	4	\N	This ist he first comment	53	\N	\N	\N	\N	49.53.55	2014-02-06 19:24:09.419844	2014-02-06 19:24:09.419844	t
+56	2	4	\N	This ist he first comment	53	\N	\N	\N	\N	49.53.56	2014-02-06 19:24:47.703964	2014-02-06 19:24:47.703964	t
+57	2	4	\N	asdfasdf	53	\N	\N	\N	\N	49.53.57	2014-02-06 19:25:06.411435	2014-02-06 19:25:06.411435	t
+58	2	4	\N	loopy?	57	\N	\N	\N	\N	49.53.57.58	2014-02-06 19:25:45.735008	2014-02-06 19:25:45.735008	t
+59	2	4	\N	ultraloop	58	\N	\N	\N	\N	49.53.57.58.59	2014-02-06 19:26:33.048517	2014-02-06 19:26:33.048517	t
+60	2	4	\N	ultraloop2	59	\N	\N	\N	\N	49.53.57.58.59.60	2014-02-06 19:27:15.887508	2014-02-06 19:27:15.887508	t
+69	2	4	\N	What about here?	3	\N	\N	\N	\N	3.69	2014-02-06 19:36:59.382262	2014-02-06 19:36:59.382262	t
+70	2	4	\N	Aaaand then let's see if this nests.	69	\N	\N	\N	\N	3.69.70	2014-02-06 19:37:41.154817	2014-02-06 19:37:41.154817	t
+71	2	4	\N	test wihtout iemage	70	\N	\N	\N	\N	3.69.70.71	2014-02-06 19:50:58.519544	2014-02-06 19:50:58.519544	t
+72	2	4	\N	test wihtout iemage	70	\N	\N	\N	\N	3.69.70.72	2014-02-06 19:51:44.223069	2014-02-06 19:51:44.223069	t
+73	2	4	\N	PARENT PARENT	65	\N	\N	\N	\N	3.65.73	2014-02-06 19:53:14.118026	2014-02-06 19:53:14.118026	t
+74	2	4	\N	bad ways to do things	17	\N	\N	\N	\N	3.17.74	2014-02-06 19:53:33.712272	2014-02-06 19:53:33.712272	t
+76	2	4	\N	testing2	10	\N	\N	\N	\N	3.4.10.76	2014-02-06 23:28:46.806606	2014-02-06 23:28:46.806606	t
+11	2	5	\N	another nest?!	10	\N	1	{"up":[4],"down":[]}	\N	3.4.10.11	2014-02-05 23:57:20.197578	2014-02-06 23:28:58.120708	t
+75	2	4	\N	Everything you do is horrible, bread image.	10	\N	1	{"up":[4],"down":[]}	\N	3.4.10.75	2014-02-06 22:09:44.149271	2014-02-06 23:28:59.370318	t
+77	2	5	\N	Hey, it's a user comment	4	\N	\N	\N	\N	3.4.77	2014-02-06 23:43:14.92966	2014-02-06 23:43:14.92966	t
+78	2	5	\N	This is a new comment thread	3	\N	\N	\N	\N	3.78	2014-02-07 00:10:53.711182	2014-02-07 00:10:53.711182	t
+79	2	5	\N	This is a new comment thread	3	\N	\N	\N	\N	3.79	2014-02-07 00:10:57.665264	2014-02-07 00:10:57.665264	t
+80	2	4	\N	This photo seems okay I guess	12	\N	\N	\N	\N	3.4.12.80	2014-02-07 23:17:41.016342	2014-02-07 23:17:41.016342	t
+81	2	4	\N	Testing 3:18pm	68	\N	\N	\N	\N	3.4.68.81	2014-02-07 23:18:12.026311	2014-02-07 23:18:12.026311	t
+82	2	4	\N	testing 3;20	80	\N	\N	\N	\N	3.4.12.80.82	2014-02-07 23:21:02.190414	2014-02-07 23:21:02.190414	t
+83	2	4	\N	This photo seems okay I guess	80	\N	\N	\N	\N	3.4.12.80.83	2014-02-07 23:43:28.341311	2014-02-07 23:43:28.341311	t
+84	2	4	\N	3:46 testing	80	\N	\N	\N	\N	3.4.12.80.84	2014-02-07 23:46:31.025285	2014-02-07 23:46:31.025285	t
+85	2	4	\N	3:46 testing	80	\N	\N	\N	\N	3.4.12.80.85	2014-02-07 23:48:12.686712	2014-02-07 23:48:12.686712	t
+86	2	4	\N	2.7.14	80	\N	\N	\N	\N	3.4.12.80.86	2014-02-07 23:49:02.91983	2014-02-07 23:49:02.91983	t
+87	2	4	\N	test 3:50pm	80	\N	\N	\N	\N	3.4.12.80.87	2014-02-07 23:50:13.103837	2014-02-07 23:50:13.103837	t
+88	2	4	\N	3:53	12	\N	\N	\N	\N	3.4.12.88	2014-02-07 23:53:12.609363	2014-02-07 23:53:12.609363	t
+89	2	4	\N	Maybe....maybe this isn't an issue.	10	\N	\N	\N	\N	3.4.10.89	2014-02-07 23:56:52.764298	2014-02-07 23:56:52.764298	t
+90	2	4	\N	This is a disaster	10	\N	\N	\N	\N	3.4.10.90	2014-02-08 00:07:41.915562	2014-02-08 00:07:41.915562	t
+91	2	4	\N	Testing	4	\N	\N	\N	\N	3.4.91	2014-02-08 00:18:48.904831	2014-02-08 00:18:48.904831	t
+92	2	4	\N	Hey look, bread!	1	\N	\N	\N	\N	1.92	2014-02-08 00:20:12.41007	2014-02-08 00:20:12.41007	t
+93	2	4	\N	I agree, that's definitely bread	92	\N	\N	\N	\N	1.92.93	2014-02-08 00:20:28.620639	2014-02-08 00:20:28.620639	t
+94	2	4	\N	Testing testing 4:41	93	\N	\N	\N	\N	1.92.93.94	2014-02-08 00:41:17.522215	2014-02-08 00:41:17.522215	t
+95	2	4	\N	testing 4:43	92	\N	\N	\N	\N	1.92.95	2014-02-08 00:42:49.52009	2014-02-08 00:42:49.52009	t
+96	2	4	\N	bread again	92	\N	\N	\N	\N	1.92.96	2014-02-08 00:43:03.739251	2014-02-08 00:43:03.739251	t
+97	2	4	\N	This is the 4:47 comment	93	\N	\N	\N	\N	1.92.93.97	2014-02-08 00:47:13.335099	2014-02-08 00:47:13.335099	t
+98	2	4	\N	Testing 4:59	92	\N	\N	\N	\N	1.92.98	2014-02-08 00:59:14.86908	2014-02-08 00:59:14.86908	t
+99	2	4	\N	I should be a child of 92!	92	\N	\N	\N	\N	1.92.99	2014-02-08 01:00:20.722811	2014-02-08 01:00:20.722811	t
+100	2	5	\N	Add your comment here	11	\N	\N	\N	\N	3.4.10.11.100	2014-02-08 01:33:19.25379	2014-02-08 01:33:19.25379	t
+101	2	5	\N	Testing 5:33	100	\N	\N	\N	\N	3.4.10.11.100.101	2014-02-08 01:33:57.363185	2014-02-08 01:33:57.363185	t
+102	2	5	\N	Add your comment here	11	\N	\N	\N	\N	3.4.10.11.102	2014-02-08 01:34:25.179243	2014-02-08 01:34:25.179243	t
+103	2	5	\N	Add your comment here	10	\N	\N	\N	\N	3.4.10.103	2014-02-08 01:36:35.484683	2014-02-08 01:36:35.484683	t
+104	2	5	\N	Top level	30	\N	\N	\N	\N	30.104	2014-02-08 01:36:57.304754	2014-02-08 01:36:57.304754	t
+105	2	5	\N	Did I break something?	30	\N	\N	\N	\N	30.105	2014-02-08 01:37:05.894612	2014-02-08 01:37:05.894612	t
+106	2	5	\N	testing	104	\N	\N	\N	\N	30.104.106	2014-02-08 01:37:19.562573	2014-02-08 01:37:19.562573	t
+107	2	5	\N	Testing again\n	105	\N	\N	\N	\N	30.105.107	2014-02-08 01:37:32.243187	2014-02-08 01:37:32.243187	t
+108	2	5	\N	testing3	104	\N	\N	\N	\N	30.104.108	2014-02-08 01:38:23.012253	2014-02-08 01:38:23.012253	t
+109	2	5	\N	image	104	\N	\N	\N	\N	30.104.109	2014-02-08 01:39:02.146736	2014-02-08 01:39:02.146736	t
+110	2	5	\N	test	109	\N	\N	\N	\N	30.104.109.110	2014-02-08 01:39:16.527388	2014-02-08 01:39:16.527388	t
+111	2	5	\N	on page test\n	109	\N	\N	\N	\N	30.104.109.111	2014-02-08 01:39:39.909957	2014-02-08 01:39:39.909957	t
+112	2	5	\N	again5	108	\N	\N	\N	\N	30.104.108.112	2014-02-08 01:40:02.670976	2014-02-08 01:40:02.670976	t
+113	2	5	\N	test2	109	\N	\N	\N	\N	30.104.109.113	2014-02-08 01:40:36.18041	2014-02-08 01:40:36.18041	t
+114	2	5	\N	\ntest7	110	\N	\N	\N	\N	30.104.109.110.114	2014-02-08 01:41:32.724484	2014-02-08 01:41:32.724484	t
+115	2	5	\N	test9\n	110	\N	\N	\N	\N	30.104.109.110.115	2014-02-08 01:41:44.859214	2014-02-08 01:41:44.859214	t
+116	2	5	\N	test	30	\N	\N	\N	\N	30.116	2014-02-08 01:41:53.290787	2014-02-08 01:41:53.290787	t
+117	2	5	\N	test	30	\N	\N	\N	\N	30.117	2014-02-08 01:42:02.985044	2014-02-08 01:42:02.985044	t
+\.
+
+
+--
+-- Name: course_comments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('course_comments_id_seq', 117, true);
+
+
+--
+-- Data for Name: course_details; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY course_details (id, course_id, headline, role, skill, overview, invitation_statement, lessons_introduction, instructor_motivation, welcome_statement, welcome_back_statement, total_video_duration, intro_video_id, created_at, updated_at, short_description, featured_review) FROM stdin;
+1	1	<h1>Will Smith</h1><h2>teaches you Pretending</h2><h3>in this online class</h3>	shark expert	Pretending	Ennui selfies direct trade, veniam viral farm-to-table commodo fixie plaid. Eiusmod sed consequat commodo odio deep v, wayfarers laboris. Aute synth gentrify blog, drinking vinegar biodiesel commodo scenester cardigan tempor forage nesciunt. Street art disrupt paleo Brooklyn, cupidatat retro Odd Future cornhole ad sartorial freegan Tonx four loko. Gentrify assumenda incididunt in sint mustache vinyl. American Apparel artisan cliche bitters labore wolf, synth Godard laboris. Butcher Odd Future delectus letterpress bicycle rights.	You should sign up for this course!	Here is what we will learn.	\N	Welcome to the course!	Welcome back!	55:55	2746311537001	2014-01-31 20:18:01.580189	2014-01-31 20:18:01.580189	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	Wow! All my questions about robots have been answered!
+3	3	<h1>Oprah Winfrey</h1><h2>teaches you Vaulting</h2><h3>in this online class</h3>	disgraced politician	Vaulting	Ennui selfies direct trade, veniam viral farm-to-table commodo fixie plaid. Eiusmod sed consequat commodo odio deep v, wayfarers laboris. Aute synth gentrify blog, drinking vinegar biodiesel commodo scenester cardigan tempor forage nesciunt. Street art disrupt paleo Brooklyn, cupidatat retro Odd Future cornhole ad sartorial freegan Tonx four loko. Gentrify assumenda incididunt in sint mustache vinyl. American Apparel artisan cliche bitters labore wolf, synth Godard laboris. Butcher Odd Future delectus letterpress bicycle rights.	You should sign up for this course!	Here is what we will learn.	\N	Welcome to the course!	Welcome back!	55:55	2746311537001	2014-01-31 20:18:01.81074	2014-01-31 20:18:01.81074	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	Wow! All my questions about weasels have been answered!
+4	4	<h1>Sir Isaac Newton</h1><h2>teaches you Archaeology</h2><h3>in this online class</h3>	post-it-note inventor	Archaeology	Ennui selfies direct trade, veniam viral farm-to-table commodo fixie plaid. Eiusmod sed consequat commodo odio deep v, wayfarers laboris. Aute synth gentrify blog, drinking vinegar biodiesel commodo scenester cardigan tempor forage nesciunt. Street art disrupt paleo Brooklyn, cupidatat retro Odd Future cornhole ad sartorial freegan Tonx four loko. Gentrify assumenda incididunt in sint mustache vinyl. American Apparel artisan cliche bitters labore wolf, synth Godard laboris. Butcher Odd Future delectus letterpress bicycle rights.	You should sign up for this course!	Here is what we will learn.	\N	Welcome to the course!	Welcome back!	55:55	2746311537001	2014-01-31 20:18:01.846846	2014-01-31 20:18:01.846846	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	Wow! All my questions about machines have been answered!
+5	5	<h1>Leonardo da Vinci</h1><h2>teaches you Training</h2><h3>in this online class</h3>	triple-crown winning jockey	Training	Ennui selfies direct trade, veniam viral farm-to-table commodo fixie plaid. Eiusmod sed consequat commodo odio deep v, wayfarers laboris. Aute synth gentrify blog, drinking vinegar biodiesel commodo scenester cardigan tempor forage nesciunt. Street art disrupt paleo Brooklyn, cupidatat retro Odd Future cornhole ad sartorial freegan Tonx four loko. Gentrify assumenda incididunt in sint mustache vinyl. American Apparel artisan cliche bitters labore wolf, synth Godard laboris. Butcher Odd Future delectus letterpress bicycle rights.	You should sign up for this course!	Here is what we will learn.	\N	Welcome to the course!	Welcome back!	55:55	2746311537001	2014-01-31 20:18:01.88267	2014-01-31 20:18:01.88267	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	Wow! All my questions about bears have been answered!
+6	6	<h1>Lady Gaga</h1><h2>teaches you Maintenance</h2><h3>in this online class</h3>	recognizable television personality	Maintenance	Ennui selfies direct trade, veniam viral farm-to-table commodo fixie plaid. Eiusmod sed consequat commodo odio deep v, wayfarers laboris. Aute synth gentrify blog, drinking vinegar biodiesel commodo scenester cardigan tempor forage nesciunt. Street art disrupt paleo Brooklyn, cupidatat retro Odd Future cornhole ad sartorial freegan Tonx four loko. Gentrify assumenda incididunt in sint mustache vinyl. American Apparel artisan cliche bitters labore wolf, synth Godard laboris. Butcher Odd Future delectus letterpress bicycle rights.	You should sign up for this course!	Here is what we will learn.	\N	Welcome to the course!	Welcome back!	55:55	2746311537001	2014-01-31 20:18:01.966679	2014-01-31 20:18:01.966679	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	Wow! All my questions about situations have been answered!
+7	2	<h1>James Brown</h1><h2>teaches you Speedwalking</h2><h3>in this online class</h3>	nobel prize winning physicist	Speedwalking	Ennui selfies direct trade, veniam viral farm-to-table commodo fixie plaid. Eiusmod sed consequat commodo odio deep v, wayfarers laboris. Aute synth gentrify blog, drinking vinegar biodiesel commodo scenester cardigan tempor forage nesciunt. Street art disrupt paleo Brooklyn, cupidatat retro Odd Future cornhole ad sartorial freegan Tonx four loko. Gentrify assumenda incididunt in sint mustache vinyl. American Apparel artisan cliche bitters labore wolf, synth Godard laboris. Butcher Odd Future delectus letterpress bicycle rights.	\N	Here is what we will learn.		Welcome to the course!	Welcome back!	55:55	2746311537001	2014-02-05 23:29:18.296232	2014-02-05 23:29:18.296232	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	Wow! All my questions about confidence have been answered!
+\.
+
+
+--
+-- Name: course_details_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('course_details_id_seq', 7, true);
+
+
+--
+-- Data for Name: course_facts; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY course_facts (id, course_id, kind, "position", icon, number, title, description, created_at, updated_at) FROM stdin;
+1	1	interaction	1	fa fa-group	\N	Hang-Outs with Instructor	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.689418	2014-01-31 20:18:01.689418
+2	1	interaction	2	fa fa-comments	\N	Group Discussions	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.692218	2014-01-31 20:18:01.692218
+3	1	interaction	3	fa fa-check-circle	\N	Class Critiques	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.693215	2014-01-31 20:18:01.693215
+4	1	asset	1	fa fa-youtube-play	35	Videos	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.69433	2014-01-31 20:18:01.69433
+5	1	asset	2	fa fa-youtube-play	2	Assignments	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.695688	2014-01-31 20:18:01.695688
+6	1	asset	3	fa fa-suitcase	19	Bonus Materials	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.696663	2014-01-31 20:18:01.696663
+7	1	headline	1	\N	\N	How to compose your photo like a pro	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.697589	2014-01-31 20:18:01.697589
+8	1	headline	1	\N	\N	How to fine-tune your detailing skills	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.698645	2014-01-31 20:18:01.698645
+9	1	headline	1	\N	\N	How to give & take feedback	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.699574	2014-01-31 20:18:01.699574
+10	1	statistic	1	fa fa-youtube-play	12	Lessons	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.70046	2014-01-31 20:18:01.70046
+11	1	statistic	2	fa fa-youtube-play	3	Learning Tools	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.701367	2014-01-31 20:18:01.701367
+12	1	statistic	3	fa fa-suitcase	5	Bonus Videos	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.70233	2014-01-31 20:18:01.70233
+13	1	statistic	4	fa fa-suitcase	+	Time with Instructor	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.703262	2014-01-31 20:18:01.703262
+14	2	interaction	1	fa fa-group	\N	Hang-Outs with Instructor	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.781188	2014-01-31 20:18:01.781188
+15	2	interaction	2	fa fa-comments	\N	Group Discussions	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.782227	2014-01-31 20:18:01.782227
+16	2	interaction	3	fa fa-check-circle	\N	Class Critiques	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.783195	2014-01-31 20:18:01.783195
+17	2	asset	1	fa fa-youtube-play	35	Videos	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.784216	2014-01-31 20:18:01.784216
+18	2	asset	2	fa fa-youtube-play	2	Assignments	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.785242	2014-01-31 20:18:01.785242
+19	2	asset	3	fa fa-suitcase	19	Bonus Materials	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.78617	2014-01-31 20:18:01.78617
+20	2	headline	1	\N	\N	How to compose your photo like a pro	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.787097	2014-01-31 20:18:01.787097
+21	2	headline	1	\N	\N	How to fine-tune your detailing skills	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.788108	2014-01-31 20:18:01.788108
+22	2	headline	1	\N	\N	How to give & take feedback	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.789142	2014-01-31 20:18:01.789142
+23	2	statistic	1	fa fa-youtube-play	12	Lessons	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.790187	2014-01-31 20:18:01.790187
+24	2	statistic	2	fa fa-youtube-play	3	Learning Tools	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.791135	2014-01-31 20:18:01.791135
+25	2	statistic	3	fa fa-suitcase	5	Bonus Videos	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.79208	2014-01-31 20:18:01.79208
+26	2	statistic	4	fa fa-suitcase	+	Time with Instructor	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.793048	2014-01-31 20:18:01.793048
+27	3	interaction	1	fa fa-group	\N	Hang-Outs with Instructor	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.817682	2014-01-31 20:18:01.817682
+28	3	interaction	2	fa fa-comments	\N	Group Discussions	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.818635	2014-01-31 20:18:01.818635
+29	3	interaction	3	fa fa-check-circle	\N	Class Critiques	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.819579	2014-01-31 20:18:01.819579
+30	3	asset	1	fa fa-youtube-play	35	Videos	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.820489	2014-01-31 20:18:01.820489
+31	3	asset	2	fa fa-youtube-play	2	Assignments	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.821733	2014-01-31 20:18:01.821733
+32	3	asset	3	fa fa-suitcase	19	Bonus Materials	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.82269	2014-01-31 20:18:01.82269
+33	3	headline	1	\N	\N	How to compose your photo like a pro	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.823621	2014-01-31 20:18:01.823621
+34	3	headline	1	\N	\N	How to fine-tune your detailing skills	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.82452	2014-01-31 20:18:01.82452
+35	3	headline	1	\N	\N	How to give & take feedback	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.825419	2014-01-31 20:18:01.825419
+36	3	statistic	1	fa fa-youtube-play	12	Lessons	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.826335	2014-01-31 20:18:01.826335
+37	3	statistic	2	fa fa-youtube-play	3	Learning Tools	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.827303	2014-01-31 20:18:01.827303
+38	3	statistic	3	fa fa-suitcase	5	Bonus Videos	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.828413	2014-01-31 20:18:01.828413
+39	3	statistic	4	fa fa-suitcase	+	Time with Instructor	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.829418	2014-01-31 20:18:01.829418
+40	4	interaction	1	fa fa-group	\N	Hang-Outs with Instructor	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.853893	2014-01-31 20:18:01.853893
+41	4	interaction	2	fa fa-comments	\N	Group Discussions	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.854894	2014-01-31 20:18:01.854894
+42	4	interaction	3	fa fa-check-circle	\N	Class Critiques	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.855823	2014-01-31 20:18:01.855823
+43	4	asset	1	fa fa-youtube-play	35	Videos	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.856773	2014-01-31 20:18:01.856773
+44	4	asset	2	fa fa-youtube-play	2	Assignments	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.857697	2014-01-31 20:18:01.857697
+45	4	asset	3	fa fa-suitcase	19	Bonus Materials	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.858634	2014-01-31 20:18:01.858634
+46	4	headline	1	\N	\N	How to compose your photo like a pro	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.859566	2014-01-31 20:18:01.859566
+47	4	headline	1	\N	\N	How to fine-tune your detailing skills	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.860478	2014-01-31 20:18:01.860478
+48	4	headline	1	\N	\N	How to give & take feedback	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.861371	2014-01-31 20:18:01.861371
+49	4	statistic	1	fa fa-youtube-play	12	Lessons	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.862323	2014-01-31 20:18:01.862323
+50	4	statistic	2	fa fa-youtube-play	3	Learning Tools	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.863279	2014-01-31 20:18:01.863279
+51	4	statistic	3	fa fa-suitcase	5	Bonus Videos	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.86423	2014-01-31 20:18:01.86423
+52	4	statistic	4	fa fa-suitcase	+	Time with Instructor	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.865181	2014-01-31 20:18:01.865181
+53	5	interaction	1	fa fa-group	\N	Hang-Outs with Instructor	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.889418	2014-01-31 20:18:01.889418
+54	5	interaction	2	fa fa-comments	\N	Group Discussions	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.890376	2014-01-31 20:18:01.890376
+55	5	interaction	3	fa fa-check-circle	\N	Class Critiques	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.891308	2014-01-31 20:18:01.891308
+56	5	asset	1	fa fa-youtube-play	35	Videos	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.892249	2014-01-31 20:18:01.892249
+57	5	asset	2	fa fa-youtube-play	2	Assignments	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.941282	2014-01-31 20:18:01.941282
+58	5	asset	3	fa fa-suitcase	19	Bonus Materials	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.942945	2014-01-31 20:18:01.942945
+59	5	headline	1	\N	\N	How to compose your photo like a pro	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.943928	2014-01-31 20:18:01.943928
+60	5	headline	1	\N	\N	How to fine-tune your detailing skills	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.944881	2014-01-31 20:18:01.944881
+61	5	headline	1	\N	\N	How to give & take feedback	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.945856	2014-01-31 20:18:01.945856
+62	5	statistic	1	fa fa-youtube-play	12	Lessons	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.946748	2014-01-31 20:18:01.946748
+63	5	statistic	2	fa fa-youtube-play	3	Learning Tools	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.947695	2014-01-31 20:18:01.947695
+64	5	statistic	3	fa fa-suitcase	5	Bonus Videos	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.948616	2014-01-31 20:18:01.948616
+65	5	statistic	4	fa fa-suitcase	+	Time with Instructor	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.949539	2014-01-31 20:18:01.949539
+66	6	interaction	1	fa fa-group	\N	Hang-Outs with Instructor	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.973832	2014-01-31 20:18:01.973832
+67	6	interaction	2	fa fa-comments	\N	Group Discussions	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.974828	2014-01-31 20:18:01.974828
+68	6	interaction	3	fa fa-check-circle	\N	Class Critiques	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.975859	2014-01-31 20:18:01.975859
+69	6	asset	1	fa fa-youtube-play	35	Videos	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.976783	2014-01-31 20:18:01.976783
+70	6	asset	2	fa fa-youtube-play	2	Assignments	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.977717	2014-01-31 20:18:01.977717
+71	6	asset	3	fa fa-suitcase	19	Bonus Materials	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.978636	2014-01-31 20:18:01.978636
+72	6	headline	1	\N	\N	How to compose your photo like a pro	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.979667	2014-01-31 20:18:01.979667
+73	6	headline	1	\N	\N	How to fine-tune your detailing skills	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.980785	2014-01-31 20:18:01.980785
+74	6	headline	1	\N	\N	How to give & take feedback	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.981673	2014-01-31 20:18:01.981673
+75	6	statistic	1	fa fa-youtube-play	12	Lessons	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.982555	2014-01-31 20:18:01.982555
+76	6	statistic	2	fa fa-youtube-play	3	Learning Tools	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.983465	2014-01-31 20:18:01.983465
+77	6	statistic	3	fa fa-suitcase	5	Bonus Videos	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.98438	2014-01-31 20:18:01.98438
+78	6	statistic	4	fa fa-suitcase	+	Time with Instructor	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	2014-01-31 20:18:01.985325	2014-01-31 20:18:01.985325
+\.
+
+
+--
+-- Name: course_facts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('course_facts_id_seq', 78, true);
+
+
+--
+-- Data for Name: course_reviews; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY course_reviews (id, review, rating, name, location, course_id, user_id, visible, featured, "position", created_at, updated_at) FROM stdin;
+1	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	5	Bob Smith	New York City	1	1	t	t	1	2014-01-31 20:18:01.618823	2014-01-31 20:18:01.618823
+2	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	4	Alice Jenkins	Los Angeles	1	2	t	t	2	2014-01-31 20:18:01.621723	2014-01-31 20:18:01.621723
+3	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	5	Claire Jones	Miami	1	3	t	t	3	2014-01-31 20:18:01.623093	2014-01-31 20:18:01.623093
+4	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	5	Bob Smith	New York City	2	1	t	t	1	2014-01-31 20:18:01.777594	2014-01-31 20:18:01.777594
+5	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	4	Alice Jenkins	Los Angeles	2	2	t	t	2	2014-01-31 20:18:01.778763	2014-01-31 20:18:01.778763
+6	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	5	Claire Jones	Miami	2	3	t	t	3	2014-01-31 20:18:01.77997	2014-01-31 20:18:01.77997
+7	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	5	Bob Smith	New York City	3	1	t	t	1	2014-01-31 20:18:01.814021	2014-01-31 20:18:01.814021
+8	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	4	Alice Jenkins	Los Angeles	3	2	t	t	2	2014-01-31 20:18:01.815316	2014-01-31 20:18:01.815316
+9	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	5	Claire Jones	Miami	3	3	t	t	3	2014-01-31 20:18:01.816467	2014-01-31 20:18:01.816467
+10	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	5	Bob Smith	New York City	4	1	t	t	1	2014-01-31 20:18:01.850306	2014-01-31 20:18:01.850306
+11	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	4	Alice Jenkins	Los Angeles	4	2	t	t	2	2014-01-31 20:18:01.851542	2014-01-31 20:18:01.851542
+12	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	5	Claire Jones	Miami	4	3	t	t	3	2014-01-31 20:18:01.852681	2014-01-31 20:18:01.852681
+13	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	5	Bob Smith	New York City	5	1	t	t	1	2014-01-31 20:18:01.885844	2014-01-31 20:18:01.885844
+14	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	4	Alice Jenkins	Los Angeles	5	2	t	t	2	2014-01-31 20:18:01.887023	2014-01-31 20:18:01.887023
+15	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	5	Claire Jones	Miami	5	3	t	t	3	2014-01-31 20:18:01.88816	2014-01-31 20:18:01.88816
+16	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	5	Bob Smith	New York City	6	1	t	t	1	2014-01-31 20:18:01.969984	2014-01-31 20:18:01.969984
+17	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	4	Alice Jenkins	Los Angeles	6	2	t	t	2	2014-01-31 20:18:01.97121	2014-01-31 20:18:01.97121
+18	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	5	Claire Jones	Miami	6	3	t	t	3	2014-01-31 20:18:01.97245	2014-01-31 20:18:01.97245
+\.
+
+
+--
+-- Name: course_reviews_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('course_reviews_id_seq', 18, true);
+
+
+--
+-- Data for Name: courses; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY courses (id, title, slug, price, start_date, created_at, updated_at, category) FROM stdin;
+1	How to Reason With Robots	robots	9999	2014-01-31	2014-01-31 20:18:01.49672	2014-01-31 20:18:01.49672	Business
+2	How to Launder with Confidence	confidence	9999	2014-01-31	2014-01-31 20:18:01.773179	2014-01-31 20:18:01.773179	Winter
+3	How to Train Weasels	weasels	9999	2014-01-31	2014-01-31 20:18:01.809409	2014-01-31 20:18:01.809409	Business
+4	How to Build Time Machines	machines	9999	2014-01-31	2014-01-31 20:18:01.845495	2014-01-31 20:18:01.845495	Winter
+5	How to Hide from Bears	bears	9999	2014-01-31	2014-01-31 20:18:01.881291	2014-01-31 20:18:01.881291	Business
+6	How to Avoid Uncomfortable Situations	situations	9999	2014-01-31	2014-01-31 20:18:01.965226	2014-01-31 20:18:01.965226	Winter
+\.
+
+
+--
+-- Name: courses_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('courses_id_seq', 6, true);
+
+
+--
+-- Data for Name: courses_instructors; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY courses_instructors (id, course_id, instructor_id) FROM stdin;
+1	1	1
+2	2	2
+3	3	3
+4	4	4
+5	5	5
+6	6	6
+\.
+
+
+--
+-- Name: courses_instructors_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('courses_instructors_id_seq', 6, true);
+
+
+--
+-- Data for Name: documents; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY documents (id, kind, documentable_id, documentable_type, document_file_name, document_content_type, document_file_size, document_updated_at, created_at, updated_at, title, url) FROM stdin;
+\.
+
+
+--
+-- Name: documents_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('documents_id_seq', 1, false);
+
+
+--
+-- Data for Name: email_templates; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY email_templates (id, "from", subject, body, course_id, kind, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: email_templates_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('email_templates_id_seq', 1, false);
+
+
+--
+-- Data for Name: experiment_values; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY experiment_values (id, experiment, variation, key, value, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: experiment_values_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('experiment_values_id_seq', 1, false);
+
+
+--
+-- Data for Name: identities; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY identities (id, email, name, password_digest, created_at, updated_at, authentication_id, password_reset_token, password_reset_sent_at) FROM stdin;
+\.
+
+
+--
+-- Name: identities_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('identities_id_seq', 1, false);
+
+
+--
+-- Data for Name: images; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY images (id, imageable_id, imageable_type, kind, created_at, updated_at, image_file_name, image_content_type, image_file_size, image_updated_at) FROM stdin;
+1	1	Course	icon_tall	2014-01-31 20:20:00.401718	2014-01-31 20:20:00.401718	chris_rock.png	image/png	76706	2014-01-31 20:19:59.955292
+2	2	Course	icon_tall	2014-01-31 20:21:43.7886	2014-01-31 20:21:43.7886	celine_dion.png	image/png	101092	2014-01-31 20:21:43.599577
+3	3	Course	icon_tall	2014-01-31 20:23:03.008078	2014-01-31 20:23:03.008078	michael_phelps.png	image/png	98727	2014-01-31 20:23:02.742241
+4	2	Course	hero	2014-01-31 20:23:46.691484	2014-01-31 20:23:46.691484	john-yoko_copy.jpg	image/jpeg	205189	2014-01-31 20:23:46.18748
+5	2	Course	headline	2014-01-31 20:24:01.441517	2014-01-31 20:24:01.441517	bread-hero.jpg	image/jpeg	244642	2014-01-31 20:24:01.1327
+8	6	Course	icon	2014-01-31 20:24:55.998113	2014-01-31 20:24:55.998113	thumbnail-photos.jpg	image/jpeg	44163	2014-01-31 20:24:55.75254
+13	20	CourseFact	icon	2014-02-05 21:39:08.541117	2014-02-05 21:39:08.541117	Gmail_Icon.png	image/png	32450	2014-02-05 21:39:08.2057
+16	2	Course	\N	2014-02-05 22:47:19.297597	2014-02-05 22:47:19.297597	Gmail_Icon.png	image/png	32450	2014-02-05 22:47:19.084966
+17	2	Course	\N	2014-02-05 22:50:07.454497	2014-02-05 22:50:07.454497	Gmail_Icon.png	image/png	32450	2014-02-05 22:50:07.249224
+18	2	Course	\N	2014-02-05 22:51:09.520686	2014-02-05 22:51:09.520686	Gmail_Icon.png	image/png	32450	2014-02-05 22:51:09.305767
+19	2	Course	\N	2014-02-05 22:55:51.821561	2014-02-05 22:55:51.821561	Gmail_Icon.png	image/png	32450	2014-02-05 22:55:51.616405
+20	2	Course	\N	2014-02-05 23:05:52.015917	2014-02-05 23:05:52.015917	Bread.jpg	image/jpeg	4195847	2014-02-05 23:05:50.957074
+21	2	Course	\N	2014-02-05 23:06:40.395368	2014-02-05 23:06:40.395368	Gmail_Icon.png	image/png	32450	2014-02-05 23:06:40.191961
+22	2	Course	\N	2014-02-05 23:12:08.458215	2014-02-05 23:12:08.458215	bread-hero.jpg	image/jpeg	244642	2014-02-05 23:12:08.191246
+23	2	Course	\N	2014-02-05 23:12:27.420445	2014-02-05 23:12:27.420445	bread-hero.jpg	image/jpeg	244642	2014-02-05 23:12:27.210993
+24	2	Course	\N	2014-02-05 23:19:11.715065	2014-02-05 23:19:11.715065	accomplice_logo.png	image/png	100802	2014-02-05 23:18:47.015287
+34	8	CourseComment	\N	2014-02-05 23:52:18.882034	2014-02-05 23:52:18.882034	accomplice_logo.png	image/png	100802	2014-02-05 23:52:18.651858
+35	5	CourseComment	\N	2014-02-05 23:53:27.134147	2014-02-05 23:53:27.134147	google_cal.png	image/png	65346	2014-02-05 23:53:26.861082
+37	6	CourseComment	\N	2014-02-05 23:53:54.703896	2014-02-05 23:53:54.703896	pivotal_logo.png	image/png	25009	2014-02-05 23:53:54.434652
+39	10	CourseComment	\N	2014-02-06 00:12:04.343188	2014-02-06 00:12:04.343188	Bread.jpg	image/jpeg	4195847	2014-02-06 00:12:03.446269
+40	37	CourseComment	\N	2014-02-06 02:15:21.56335	2014-02-06 02:18:20.769173	john-yoko.jpg	image/jpeg	84123	2014-02-06 02:15:21.359657
+41	38	CourseComment	\N	2014-02-06 02:18:53.754008	2014-02-06 02:18:54.666437	john-yoko.jpg	image/jpeg	84123	2014-02-06 02:18:53.473438
+42	39	CourseComment	\N	2014-02-06 02:20:48.191082	2014-02-06 02:20:49.101224	john-yoko.jpg	image/jpeg	84123	2014-02-06 02:20:47.987874
+43	40	CourseComment	\N	2014-02-06 18:25:35.900454	2014-02-06 18:25:36.872826	alton-brown.jpg	image/jpeg	95549	2014-02-06 18:25:35.621406
+44	41	CourseComment	\N	2014-02-06 18:28:13.445519	2014-02-06 18:28:15.248709	Bread.jpg	image/jpeg	4195847	2014-02-06 18:28:12.476992
+45	43	CourseComment	\N	2014-02-06 18:50:52.233119	2014-02-06 18:50:52.703078	pivotal_logo.png	image/png	25009	2014-02-06 18:50:51.961882
+46	44	CourseComment	\N	2014-02-06 18:52:30.168043	2014-02-06 18:52:30.948826	c5logo.png	image/png	3754	2014-02-06 18:52:29.933693
+47	45	CourseComment	\N	2014-02-06 18:54:03.607028	2014-02-06 18:54:04.460495	pivotal_logo.png	image/png	25009	2014-02-06 18:54:03.361869
+48	46	CourseComment	\N	2014-02-06 19:09:47.38602	2014-02-06 19:09:48.372074	james-brown.jpg	image/jpeg	115973	2014-02-06 19:09:47.016636
+49	47	CourseComment	\N	2014-02-06 19:12:34.657148	2014-02-06 19:12:35.668007	bread-hero.jpg	image/jpeg	244642	2014-02-06 19:12:34.437854
+50	48	CourseComment	\N	2014-02-06 19:16:39.101575	2014-02-06 19:16:39.494839	soundcloud-logo.png	image/png	10783	2014-02-06 19:16:38.937091
+51	49	CourseComment	\N	2014-02-06 19:17:26.783254	2014-02-06 19:17:27.54276	c5logo.png	image/png	3754	2014-02-06 19:17:26.524294
+52	50	CourseComment	\N	2014-02-06 19:18:10.744775	2014-02-06 19:18:11.584881	pivotal_logo.png	image/png	25009	2014-02-06 19:18:10.467325
+67	66	CourseComment	\N	2014-02-06 19:31:35.112737	2014-02-06 19:31:35.758199	james-brown.jpg	image/jpeg	115973	2014-02-06 19:31:34.859972
+54	53	CourseComment	\N	2014-02-06 19:21:55.716054	2014-02-06 19:21:56.589821	Gmail_Icon.png	image/png	32450	2014-02-06 19:21:55.500882
+55	54	CourseComment	\N	2014-02-06 19:22:24.953325	2014-02-06 19:22:25.838174	c5logo.png	image/png	3754	2014-02-06 19:22:24.812493
+56	55	CourseComment	\N	2014-02-06 19:24:21.668461	2014-02-06 19:24:22.605573	google_cal.png	image/png	65346	2014-02-06 19:24:21.501744
+57	56	CourseComment	\N	2014-02-06 19:25:05.793676	2014-02-06 19:25:06.237539	google_cal.png	image/png	65346	2014-02-06 19:25:05.622894
+59	58	CourseComment	\N	2014-02-06 19:25:48.101409	2014-02-06 19:25:49.078842	pivotal_logo.png	image/png	25009	2014-02-06 19:25:47.94296
+60	59	CourseComment	\N	2014-02-06 19:26:37.276142	2014-02-06 19:26:37.78721	james-brown-hero.jpg	image/jpeg	72658	2014-02-06 19:26:36.933936
+61	60	CourseComment	\N	2014-02-06 19:27:18.313675	2014-02-06 19:27:19.157641	pivotal_logo.png	image/png	25009	2014-02-06 19:27:18.012893
+62	61	CourseComment	\N	2014-02-06 19:28:03.846746	2014-02-06 19:28:04.697628	Gmail_Icon.png	image/png	32450	2014-02-06 19:28:03.627855
+63	62	CourseComment	\N	2014-02-06 19:28:39.594413	2014-02-06 19:28:40.154495	bread-hero.jpg	image/jpeg	244642	2014-02-06 19:28:39.370114
+64	63	CourseComment	\N	2014-02-06 19:30:35.863126	2014-02-06 19:30:36.446509	alton-brown.jpg	image/jpeg	95549	2014-02-06 19:30:35.550982
+65	64	CourseComment	\N	2014-02-06 19:30:46.281682	2014-02-06 19:30:46.811793	alton-brown.jpg	image/jpeg	95549	2014-02-06 19:30:46.093913
+66	65	CourseComment	\N	2014-02-06 19:31:21.891521	2014-02-06 19:31:22.773898	Gmail_Icon.png	image/png	32450	2014-02-06 19:31:21.673143
+68	67	CourseComment	\N	2014-02-06 19:36:22.459372	2014-02-06 19:36:24.721984	Bread.jpg	image/jpeg	4195847	2014-02-06 19:36:21.409281
+69	68	CourseComment	\N	2014-02-06 19:36:41.72972	2014-02-06 19:36:43.653083	Bread.jpg	image/jpeg	4195847	2014-02-06 19:36:40.838157
+70	69	CourseComment	\N	2014-02-06 19:36:59.547808	2014-02-06 19:37:00.402714	pivotal_logo.png	image/png	25009	2014-02-06 19:36:59.387413
+72	75	CourseComment	\N	2014-02-06 22:09:44.520663	2014-02-06 22:09:45.456689	c5logo.png	image/png	3754	2014-02-06 22:09:44.154746
+73	76	CourseComment	\N	2014-02-06 23:28:47.187167	2014-02-06 23:28:47.988261	c5logo.png	image/png	3754	2014-02-06 23:28:46.812808
+74	77	CourseComment	\N	2014-02-06 23:43:15.373178	2014-02-06 23:43:15.950787	Gmail_Icon.png	image/png	32450	2014-02-06 23:43:14.934549
+75	78	CourseComment	\N	2014-02-07 00:10:54.179766	2014-02-07 00:10:55.324938	bread-hero.jpg	image/jpeg	244642	2014-02-07 00:10:53.738033
+76	79	CourseComment	\N	2014-02-07 00:10:57.903982	2014-02-07 00:10:58.702508	bread-hero.jpg	image/jpeg	244642	2014-02-07 00:10:57.670427
+77	21	CourseFact	icon	2014-02-07 20:02:34.560353	2014-02-07 20:02:34.560353	john-yoko.jpg	image/jpeg	84123	2014-02-07 20:02:34.283089
+78	80	CourseComment	\N	2014-02-07 23:17:41.320766	2014-02-07 23:17:43.175934	Gmail_Icon.png	image/png	32450	2014-02-07 23:17:41.049423
+79	81	CourseComment	\N	2014-02-07 23:18:12.224322	2014-02-07 23:18:13.26195	Gmail_Icon.png	image/png	32450	2014-02-07 23:18:12.031292
+80	82	CourseComment	\N	2014-02-07 23:27:57.679489	2014-02-07 23:27:58.968659	accomplice_logo.png	image/png	100802	2014-02-07 23:27:57.459987
+81	83	CourseComment	\N	2014-02-07 23:43:28.547318	2014-02-07 23:43:29.174951	john-yoko.jpg	image/jpeg	84123	2014-02-07 23:43:28.347484
+82	84	CourseComment	\N	2014-02-07 23:48:11.866381	2014-02-07 23:48:12.659006	c5logo.png	image/png	3754	2014-02-07 23:48:11.646763
+84	86	CourseComment	\N	2014-02-07 23:49:54.635096	2014-02-07 23:49:55.968254	c5logo.png	image/png	3754	2014-02-07 23:49:54.435453
+85	87	CourseComment	\N	2014-02-07 23:53:00.032651	2014-02-07 23:53:00.573527	google_cal.png	image/png	65346	2014-02-07 23:52:59.791801
+86	88	CourseComment	\N	2014-02-07 23:53:22.556436	2014-02-07 23:53:24.33771	Bread.jpg	image/jpeg	4195847	2014-02-07 23:53:21.680882
+87	90	CourseComment	\N	2014-02-08 00:07:42.054336	2014-02-08 00:07:42.678661	c5logo.png	image/png	3754	2014-02-08 00:07:41.920356
+88	92	CourseComment	\N	2014-02-08 00:20:13.296993	2014-02-08 00:20:14.852493	Bread.jpg	image/jpeg	4195847	2014-02-08 00:20:12.421865
+89	93	CourseComment	\N	2014-02-08 00:20:28.866303	2014-02-08 00:20:29.72601	pivotal_logo.png	image/png	25009	2014-02-08 00:20:28.629796
+90	96	CourseComment	\N	2014-02-08 00:43:04.795291	2014-02-08 00:43:06.896972	Bread.jpg	image/jpeg	4195847	2014-02-08 00:43:03.751201
+91	97	CourseComment	\N	2014-02-08 00:50:25.350395	2014-02-08 00:50:26.216048	Gmail_Icon.png	image/png	32450	2014-02-08 00:50:25.141338
+92	98	CourseComment	\N	2014-02-08 00:59:25.160826	2014-02-08 00:59:25.668008	john-yoko.jpg	image/jpeg	84123	2014-02-08 00:59:24.858686
+93	99	CourseComment	\N	2014-02-08 01:00:35.034045	2014-02-08 01:00:35.858274	pivotal_logo.png	image/png	25009	2014-02-08 01:00:34.880388
+94	109	CourseComment	\N	2014-02-08 01:39:03.044771	2014-02-08 01:39:05.0494	Bread.jpg	image/jpeg	4195847	2014-02-08 01:39:02.154308
+95	117	CourseComment	\N	2014-02-08 01:42:03.148988	2014-02-08 01:42:03.90875	c5logo.png	image/png	3754	2014-02-08 01:42:02.990283
+96	1	Course	icon	2014-02-18 23:56:46.763731	2014-02-18 23:56:46.763731	Hills.png	image/png	110638	2014-02-18 23:56:46.498762
+98	2	Course	icon	2014-02-19 00:23:45.807172	2014-02-19 00:23:45.807172	jays.png	image/png	102487	2014-02-19 00:23:45.5098
+99	3	Course	icon	2014-02-19 00:25:55.716087	2014-02-19 00:25:55.716087	thisguy.png	image/png	45963	2014-02-19 00:25:55.514514
+101	4	Course	icon	2014-02-19 00:33:21.401987	2014-02-19 00:33:21.401987	mayas.png	image/png	64018	2014-02-19 00:33:21.199605
+102	5	Course	icon	2014-02-19 00:34:05.353716	2014-02-19 00:34:05.353716	bills.png	image/png	59250	2014-02-19 00:34:05.155147
+104	1	Course	hero	2014-04-07 19:36:49.278662	2014-04-07 19:36:49.278662	bg-hero.jpg	image/jpeg	346717	2014-04-07 19:36:48.453319
+\.
+
+
+--
+-- Name: images_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('images_id_seq', 104, true);
+
+
+--
+-- Data for Name: instructors; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY instructors (id, name, short_bio, long_bio, slug, created_at, updated_at, email, testimonials, user_id) FROM stdin;
+1	Will Smith	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	Ennui selfies direct trade, veniam viral farm-to-table commodo fixie plaid. Eiusmod sed consequat commodo odio deep v, wayfarers laboris. Aute synth gentrify blog, drinking vinegar biodiesel commodo scenester cardigan tempor forage nesciunt. Street art disrupt paleo Brooklyn, cupidatat retro Odd Future cornhole ad sartorial freegan Tonx four loko. Gentrify assumenda incididunt in sint mustache vinyl. American Apparel artisan cliche bitters labore wolf, synth Godard laboris. Butcher Odd Future delectus letterpress bicycle rights.	will-smith	2014-01-31 20:18:01.447165	2014-01-31 20:18:01.447165	instructor0@example.com	so very good	\N
+2	James Brown	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	Ennui selfies direct trade, veniam viral farm-to-table commodo fixie plaid. Eiusmod sed consequat commodo odio deep v, wayfarers laboris. Aute synth gentrify blog, drinking vinegar biodiesel commodo scenester cardigan tempor forage nesciunt. Street art disrupt paleo Brooklyn, cupidatat retro Odd Future cornhole ad sartorial freegan Tonx four loko. Gentrify assumenda incididunt in sint mustache vinyl. American Apparel artisan cliche bitters labore wolf, synth Godard laboris. Butcher Odd Future delectus letterpress bicycle rights.	james-brown	2014-01-31 20:18:01.771403	2014-01-31 20:18:01.771403	instructor1@example.com	so very good	\N
+3	Oprah Winfrey	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	Ennui selfies direct trade, veniam viral farm-to-table commodo fixie plaid. Eiusmod sed consequat commodo odio deep v, wayfarers laboris. Aute synth gentrify blog, drinking vinegar biodiesel commodo scenester cardigan tempor forage nesciunt. Street art disrupt paleo Brooklyn, cupidatat retro Odd Future cornhole ad sartorial freegan Tonx four loko. Gentrify assumenda incididunt in sint mustache vinyl. American Apparel artisan cliche bitters labore wolf, synth Godard laboris. Butcher Odd Future delectus letterpress bicycle rights.	oprah-winfrey	2014-01-31 20:18:01.807598	2014-01-31 20:18:01.807598	instructor2@example.com	so very good	\N
+4	Sir Isaac Newton	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	Ennui selfies direct trade, veniam viral farm-to-table commodo fixie plaid. Eiusmod sed consequat commodo odio deep v, wayfarers laboris. Aute synth gentrify blog, drinking vinegar biodiesel commodo scenester cardigan tempor forage nesciunt. Street art disrupt paleo Brooklyn, cupidatat retro Odd Future cornhole ad sartorial freegan Tonx four loko. Gentrify assumenda incididunt in sint mustache vinyl. American Apparel artisan cliche bitters labore wolf, synth Godard laboris. Butcher Odd Future delectus letterpress bicycle rights.	sir-isaac-newton	2014-01-31 20:18:01.843711	2014-01-31 20:18:01.843711	instructor3@example.com	so very good	\N
+5	Leonardo da Vinci	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	Ennui selfies direct trade, veniam viral farm-to-table commodo fixie plaid. Eiusmod sed consequat commodo odio deep v, wayfarers laboris. Aute synth gentrify blog, drinking vinegar biodiesel commodo scenester cardigan tempor forage nesciunt. Street art disrupt paleo Brooklyn, cupidatat retro Odd Future cornhole ad sartorial freegan Tonx four loko. Gentrify assumenda incididunt in sint mustache vinyl. American Apparel artisan cliche bitters labore wolf, synth Godard laboris. Butcher Odd Future delectus letterpress bicycle rights.	leonardo-da-vinci	2014-01-31 20:18:01.879488	2014-01-31 20:18:01.879488	instructor4@example.com	so very good	\N
+6	Lady Gaga	Neutra sriracha consequat sint chillwave sustainable 90's banh mi. Est letterpress Etsy, incididunt dolor cillum keytar Odd Future yr Banksy banjo sunt pickled.	Ennui selfies direct trade, veniam viral farm-to-table commodo fixie plaid. Eiusmod sed consequat commodo odio deep v, wayfarers laboris. Aute synth gentrify blog, drinking vinegar biodiesel commodo scenester cardigan tempor forage nesciunt. Street art disrupt paleo Brooklyn, cupidatat retro Odd Future cornhole ad sartorial freegan Tonx four loko. Gentrify assumenda incididunt in sint mustache vinyl. American Apparel artisan cliche bitters labore wolf, synth Godard laboris. Butcher Odd Future delectus letterpress bicycle rights.	lady-gaga	2014-01-31 20:18:01.963506	2014-01-31 20:18:01.963506	instructor5@example.com	so very good	\N
+\.
+
+
+--
+-- Name: instructors_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('instructors_id_seq', 6, true);
+
+
+--
+-- Data for Name: order_products; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY order_products (id, price, qty, order_id, product_id, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: order_products_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('order_products_id_seq', 1, false);
+
+
+--
+-- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY orders (id, user_id, course_id, created_at, updated_at, coupon_id) FROM stdin;
+\.
+
+
+--
+-- Name: orders_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('orders_id_seq', 1, false);
+
+
+--
+-- Data for Name: payments; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY payments (id, order_id, transaction_id, response, amount, paid, refunded, amount_refunded, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: payments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('payments_id_seq', 1, false);
+
+
+--
+-- Data for Name: products; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY products (id, name, price, kind, course_id, created_at, updated_at) FROM stdin;
+1	Robots: A Primer	999	book	\N	2014-01-31 20:18:01.275075	2014-01-31 20:18:01.275075
+2	How to Reason With Robots	10000	course	1	2014-01-31 20:18:01.705705	2014-01-31 20:18:01.705705
+3	Confidence: A Primer	999	book	\N	2014-01-31 20:18:01.768703	2014-01-31 20:18:01.768703
+4	How to Launder with Confidence	10000	course	2	2014-01-31 20:18:01.794194	2014-01-31 20:18:01.794194
+5	Weasels: A Primer	999	book	\N	2014-01-31 20:18:01.80498	2014-01-31 20:18:01.80498
+6	How to Train Weasels	10000	course	3	2014-01-31 20:18:01.830619	2014-01-31 20:18:01.830619
+7	Machines: A Primer	999	book	\N	2014-01-31 20:18:01.841128	2014-01-31 20:18:01.841128
+8	How to Build Time Machines	10000	course	4	2014-01-31 20:18:01.866339	2014-01-31 20:18:01.866339
+9	Bears: A Primer	999	book	\N	2014-01-31 20:18:01.876825	2014-01-31 20:18:01.876825
+10	How to Hide from Bears	10000	course	5	2014-01-31 20:18:01.950777	2014-01-31 20:18:01.950777
+11	Situations: A Primer	999	book	\N	2014-01-31 20:18:01.961046	2014-01-31 20:18:01.961046
+12	How to Avoid Uncomfortable Situations	10000	course	6	2014-01-31 20:18:01.986458	2014-01-31 20:18:01.986458
+\.
+
+
+--
+-- Name: products_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('products_id_seq', 12, true);
+
+
+--
+-- Data for Name: recommendations; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY recommendations (id, "position", product_id, related_product_id, created_at, updated_at) FROM stdin;
+1	\N	2	1	2014-01-31 20:18:01.724167	2014-01-31 20:18:01.724167
+2	\N	4	3	2014-01-31 20:18:01.796051	2014-01-31 20:18:01.796051
+3	\N	6	5	2014-01-31 20:18:01.832522	2014-01-31 20:18:01.832522
+4	\N	8	7	2014-01-31 20:18:01.868165	2014-01-31 20:18:01.868165
+5	\N	10	9	2014-01-31 20:18:01.952602	2014-01-31 20:18:01.952602
+6	\N	12	11	2014-01-31 20:18:01.98826	2014-01-31 20:18:01.98826
+\.
+
+
+--
+-- Name: recommendations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('recommendations_id_seq', 6, true);
+
+
+--
+-- Data for Name: reviews; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY reviews (id, course_review, rating, name, location, course_id, user_id, visible, featured, "position", created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: reviews_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('reviews_id_seq', 1, false);
+
+
+--
+-- Data for Name: schema_migrations; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY schema_migrations (version) FROM stdin;
+20140107192217
+20131015170846
+20131017211054
+20131018010711
+20131018020057
+20131018164226
+20131018164804
+20131018233843
+20131021205738
+20131021205803
+20131023001659
+20131023001753
+20131025181342
+20131025204111
+20131026002537
+20131029185640
+20131029191740
+20131104193024
+20131105235844
+20131106180212
+20131107004020
+20131107013500
+20131107013522
+20131107222957
+20131107225051
+20131108181753
+20131108191053
+20131112213921
+20131112223139
+20131119194058
+20131120213403
+20131120231847
+20131121221510
+20131203193406
+20131203222738
+20131204234912
+20131205004443
+20131205004452
+20131209185415
+20131213180028
+20131213224736
+20131214002814
+20140110013338
+20140110013801
+20140110013835
+20140124175831
+20140124191351
+20140124193539
+20140124195519
+20140124215356
+20140125005204
+20140128011506
+\.
+
+
+--
+-- Data for Name: user_courses; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY user_courses (id, user_id, course_id, access, progress, created_at, updated_at, order_id, welcomed) FROM stdin;
+1	5	2	t	\N	2014-02-05 02:27:00.557571	2014-02-05 18:36:47.631387	\N	\N
+\.
+
+
+--
+-- Name: user_courses_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('user_courses_id_seq', 1, true);
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY users (id, name, provider, uid, email, info, credentials, admin, created_at, updated_at, permissions) FROM stdin;
+1	\N	\N	\N	user1@example.com	\N	\N	\N	2014-01-31 20:18:01.229196	2014-01-31 20:18:01.229196	{"admin":false,"comments":true}
+2	\N	\N	\N	user2@example.com	\N	\N	\N	2014-01-31 20:18:01.236667	2014-01-31 20:18:01.236667	{"admin":false,"comments":true}
+3	\N	\N	\N	user3@example.com	\N	\N	\N	2014-01-31 20:18:01.23975	2014-01-31 20:18:01.23975	{"admin":false,"comments":true}
+4		\N	\N	ai.rasmussen@gmail.com	\N	\N	\N	2014-01-31 20:18:36.364647	2014-01-31 20:18:36.370803	{"admin":true,"comments":true}
+5	Aaron Rasmussen	\N	\N	ai_rasmussen@yahoo.com	\N	\N	f	2014-02-05 02:24:51.701887	2014-02-10 21:50:41.784672	{"admin":false,"comments":true}
+\.
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('users_id_seq', 5, true);
+
+
+--
+-- Name: authentications_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY authentications
+    ADD CONSTRAINT authentications_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cart_products_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY cart_products
+    ADD CONSTRAINT cart_products_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: carts_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY carts
+    ADD CONSTRAINT carts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: chapters_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY chapters
+    ADD CONSTRAINT chapters_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: coupons_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY coupons
+    ADD CONSTRAINT coupons_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: course_comments_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY course_comments
+    ADD CONSTRAINT course_comments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: course_details_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY course_details
+    ADD CONSTRAINT course_details_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: course_facts_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY course_facts
+    ADD CONSTRAINT course_facts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: course_reviews_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY course_reviews
+    ADD CONSTRAINT course_reviews_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: courses_instructors_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY courses_instructors
+    ADD CONSTRAINT courses_instructors_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: courses_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY courses
+    ADD CONSTRAINT courses_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: documents_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY documents
+    ADD CONSTRAINT documents_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: email_templates_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY email_templates
+    ADD CONSTRAINT email_templates_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: experiment_values_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY experiment_values
+    ADD CONSTRAINT experiment_values_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: identities_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY identities
+    ADD CONSTRAINT identities_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: images_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY images
+    ADD CONSTRAINT images_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: instructors_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY instructors
+    ADD CONSTRAINT instructors_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: order_products_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY order_products
+    ADD CONSTRAINT order_products_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: orders_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY orders
+    ADD CONSTRAINT orders_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: payments_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY payments
+    ADD CONSTRAINT payments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: products_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY products
+    ADD CONSTRAINT products_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: recommendations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY recommendations
+    ADD CONSTRAINT recommendations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: reviews_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY reviews
+    ADD CONSTRAINT reviews_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user_courses_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY user_courses
+    ADD CONSTRAINT user_courses_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_cart_products_on_cart_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_cart_products_on_cart_id ON cart_products USING btree (cart_id);
+
+
+--
+-- Name: index_cart_products_on_product_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_cart_products_on_product_id ON cart_products USING btree (product_id);
+
+
+--
+-- Name: index_carts_on_coupon_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_carts_on_coupon_id ON carts USING btree (coupon_id);
+
+
+--
+-- Name: index_carts_on_course_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_carts_on_course_id ON carts USING btree (course_id);
+
+
+--
+-- Name: index_carts_on_user_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_carts_on_user_id ON carts USING btree (user_id);
+
+
+--
+-- Name: index_chapters_on_course_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_chapters_on_course_id ON chapters USING btree (course_id);
+
+
+--
+-- Name: index_chapters_on_slug; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_chapters_on_slug ON chapters USING btree (slug);
+
+
+--
+-- Name: index_coupons_on_course_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_coupons_on_course_id ON coupons USING btree (course_id);
+
+
+--
+-- Name: index_course_comments_on_course_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_course_comments_on_course_id ON course_comments USING btree (course_id);
+
+
+--
+-- Name: index_course_comments_on_parent_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_course_comments_on_parent_id ON course_comments USING btree (parent_id);
+
+
+--
+-- Name: index_course_comments_on_path_btree; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_course_comments_on_path_btree ON course_comments USING btree (path);
+
+
+--
+-- Name: index_course_comments_on_user_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_course_comments_on_user_id ON course_comments USING btree (user_id);
+
+
+--
+-- Name: index_course_details_on_course_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_course_details_on_course_id ON course_details USING btree (course_id);
+
+
+--
+-- Name: index_course_facts_on_course_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_course_facts_on_course_id ON course_facts USING btree (course_id);
+
+
+--
+-- Name: index_course_reviews_on_course_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_course_reviews_on_course_id ON course_reviews USING btree (course_id);
+
+
+--
+-- Name: index_course_reviews_on_user_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_course_reviews_on_user_id ON course_reviews USING btree (user_id);
+
+
+--
+-- Name: index_courses_on_slug; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_courses_on_slug ON courses USING btree (slug);
+
+
+--
+-- Name: index_email_templates_on_course_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_email_templates_on_course_id ON email_templates USING btree (course_id);
+
+
+--
+-- Name: index_experiment_values_on_experiment_and_variation_and_key; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_experiment_values_on_experiment_and_variation_and_key ON experiment_values USING btree (experiment, variation, key);
+
+
+--
+-- Name: index_identities_on_authentication_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_identities_on_authentication_id ON identities USING btree (authentication_id);
+
+
+--
+-- Name: index_identities_on_password_reset_token; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_identities_on_password_reset_token ON identities USING btree (password_reset_token);
+
+
+--
+-- Name: index_instructors_on_slug; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_instructors_on_slug ON instructors USING btree (slug);
+
+
+--
+-- Name: index_instructors_on_user_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_instructors_on_user_id ON instructors USING btree (user_id);
+
+
+--
+-- Name: index_order_products_on_order_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_order_products_on_order_id ON order_products USING btree (order_id);
+
+
+--
+-- Name: index_order_products_on_product_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_order_products_on_product_id ON order_products USING btree (product_id);
+
+
+--
+-- Name: index_orders_on_coupon_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_orders_on_coupon_id ON orders USING btree (coupon_id);
+
+
+--
+-- Name: index_orders_on_course_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_orders_on_course_id ON orders USING btree (course_id);
+
+
+--
+-- Name: index_orders_on_user_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_orders_on_user_id ON orders USING btree (user_id);
+
+
+--
+-- Name: index_payments_on_order_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_payments_on_order_id ON payments USING btree (order_id);
+
+
+--
+-- Name: index_products_on_course_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_products_on_course_id ON products USING btree (course_id);
+
+
+--
+-- Name: index_recommendations_on_product_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_recommendations_on_product_id ON recommendations USING btree (product_id);
+
+
+--
+-- Name: index_recommendations_on_related_product_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_recommendations_on_related_product_id ON recommendations USING btree (related_product_id);
+
+
+--
+-- Name: index_reviews_on_course_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_reviews_on_course_id ON reviews USING btree (course_id);
+
+
+--
+-- Name: index_reviews_on_user_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_reviews_on_user_id ON reviews USING btree (user_id);
+
+
+--
+-- Name: index_user_courses_on_course_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_user_courses_on_course_id ON user_courses USING btree (course_id);
+
+
+--
+-- Name: index_user_courses_on_order_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_user_courses_on_order_id ON user_courses USING btree (order_id);
+
+
+--
+-- Name: index_user_courses_on_user_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_user_courses_on_user_id ON user_courses USING btree (user_id);
+
+
+--
+-- Name: index_user_courses_on_welcomed; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX index_user_courses_on_welcomed ON user_courses USING btree (welcomed);
+
+
+--
+-- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: Aaron
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM "Aaron";
+GRANT ALL ON SCHEMA public TO "Aaron";
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+

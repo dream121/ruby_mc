@@ -1,0 +1,25 @@
+Home Page Edit
+br
+br
+= simple_form_for @home_page, url: home_page_update_path, method: :post do |f|
+	= f.submit
+	br
+	h2 Twitter
+	= f.input :tweet_text
+	br
+	h2 Facebook
+	= f.input :fb_headline
+	= f.input :fb_description
+	= f.input :fb_link
+	
+p= link_to 'Add Image', new_home_page_image_path(@home_page, parent: @home_page), class: 'btn btn-default'
+
+- @home_page.images.each_slice(4) do |group|
+  .row
+    - group.each do |i|
+      .col-sm-6.col-md-3
+        .thumbnail
+          img src="#{i.image.url(:original)}"
+          .caption
+            h3= i.kind
+            p= link_to 'Delete', home_page_image_path(@home_page, i), method: :delete, class: 'btn btn-danger', confirm: 'Delete image?'

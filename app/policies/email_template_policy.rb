@@ -1,0 +1,2 @@
+class EmailTemplatePolicy < AdminPolicy
+end

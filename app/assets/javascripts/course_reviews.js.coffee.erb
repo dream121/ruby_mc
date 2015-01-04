@@ -1,0 +1,43 @@
+# Place all the behaviors and hooks related to the matching controller here.
+# All this logic will automatically be available in application.js.
+# You can use CoffeeScript in this file: http://coffeescript.org/
+
+MC.courseReviews =
+
+  mouseover: (event) ->
+    el = $(event.target)
+    el.prevAll().andSelf().addClass('glow')
+    el.siblings().andSelf().removeClass('bright')
+
+  mouseout: (event) ->
+    el = $(event.target)
+    el.siblings().andSelf().removeClass('glow')
+    MC.courseReviews.setStars()
+
+  click: (event) ->
+    el = $(event.target)
+    rating = el.data('rating')
+    MC.courseReviews.setRating(rating)
+    MC.courseReviews.setStar(el)
+
+  setStar: (el) ->
+    el.prevAll().andSelf().addClass('bright')
+
+  setRating: (rating) ->
+    $('input#course_review_rating').val(rating)
+
+  setStars: ->
+    rating = $('input#course_review_rating').val()
+    star = $(".stars span[data-rating='#{rating}'")
+    MC.courseReviews.setStar(star)
+
+  rateable: (el) ->
+    el.find('span')
+      .hover(MC.courseReviews.mouseover, MC.courseReviews.mouseout)
+      .click(MC.courseReviews.click)
+    MC.courseReviews.setStars()
+
+  ready: ->
+    el = $('#course_reviews .stars')
+    if el.length > 0
+      MC.courseReviews.rateable(el)

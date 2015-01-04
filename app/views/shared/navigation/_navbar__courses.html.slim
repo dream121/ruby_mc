@@ -1,0 +1,22 @@
+li.mobile-hidden.nav-module-element-your-classes-menu
+  = image_tag(current_user.decorate.user_profile_img_url, 
+    class: 'header-content-container-avatar-section-image')
+  .nav-module-element-content-wrapper
+    ul
+      li.nav-module-element-category
+        | #{link_to 'Your Profile', student_path(current_user.profile.id)}
+      li.nav-module-element-category
+        | #{link_to 'Your settings', edit_account_path}
+      li.nav-module-element-category
+        | #{link_to 'Your classes', '#'}
+        .grid
+          - @fetched_courses.each do |fc|
+            = link_to(enrolled_course_path(fc)) do
+              .nav-module-element-details
+                = image_tag(fc.image_url(:banner), class: 'nav-module-element-details-image')
+                span.nav-module-element-course-title
+                  | #{fc.instructor_name} teaches #{fc.skill}
+      li.nav-module-element-see-all
+        | #{link_to 'See all your classes', root_path}
+      li.nav-module-element-see-all
+        | #{link_to 'Sign Out', sign_out_path}

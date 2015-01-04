@@ -1,0 +1,10 @@
+section#content data-p2h="skip"
+  .container
+    section.class-section
+      - if @in_progress_courses.count > 0
+        - @in_progress_courses.each do |in_progress_course|
+          = render partial: 'students/course', locals: { course: in_progress_course }
+      - if @completed_courses.count > 0
+        strong.section-title= "#{profile.belongs_to(current_user) ? 'You have' : user.user_name + ' has'} completed"
+        - @completed_courses.each do |completed_course|
+          = render partial: 'students/course', locals: { course: completed_course }

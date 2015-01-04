@@ -1,0 +1,13 @@
+.class-assets.class-features
+  h4.course-section-header
+    'Class Assets
+    small 65 total
+  .class-features-row
+    - @course.facts.asset.each do |asset|
+      .class-feature
+        .class-feature-content
+          .class-feature-count
+            = fact_icon(asset)
+            .class-feature-count-number= asset.number
+          h4= asset.title
+          p= asset.description

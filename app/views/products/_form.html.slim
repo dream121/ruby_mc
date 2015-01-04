@@ -1,0 +1,14 @@
+= simple_form_for(@product) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name, autofocus: true, hint: 'Name of the product. Does not need to be the same as the course title.'
+    = f.input :price, hint: 'Price in cents'
+    = f.input :kind, hint: 'Course, Book, etc.'
+    = f.association :course, hint: 'Optional: if this product is a course, select the course. Otherwise, leave blank.'
+
+  .form-actions
+    = f.button :submit, class: 'btn btn-primary'
+    '
+    = link_to 'Back to Products', products_path, class: 'btn btn-default'
+

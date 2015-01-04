@@ -1,0 +1,35 @@
+section.item-section.call-to-action
+  .container.call-to-action-container
+    .item-row
+      .item-holder
+        h3 Join the first-ever online Class
+        h2.marketing #{course.instructor_name} teaches you photography
+        span.icon.icon-svg8.marketing
+          em>
+          = price_in_dollars(course.price)
+        - first_chapter = course.chapters.order(:number).first
+        - if first_chapter && policy(first_chapter).watch?
+          = link_to 'Go to Class', enrolled_course_path(course), class: 'button-link'
+        - else
+          = link_to 'Take the Class', add_product_path(course.product.id), rel: 'nofollow', class: 'button-link'
+        a.share href="#"
+          span.icon-svg2
+          | Share, gift or audit
+        .social-block.top-spacer-30
+          ul
+            li
+              a href="http://twitter.com/share?text=#{course.detail.tweet_text}&url=''" target="_blank"
+                span.ico-twitter
+            li
+              a href="#" onclick="MC.courseMarketing.fbWallPost()"
+                span.ico-facebook
+            li
+              a href="#"
+                span.ico-mail
+    section.list-section.no-background
+      h2.courses-page Other Classes
+      - other_courses.each do |oc|
+        - instructor = oc.instructors.first
+        - oc = oc.decorate
+        = render "pages/instructor_block", instructor: instructor, course: oc, progress_box: false
+

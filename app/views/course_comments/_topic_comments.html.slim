@@ -1,0 +1,23 @@
+h3
+  a.topic-link href='#'
+    span.icon.icon-chevron-left
+    ' Back To Discussions
+
+p
+  ' Add a comment to
+  = @comment.title
+
+.comment.commentable
+  .row
+    .user.col-md-1
+      = image_tag current_user.decorate.avatar_url, class: 'img-circle img-responsive'
+      h3 You
+
+    .input-wrapper.col-md-11
+      .details.top
+        = render 'course_comments/comment_input', comment: @comment
+    .spinner.hidden Submitting...
+
+  .replies
+    - @comment.children.each do |comment|
+      = render 'course_comments/comment', comment: comment

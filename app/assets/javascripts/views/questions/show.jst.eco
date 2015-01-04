@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="question-subject col-md-12">
+    <%= question.subject %>
+  </div>
+</div><!-- end row question id -->
+<div class="row videos mc-interaction2">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-sm-offset-0 col-md-6 col-md-offset-0 col-lg-6 col-lg-offset-0 mc-question">
+      <div class="office-hours-image-wrapper">
+        <%# image_tag('q.png', class: 'img-responsive symbol') %>
+        <%# image_tag(question.question_thumb_url) %>
+      </div><!-- end office-hours-image-wrapper -->
+      <div class="col-xs-12 text-align-center interaction-dialog">
+        <div class="span blue-highlight question-submitted-by">
+          Question submitted by <%= question.user_name %>
+        </div><!-- end blue-highlight-->
+      </div><!--end col-xs-12 interaction-dialog -->
+    </div><!-- end col-xs-12 mc-question-->
+
+    <div class="col-xs-12 col-sm-6 col-sm-offset-0 col-md-6 col-md-offset-0 col-lg-6 col-lg-offset-0 mc-answer">
+      <div class="office-hours-image-wrapper">
+        <%# image_tag('a.png', class: 'img-responsive symbol') %>
+        <%# image_tag(question.answer_thumb_url) %>
+      </div><!-- end office-hours-image-wrapper -->
+
+    </div><!-- end col-xs-12 mc-answer -->
+    <div class="col-xs-12 col-sm-6 col-sm-offset-0 col-md-6 col-md-offset-0 col-lg-6 col-lg-offset-0 text-align-center interaction-dialog">
+      <div class="span blue-highlight answer-submitted-by">
+        Video answer submitted by <%= question.answer_user_name %>
+      </div><!-- end blue-hightlight -->
+    </div><!-- end col-xs-12 interaction-->
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="office-hours-image-wrapper">
+        <div class="divider"></div><!-- end divider -->
+      </div><!-- end office-hours-image-wrapper -->
+    </div><!-- end col-xs-12 -->
+
+  </div><!-- end row -->
+</div><!-- end row mc-interaction2 -->

@@ -1,0 +1,38 @@
+- if contributions.length > 0
+  .discussion-block
+    - amount = 5
+    - contributions.limit(amount).each do |contribution|
+      .post
+        .holder
+          = image_tag user.user_profile_img_url, class: 'alignleft', alt: user.full_name, width: 100, height: 100
+          .video
+            - unless contribution.image_url.blank?
+              .thumbnail-lightbox
+                = image_tag contribution.image_url, alt: 'image desc', width: 177, height: 100
+                = link_to(                                                     \
+                    image_tag(                                                 \
+                      'icons/icon5.svg',                                       \
+                      alt: 'image description',                                \
+                      width: '26',                                             \
+                      height: '35',                                            \
+                      onerror:"this.onerror=null; this.src='images/icon5.png'" \
+                    ),                                                         \
+                    contribution.image_url, class: 'play',                     \
+                    data: { lightbox: "image-#{contribution.id}" } \
+                  )
+          /! video
+          .text-holder
+            span.name
+              | Posted on
+              = link_to " #{sprintf '%02d', contribution.chapter.number}. #{contribution.chapter.title}", watch_course_chapter_path(course.course, contribution.chapter)
+            p= contribution.comment
+            a.goto href="#{ watch_course_chapter_path(course.course, contribution.chapter, comment_id: contribution.id)}"
+              | Go to discussion
+              i.iconn-arrow
+          /! end text-holder
+        /! end holder
+      /! end post
+    - if contributions.length > amount
+      .show-block
+        = link_to api_v1_course_comments_path, class: "get_all_comments", data: { user_id: user.id, course_id: course.course.id, offset: amount } do
+          span= "show all #{contributions.length} contributions"

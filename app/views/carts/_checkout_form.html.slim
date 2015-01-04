@@ -1,0 +1,51 @@
+= form_for(order, data: { 'total-price' => order_total }, html: { class: 'payment-form validate-form', role: 'form' }) do |f|
+  fieldset
+    h2 enter your payment information
+    .form-row
+      input.required type="text" placeholder="Name on Card" id="cart-name"
+    .form-row
+      input.required-number type="text" placeholder="Card Number" data-stripe="number" name="number" size="20" id="cart-number"
+      .popup-holder.hidden id="pop-card"
+        .popup
+          p id="card-message-box"
+
+      ul.cards-list
+        li
+          a.visa href="#" visa
+        li
+          a.master href="#" master
+        li
+          a.discover href="#" discover
+      a.cart-danger.hidden href="#" error
+    .form-row.long
+      .col
+        input.required-number type="text" placeholder="CVC" data-stripe="cvc" name="cvc" size="4" id="cart-cvc"
+        a.question href="#" ?
+        a.cart-danger.hidden href="#" error
+      .cvc-popup-holder.hidden id="cvc-explanation"
+        .popup
+          p id="cvc-explanation-message-box"
+      .popup-holder.hidden id="pop-cvc-date"
+        .popup
+          p id="data-cvc-message-box"
+      .col
+        select title="" name="exp-month" data-stripe="exp-month" id="cart-exp-month"
+          option 01
+          option 02
+          option 03
+          option 04
+          option 05
+          option 06
+          option 07
+          option 08
+          option 09
+          option 10
+          option 11
+          option 12
+        a.cart-danger.hidden href="#" error
+      .col
+        select title="" name="exp-year" data-stripe="exp-year" id="cart-exp-year"
+          - expiration_years.each do |year|
+            option = year
+    .submit-holder
+      input type="submit" value="purchase"

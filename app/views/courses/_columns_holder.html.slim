@@ -1,0 +1,48 @@
+.columns-holder
+  = link_to watch_course_chapter_path(@course, @course.chapters.first), :class => "play" do
+    span.icon-svg
+  span.sub-title start lessons
+  h1
+    - if @user_course.started?
+      - if current_user.first_name.present?
+        = "Welcome back,<br />#{current_user.first_name}!".html_safe
+      - else
+        = "Welcome back!"
+    - else
+      - if current_user.first_name.present?
+        = "Welcome to class,<br />#{current_user.first_name}!".html_safe
+      - else
+        = "Welcome to class!"
+  span.sub-text
+    = @course.detail.lessons_introduction
+  .container
+    .columns
+      .column
+        - completed = @user_course.chapters_completed
+        - @chap = completed.blank? ? @user_course.chapters.first : completed.last
+        span.icon.icon-svg8 #{completed.count}/#{@chapters}
+        h3 lessons completed
+        p.enrolled
+          | Watch the lessons in your own time.
+          a.more href="#{watch_course_chapter_path(@course, @course.decorate.up_next(current_user))}"
+            | continue the lessons
+            span.icon-svg3
+      .column
+        span.icon.icon-svg8= @user_course.contributions.count
+        h3 contributions
+        p.enrolled
+          | Your comments, photos and videos make this class better.
+          a.more href="#{student_path(current_user.profile, anchor: @course.id)}"
+            | See your contributions
+            span.icon-svg3
+      .column
+        .icons.enrolled-user-info
+          span.icon Q
+          span.separator +
+          span.icon A
+        h3 ask #{@course.instructors.first.first_name}
+        p.enrolled
+          | Send #{@course.instructors.first.first_name.capitalize} your video questions or comments about class material.
+          a.more href="#{course_office_hours_path(@course)}"
+            | Ask a question
+            span.icon-svg3

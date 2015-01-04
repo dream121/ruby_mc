@@ -1,0 +1,24 @@
+- started_course = course.completed_lessons(current_user).present? ? true : false
+.gallery-holder.box-holder
+  .gallery.root_gallery
+    .mask
+      .slideset123
+        .slide
+          span.skills= "Your class progress"
+          span.number= "#{course.completed_lessons(current_user).count}/#{course.chapters.count}"
+          .clear
+          p.subtitle Lessons completed
+          - if started_course
+            p.sub-grey Up next:                  
+          - else
+            p.sub-grey First up:
+          p
+           = course.decorate.up_next(current_user).number.to_s.rjust(2, '0')
+           | .&nbsp
+           = truncate(course.decorate.up_next(current_user).title, :length => 120,  :separator => ' ')
+          a.more href="#"
+            - if started_course
+              = link_to "CONTINUE THE LESSONS", watch_course_chapter_path(course, course.decorate.up_next(current_user))
+            - else
+              = link_to "START THE CLASS", enrolled_course_path(course)
+            span.icon-svg3

@@ -1,0 +1,31 @@
+= form_for(@user) do |f|
+  - if @user && @user.errors.any?
+    .alert-error
+      strong Please fix these errors:
+      ul
+        - @user.errors.full_messages.each do |msg|
+          li= msg
+
+  .form-group
+    = label_tag :name
+    = f.text_field :name, class: 'form-control'
+  .form-group
+    = label_tag :email
+    = f.text_field :email, class: 'form-control'
+  .form-group
+    = label_tag :instructor
+    = f.collection_select :instructor, @instructors, :id, :name, { prompt: true }, { class: 'form-control' }
+
+  .form-group
+    = label_tag :permissions
+    - User::DEFAULT_PERMISSIONS.keys.each do |name|
+      .checkbox
+        label
+          = hidden_field_tag "user[permissions][#{name}]", false
+          = check_box_tag "user[permissions][#{name}]", true, @user.permissions[name]
+          = name
+
+  .form-group
+    = f.submit("Update", class: 'btn btn-large btn-success')
+    '
+    = link_to 'Back to User', user_path(@user), class: 'btn btn-default'

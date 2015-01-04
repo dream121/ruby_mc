@@ -1,0 +1,12 @@
+.item-block
+  a href="{{ course.show_url }}"
+    img.mc-course-banner-image ng-src="{{ course.banner_image_url }}"
+  .caption-box
+    a href="{{course.show_url}}"
+      span.name
+        | {{ course.instructor_name }}
+      | teaches you {{ course.skill }}
+
+  div ng-if="course.state == 'enrolled'"  ng-include=true src="'angular/course/course_progress_box_template.html'"
+  div ng-if="course.state == 'completed'" mc-review-course-box="course"
+  div ng-if="course.state == 'reviewed'"  mc-share-course-box="course"

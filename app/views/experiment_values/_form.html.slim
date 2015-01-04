@@ -1,0 +1,14 @@
+= simple_form_for(@experiment_value) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :experiment, autofocus: true
+    = f.input :variation
+    = f.input :key
+    = f.input :value
+
+  .form-actions
+    = f.button :submit, class: 'btn btn-primary'
+    '
+    = link_to 'Back', experiment_values_path, class: 'btn btn-default'
+

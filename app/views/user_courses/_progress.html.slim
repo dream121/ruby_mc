@@ -1,0 +1,10 @@
+- user_course = user_course.decorate
+- if user_course.progress
+    .row
+      - user_course.progress.each do |chapter_id, progress|
+        - if chapter = user_course.course.chapters.detect {|c| chapter_id.to_i == c.id }
+          .col-xs-1.icon class=user_course.progress_icon_for_chapter(chapter_id)
+          .col-xs-1= user_course.progress_for_chapter(chapter.id).percent_complete.round(1).to_s + "%"
+          .col-xs-3= "Lesson #{chapter.number}"
+          .col-xs-6.title= chapter.title
+          .col-xs-1.duration= chapter.duration

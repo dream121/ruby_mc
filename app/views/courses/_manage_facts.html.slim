@@ -1,0 +1,22 @@
+h2 Facts
+
+p= link_to "Add Fact", new_course_fact_path(@course.to_param), class: 'btn btn-default'
+
+- @course.facts.group_by(&:kind).each do |kind, facts|
+
+  h3= "#{facts.length} #{kind.pluralize(facts.length).titleize}"
+
+  - facts.each_slice(4) do |group|
+    .row
+      - group.sort_by(&:position).each do |fact|
+        .course-fact.col-sm-6.col-md-3
+          .thumbnail
+            = fact_icon(fact)
+            - if fact.number
+              .fact-number= fact.number
+            .caption
+              h3= fact.title
+              p= fact.description
+              span= link_to 'Edit', edit_course_fact_path(@course, fact), class: 'btn btn-primary'
+              '
+              span= link_to 'Delete', course_fact_path(@course, fact), method: :delete, class: 'btn btn-danger', confirm: 'Delete fact?'

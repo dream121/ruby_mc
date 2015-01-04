@@ -1,0 +1,20 @@
+.class-reviews
+  - if @course.reviews.visible.any?
+    / TODO: move query to controller
+    - reviews = @course.reviews.visible.order('featured DESC, position, created_at DESC')
+    h4.course-section-header
+      'Reviews of This Class
+      small
+        => reviews.length
+        |reviews
+    - reviews.each do |r|
+      - user = r.user.decorate
+      .class-review
+        .class-review-user-avatar
+          = image_tag user.avatar_url, class: 'img-responsive'
+        .class-review-content
+          .class-review-text= r.review
+          .class-review-user-info
+            .class-review-user-name= r.name
+            .class-review-user-role= r.location
+          .class-review-star-rating= render partial: 'shared/star_rating', locals: { rating: r.rating, add_class: 'pull-right' }

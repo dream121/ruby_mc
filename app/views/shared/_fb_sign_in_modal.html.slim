@@ -1,0 +1,15 @@
+form#signin_fb.form-horizontal action="/auth/facebook" method="post" role="form" 
+  /! Button trigger modal
+  #signin_fb_button data-target="#signin_fb_form" data-toggle="modal" 
+  /! Modal
+  #signin_fb_form.modal.fade.auth aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" style=("display: none;") tabindex="-1" 
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close aria-hidden="true" data-dismiss="modal" type="button" 
+          p#myModalLabel.modal-title Your account is with facebook
+          p#myModalLabel Please sign in through your Facebook account.
+        .modal-body
+          button.modal-button.singup_fb type="submit" 
+            p Sign in with Facebook
+          p Master Class  will never post on your behalf.

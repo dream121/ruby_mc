@@ -1,0 +1,6 @@
+oldComment = $(".comment[data-comment-id=<%= @comment.id %>]");
+newComment = $("<%= escape_javascript(render partial: 'comment', locals: { comment: @comment }) %>")
+oldComment.replaceWith(newComment);
+new Commentable(newComment);
+
+wireUpReplyButton();

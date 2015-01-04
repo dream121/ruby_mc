@@ -1,0 +1,4 @@
+- if policy(@course).create_review?
+  .row
+    .col-sm-12.write-review
+      = link_to 'Write a Review', new_course_review_path(@course), class: 'btn btn-primary'

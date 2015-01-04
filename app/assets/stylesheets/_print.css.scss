@@ -1,0 +1,90 @@
+@media print{
+	*{
+		background:#fff !important;
+		color:#000 !important;
+	}
+	.logo-holder,
+	.footer-nav,
+	#footer .columns,
+	.inner .item-section,
+	.inner .item,
+	.print-list li .ico-pdf,
+	.list-section h2 a,
+	.info-box .image-box,
+	.plan-list li .icons,
+	.plan-list .icon-svg3,
+	.plan-list .active .icon-svg3,
+	.top-block .links,
+	.slogan,
+	.columns,
+	.visual .sub-title,
+	.play{
+		display:none;
+	}
+	.container{
+		padding:0;
+		width:100%;
+	}
+	.row{
+		margin:0;
+		width:100%;
+	}
+	.inner #wrapper{
+		padding:0;
+	}
+	.inner #header{margin:0 0 20px;}
+	.inner .visual h1{
+		font-size:40px;
+		line-height:46px;
+		margin:0 0 10px;
+	}
+	.columns-holder{
+		padding:0 0 20px;
+	}
+	.info-box{
+		overflow:visible;
+		clear:both;
+	}
+	.plan-list{
+		li{
+			padding:20px 20px 20px 90px;
+		}
+		.number{
+			left:5px;
+		}
+	}
+	.print-list li{
+		padding:20px;
+	}
+	.visual{
+		.sub-text{
+			font-size:16px;
+			line-height:20px;
+			padding:0 0 10px;
+		}
+	}
+	.list{
+		margin:0;
+		padding:0;
+		width:100%;
+		clear:both;
+	}
+	#footer{
+		text-align:center;
+		border:none;
+		padding:10px 0;
+		clear:both;
+		width:100%;
+	}
+	.footer-holder{
+		margin:0;
+		.footer-frame{
+			padding:0;
+			span{
+				display:block;
+				width:100%;
+			}
+		}
+	}
+}
+

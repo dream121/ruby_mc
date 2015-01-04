@@ -1,0 +1,41 @@
+div.page-header
+  h1= header
+
+/ - @courses.group_by(&:category).each do |category, category_courses|
+
+/   - category_courses.sort_by(&:start_date).each_slice(6) do |courses|
+.row
+  - @courses.sort_by(&:start_date)[0..1].each_with_index do |course, index|
+    - course = course.decorate
+    .col-sm-6.col-md-6.intro
+      - if policy(course).show?
+        a href=send(path_helper, course)
+          = render partial: 'course_thumbnail', locals: { course: course }
+      - else
+        = render partial: 'course_thumbnail', locals: { course: course }
+  .row
+  .negative-space
+    .divider-wrapper
+      table
+        tr
+          td.spacer-slug
+            .spacer2
+          td.h2.middle-text FUTURE OFFERINGS
+          td.spacer-slug
+            .spacer2
+
+      / .spacer1
+      / .h2-wrapper
+      /   h2 FUTURE OFFERINGS
+      / .spacer2
+  - @courses.sort_by(&:start_date)[2..4].each_with_index do |course, index|
+    - course = course.decorate
+    .col-sm-4.col-md-4.intro.coming-soon
+      - if policy(course).show?
+        a href=send(path_helper, course)
+          = render partial: 'course_thumbnail', locals: { course: course }
+      - else
+        = render partial: 'course_thumbnail', locals: { course: course }
+br
+br
+br

@@ -1,0 +1,23 @@
+.box.review-course-box
+  - form_id = "course_#{course.id}_course_review"
+  - if review.persisted?
+    - action = api_v1_course_review_path(course.latest_review.id)
+  -else
+    - action = api_v1_course_reviews_path
+  = form_for review, namespace: "course_#{course.id}", url: action, html: { id: form_id, class: 'review_rating' }, remote: true do |f|
+    = f.hidden_field :course_id
+    = f.hidden_field :rating
+    h3 Your class review
+    ul.stars
+      - (1..5).each do |i|
+        li.rating-star id="#{form_id}_#{i}" data-course-id="#{course.id}" data-star-position="#{i}" data-form-id="#{form_id}"
+    div.review-container
+      a.edit href="#"
+        i.iconn-pencil
+      div.review-text
+        = review.review
+    - unless review.review.blank?
+      = f.text_area :review, cols: 30, rows: 3, style: 'display: none'
+    - else
+      = f.text_area :review, cols: 30, rows: 3
+    = f.submit "Post", style: 'display: none', class: 'course-review-submit button-link'

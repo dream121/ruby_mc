@@ -1,0 +1,24 @@
+div.page-header
+  h1= "#{@course.title}: Coupons"
+
+table.table.table-striped
+  thead
+    tr
+      th Course
+      th Code
+      th Redemptions
+      th Max redemptions
+      th Price
+      th Expires at
+
+  tbody
+  - @coupons.each do |coupon|
+    tr
+      td= link_to coupon.course.title, edit_course_path(coupon.course)
+      td= link_to coupon.code, edit_course_coupon_path(coupon.course, coupon)
+      td= coupon.redemptions
+      td= coupon.max_redemptions
+      td= price_in_dollars coupon.price
+      td= coupon.expires_at
+
+= link_to 'New Coupon', new_course_coupon_path(@course), class: 'btn btn-primary'

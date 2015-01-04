@@ -1,0 +1,17 @@
+section.item
+  .container
+    .qa-section
+      span data-alt=("image description") data-picture=""
+        span data-src=image_path(@course.image_url(:office_hours))
+          = image_tag(@course.image_url(:office_hours),  alt: "image description")
+        span data-media="(-webkit-min-device-pixel-ratio:1.5), (min-resolution:144dpi)" data-src=image_path(@course.image_url(:office_hours))
+      .box-holder
+        .box
+          .icons
+            span.icon Q
+            span.separator +
+            span.icon A
+          p Whatever you have a question, you can submit through video or text for #{@course.instructors.first.first_name.capitalize} in our Q&amp;A forum. #{@course.instructors.first.first_name.capitalize} has already answered #{answered_questions(@answer_count, 'question', 'questions')} .
+          a.more href="#{course_office_hours_path(@course)}"
+            | visit Office Hours
+            span.icon-svg3

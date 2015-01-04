@@ -1,0 +1,21 @@
+.page-header
+  h1 Order_product
+
+dl
+  dt Price
+  dd= @order_product.price
+  dt Qty
+  dd= @order_product.qty
+  dt Order
+  dd= @order_product.order
+  dt Product
+  dd= @order_product.product
+
+/- if can?(:edit, @order_product)
+  = link_to 'Edit', edit_order_product_path(@order_product), class: 'btn'
+  '
+= link_to 'Back', order_products_path, class: 'btn'
+
+/- if can?(:destroy, @order_product)
+  '
+  = link_to'Destroy', order_product_path(@order_product), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger'

@@ -1,0 +1,32 @@
+section.item-section
+  .container
+    .item-row
+      .item-holder
+        h3.social-text share this class with a friend
+        .social-block
+          ul
+            li
+              a href="http://twitter.com/share?text=#{@course.detail.tweet_text}&url=''" target="_blank"
+                span.ico-twitter
+            li
+              a href="#" onclick="courseFbWallPost();"
+                span.ico-facebook
+            li
+              a href="#"
+                span.ico-mail
+- content_for :javascript do
+  javascript:
+
+   function courseFbWallPost() {
+      FB.ui({
+        method: 'feed',
+        app_id: "#{ENV['FACEBOOK_KEY']}",
+        name: "#{@course.instructors.first.name}",
+        link: 'http://www.masterclass.com',
+        picture: "#{@course.image_url(:banner)}",
+        caption: "teaches you #{@course.skill}",
+        description: "#{@course.detail.overview}"
+      }, function(response){
+      });
+      return false;
+    }

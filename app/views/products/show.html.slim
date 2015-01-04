@@ -1,0 +1,32 @@
+.page-header
+  h1 Product
+
+dl.dl-horizontal
+  dt Name
+  dd= @product.name
+  dt Price
+  dd= @product.price
+  dt Kind
+  dd= @product.kind
+  dt Course
+  dd= @product.course && link_to(@product.course.title, edit_course_path(@product.course))
+
+- if policy(@product).edit?
+  = link_to 'Edit', edit_product_path(@product), class: 'btn btn-primary'
+  '
+= link_to 'Back', products_path, class: 'btn btn-default'
+
+- if policy(@product).destroy?
+  '
+  = link_to'Destroy', product_path(@product), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger'
+
+h2 Product Recommendations
+- if @product.recommendations.empty?
+  p No recommendations
+
+- @product.recommendations.each do |recommendation|
+  h3
+    = link_to recommendation.related_product.name, edit_product_recommendation_path(@product, recommendation)
+
+= link_to 'Add Recommendation', new_product_recommendation_path(@product), class: 'btn btn-default'
+p

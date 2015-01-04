@@ -1,0 +1,16 @@
+= render 'shared/sign_up_modal'
+= render 'shared/sign_in_modal'
+= render 'shared/reset_password_modal'
+= render 'shared/fb_sign_in_modal'
+= render 'shared/reset_password_sent_modal'
+- if @identity.present?
+  = render 'shared/reset_password_confirmation_modal'
+  javascript:
+    $("#modal_confirmpassword_button").trigger("click");
+- elsif params[:require_signin]
+  javascript:
+    $("#modal_sign_button").trigger("click");
+- elsif params[:require_signup]
+  javascript:
+    $("#modal_create_button").trigger("click");
+

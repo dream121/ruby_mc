@@ -1,0 +1,11 @@
+= simple_form_for([@course, @comment], url: course_comment_path(@course, @comment)) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :comment
+    = f.input :position
+
+  .form-actions
+    = f.button :submit, class: 'btn btn-primary'
+    '
+    = link_to 'Back', enrolled_course_path(@course), class: 'btn'

@@ -1,0 +1,26 @@
+<div class="col-sm-6 col-md-3 hero-item hero-item-<%= @id %>" data-upload-id="<%= @id %>">
+  <div class="thumbnail">
+    <img src="<%= @url %>" />
+    <div class="caption">
+      <p>
+        <form accept-charset="UTF-8" action="<%= @links.edit %>" class="edit_upload" data-remote="true" id="edit_upload_<%= @id %>" method="post">
+          <div style="margin:0;padding:0;display:inline">
+            <input name="utf8" type="hidden" value="✓">
+            <input name="_method" type="hidden" value="patch">
+          </div>
+          <select class="upload-kind-select" id="upload_kind" name="upload[kind]">
+            <option value=""></option>
+            <% if @enrolled_upload_types.length: %>
+              <% for type in @enrolled_upload_types: %>
+                <option value="<%= type %>"><%= type %></option>
+              <% end %>
+            <% end %>
+          </select>
+        </form>
+      </p>
+      <p>
+        <a href="<%= @links.destroy %>" class="hero-destroy btn btn-danger" data-method="delete" data-remote="true" data-confirm="Delete upload?">Delete</a>
+      </p>
+    </div>
+  </div>
+</div>

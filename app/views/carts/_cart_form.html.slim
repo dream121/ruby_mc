@@ -1,0 +1,18 @@
+.order-box
+  = form_for(@cart, {html: { class: 'form-inline' } }) do |f|
+    - @cart.cart_products.each do |cart_product|
+      - if cart_product.product.course.present?
+        .visual.version-one-cart
+            span data-picture="" data-alt="image description"
+              span data-src="#{cart_product.product.course.decorate.image_url(:cart)}"
+              span data-src="#{cart_product.product.course.decorate.image_url(:cart)}" data-media="(-webkit-min-device-pixel-ratio:1.5), (min-resolution:144dpi)"
+              <!--[if (lt IE 9) & (!IEMobile)]>
+                <span data-src="images/img39.jpg"></span>
+              <![endif]-->
+              <!-- Fallback content for non-JS browsers. Same img src as the initial, unqualified source element. -->
+              noscript
+                img src="#{cart_product.product.course.decorate.image_url(:cart)}" width="299" height="108" alt="image description"
+            = link_to 'remove', remove_product_path(cart_product.product), method: :delete, class: 'remove'
+        .text
+          h2 #{cart_product.product.course.decorate.instructor_first_name} #{cart_product.product.course.decorate.title}
+          p Individual Enrollment at #{price_in_dollars cart_product.price}

@@ -1,0 +1,6 @@
+.course-overview
+  header
+    img.img-responsive src=@course.image_url(:class_portrait)
+    h5= @course.title
+  .course-overview-description
+    = @course.overview.try(:html_safe)

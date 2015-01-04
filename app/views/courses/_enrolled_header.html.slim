@@ -1,0 +1,14 @@
+// main content container
+.row
+  .col-lg-9.col-md-8.col-sm-12
+
+    // intro description
+    .intro
+      h5 Welcome to
+      h2.title
+        => @course.title
+        ' /
+        .instructor= " with #{@course.role} #{@course.instructor_name}"
+      /ul.social-links
+      /  li.icon-facebook
+      /  li.icon-twitter

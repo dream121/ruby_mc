@@ -1,0 +1,8 @@
+.user-info.instructor
+  .container
+    = link_to "class overview", course_path(@course), class: "back"
+    .about
+      h1 = @instructor.name
+      p
+        = sanitize @instructor.pitch_description, tags: ['span', 'br']
+        = link_to " #{@instructor.name} #{@course.title}", course_path(@course)

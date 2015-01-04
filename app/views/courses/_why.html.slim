@@ -1,0 +1,18 @@
+.detail-container.col-md-10.col-sm-12
+  .instructor-statement
+    .course-overview
+      .quote
+        .start &ldquo;
+        == @course.instructor_motivation
+.instructor
+  h4.header
+    span= "about #{@course.instructor_name}"
+  .about.row
+    .col-md-6== @course.instructor_short_bio
+    .col-md-6== @course.instructor_testimonials
+      blockquote
+        | "If I had to pick a center [for an all-time best team], I would take Olajuwon."
+        q - Michael Jordan
+      blockquote
+        | "Hakeem Olajuwon was the only guy I couldn't intimidate."
+        q - Shaquille O'Neal

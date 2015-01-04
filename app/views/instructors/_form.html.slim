@@ -1,0 +1,49 @@
+= simple_form_for(@instructor) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name, autofocus: true
+    = f.input :pitch_description, input_html: { cols: 80, rows: 1 }
+    = f.input :class_quote, input_html: { cols: 80, rows: 2 }
+    = f.input :class_quote_attribution, input_html: { cols: 80, rows: 1 }
+    = f.input :short_bio, input_html: { cols: 80, rows: 3 }
+    = f.input :long_bio, input_html: { cols: 80, rows: 8 }
+    = f.input :office_hours_pitch, input_html: { cols: 80, rows: 4 }
+    = f.input :popular_quote, input_html: { cols: 80, rows: 4 }
+    = f.input :questions do
+      = f.collection_select :question_id, @course.questions, :id, :subject
+    = f.input :testimonials, input_html: { cols: 80, rows: 8 }
+    = f.input :slug, hint: 'Used in the instructor URL, created automatically if blank'
+    = f.input :email, hint: 'Used by the system when a user uses the "contact instructor" form.'
+
+  .form-inputs
+    .filepicker-upload.hero-image
+      = f.label :hero_url, "Hero Image"
+      = f.input :hero_url, as: :hidden
+      ul.upload-list
+        - unless @instructor.hero_url.blank?
+          li
+            a href="#{@instructor.hero_url}" target="_blank" = "#{@instructor.hero_url} "
+            a class="btn btn-danger btn-xs delete-image" delete
+        - else
+            em No image uploaded
+      a.btn.btn-default.upload-image Add Hero Image
+    br
+    .filepicker-upload.popular-quote-logo
+      = f.label :popular_quote_logo_url, "Popular Quote Logo Image"
+      = f.input :popular_quote_logo_url, as: :hidden
+      ul.upload-list
+        - unless @instructor.popular_quote_logo_url.blank?
+          li
+            a href="#{@instructor.popular_quote_logo_url}" target="_blank" = "#{@instructor.popular_quote_logo_url} "
+            a class="btn btn-danger btn-xs delete-image" delete
+        - else
+            em No image uploaded
+      a.btn.btn-default.upload-image Add Popular Quote Logo
+
+  br
+  .form-actions
+    = f.button :submit, class: 'btn btn-primary'
+    '
+    = link_to 'Back', instructors_path, class: 'btn'
+  br

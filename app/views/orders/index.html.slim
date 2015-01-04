@@ -1,0 +1,26 @@
+div.page-header
+  h1= "#{@orders.length} Orders"
+
+table.table.table-striped
+  thead
+    tr
+      th ID
+      th Name
+      th Email
+      th Products
+      th Created
+      th Paid
+
+  tbody
+  - @orders.each do |order|
+    tr
+      td= order.id
+      td= link_to order.user.name, order.user
+      td= order.user.email
+      td
+        - order.order_products.each do |order_product|
+          = order_product.product.name
+          br
+      td= order.created_at
+      td.text-success= price_in_dollars order.payment.try(:amount)
+      td= link_to 'show', order_path(order)

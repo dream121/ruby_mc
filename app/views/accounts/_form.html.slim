@@ -1,0 +1,31 @@
+.form-holder
+  .container.settings-box
+    = link_to 'back to your profile', edit_student_path(@user.profile), class: 'back'
+    .row
+      .col-md-12
+        h1 your account settings
+    .row
+      .col-md-4
+        aside.aside
+          .person-box#profile-picture
+            = @user.account_pic
+            a.btn-change id="change-image" href="#"
+              span change
+          - unless @user.facebook
+            strong.title connect Facebook
+            a.btn-facebook href="#" id="facebook-connect"
+              span connect
+            span.info Master Class will never post on your behalf.
+      .col-md-7
+        = form_for(@user, html: { class: 'payment-form', id: 'user-settings-form' }, url: account_path, method: :put) do |f|
+          fieldset
+            = render partial: 'accounts/name_fields', locals: { f: f }
+            = render partial: 'accounts/address_fields', locals: { user: @user }
+            = render partial: 'accounts/email_settings_fields', locals: { user: @user }
+            - unless @user.identity.nil?
+              = render partial: 'accounts/password_fields'
+            = render partial: 'accounts/privacy_settings_fields', locals: { user: @user }
+            .submit-holder
+              input type="submit" value=("update your settings")
+      a.btn-delete href="/account" data-method="delete" data-confirm="Are you sure?  You won't be able to undo this." rel="no-follow"
+        span delete account

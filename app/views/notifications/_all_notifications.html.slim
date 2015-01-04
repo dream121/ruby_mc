@@ -1,0 +1,20 @@
+- @comment_notifications.take(10).each do |comment_notification|
+  - comment_notification = comment_notification.decorate
+  .post
+    .holder
+      = link_to student_path(comment_notification.user.profile.id) do
+        = image_tag comment_notification.comment_user_profile_image_url, class: 'alignleft user_img', alt: "image description"
+      .text-holder
+        span.name
+          | Posted on
+          = link_to "#{comment_notification.chapter.number.to_s.rjust(2, '0')}. #{comment_notification.chapter.title}", watch_course_chapter_path(comment_notification.course, comment_notification.chapter)
+        p= comment_notification.comment
+        span.name.add
+          a href="#"  "#{comment_notification.created_at_human} ago by #{comment_notification.comment_user_user_name}".
+        = link_to watch_course_chapter_path(comment_notification.course, comment_notification.chapter, comment_id: comment_notification.id), class: "goto" do
+          | Go to discussion
+          i.iconn-arrow          
+- if @comment_notifications.count > 10
+  .show-block
+    a href="#" 
+      span show older notifications

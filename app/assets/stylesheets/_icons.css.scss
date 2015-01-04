@@ -1,0 +1,77 @@
+.icon{
+  display:block;
+  text-align:center;
+  margin:0 auto 36px;
+  @include text-size(36px, 36px);
+  color:$white-color;
+}
+.visual-section .icon {
+  margin:0 auto 28px;
+}
+.inner .icon.icon-svg8{
+  margin:-16px auto 37px;
+}
+.icon.icon-svg8 {
+  margin: -4px auto 30px;
+  font: 15px/22px "Raleway", Arial, sans-serif;
+  font-size: 50px;
+  line-height: 50px;
+  font-weight: $body-font-weight-extralight;
+  font-weight: 100;
+}
+.icon.icon-svg8 em{
+  font-style:normal;
+  font-weight:200;
+  @include text-size(25px, 45px);
+  vertical-align:top;
+  display:inline-block;
+}
+.icon.icon-svg8 b{
+  font-weight:100;
+  display:inline-block;
+  vertical-align:top;
+  @include text-size(33px, 40px);
+  padding-top:10px;
+}
+.icon.icon-svg9{
+  margin:-4px auto 20px;
+  font:$font;
+  @include text-size(50px, 50px);
+  font-weight:100;
+}
+.icon.icon-svg17 {
+  margin:0 auto 18px;
+  img{
+    display:block;
+    width:79px !important;
+    height:47px !important;
+    margin:0 auto;
+    position:static !important;
+  }
+}
+.visual-section .icon.icon-svg18 {
+  margin:8px auto 28px;
+}
+.icon.icon-svg18 {
+  margin:8px auto 36px;
+  img{
+    display:block;
+    margin:0 auto;
+    width:73px !important;
+    height:31px !important;
+    position:static !important;
+  }
+}
+.icon.icon-price {
+  margin: -4px auto 12px;
+  font: 15px/22px "Raleway", Arial, sans-serif;
+  font-size: 50px;
+  line-height: 50px;
+  font-weight: $body-font-weight-extralight;
+  .price-dollar-sign {
+    font-size: 25px;
+    font-weight:$body-font-weight-light;
+    vertical-align: super;
+    baseline-shift:11px;
+  }
+}

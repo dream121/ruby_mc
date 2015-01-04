@@ -1,0 +1,21 @@
+.page-header
+  h1 Cart_product
+
+dl
+  dt Price
+  dd= @cart_product.price
+  dt Qty
+  dd= @cart_product.qty
+  dt Cart
+  dd= @cart_product.cart
+  dt Product
+  dd= @cart_product.product
+
+/- if can?(:edit, @cart_product)
+  = link_to 'Edit', edit_cart_product_path(@cart_product), class: 'btn'
+  '
+= link_to 'Back', cart_products_path, class: 'btn'
+
+/- if can?(:destroy, @cart_product)
+  '
+  = link_to'Destroy', cart_product_path(@cart_product), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger'

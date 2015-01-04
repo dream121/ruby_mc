@@ -1,0 +1,9 @@
+- if @course.reviews.visible.any?
+  - count = @course.reviews.visible.length
+  .class-reviews-summary
+    h4= "#{count} reviews"
+    = render partial: 'shared/star_rating', locals: { rating: review_star_average(@course.reviews.visible), count: count }
+    .featured-quote
+      .featured-quote-glyph.top-quote “
+      .featured-quote-text= @course.featured_review
+      .featured-quote-glyph.bottom-quote ”

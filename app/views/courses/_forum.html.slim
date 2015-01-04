@@ -1,0 +1,15 @@
+.forum-overview.detail-container.col-md-12.col-sm-12
+  .detail
+    .topic-list
+      p
+        | Select a discussion:
+        - if policy(CourseComment).new?
+          a.small.admin href=new_course_topic_path(@course)
+            span.icon.icon-pencil
+            ' New
+      .panel-group
+        - @comments.each do |comment|
+          = render partial: 'course_comments/topic', locals: { comment: comment }
+
+      / .fb-comments data-href="#{course_url(@course)}" data-colorscheme="light" data-numposts="50" data-width="800"
+    .comment-list

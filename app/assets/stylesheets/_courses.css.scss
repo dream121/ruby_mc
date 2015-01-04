@@ -1,0 +1,81 @@
+.start-hidden {
+  display: none;
+}
+
+
+.locked-icon {
+  left: 10px;
+  top: 27px;
+  @include locked-bonus-icon;
+  position: absolute;
+  &:before {
+    content: ' ';
+  }
+}
+.unlocked-icon {
+  left: 10px;
+  top: 27px;
+  @include unlocked-bonus-icon;
+  position: absolute;
+  &:before {
+    content: ' ';
+  }
+
+}
+
+.unlocked-icon {
+  left: 10px;
+  top: 27px;
+  @include unlocked-bonus-icon;
+  position: absolute;
+  &:before {
+    content: ' ';
+  }
+
+}
+/* Button above the share gift or audit */
+/* remove this id and styling once share gift and */
+/* audit feature implemented */
+#goto-class-button-link {
+  margin-top: 42px;
+}
+
+#courses.show {
+  #class_hero.hero-wrapper {
+    /*height: 999px;*/
+  }
+  .visual.visual-block {
+    padding-bottom: 0px;
+  }
+  .share {
+    display: none;
+  }
+}
+
+@media screen and (max-height: 880px) {
+  body#courses.show {
+    #class_hero.hero-wrapper{
+      /*height:740px;*/
+    }
+
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  body#courses.inner.show_enrolled {
+    .visual.visual-block {
+      background-repeat: no-repeat 50% 0;
+      background-size: cover;
+    }
+  }
+
+}
+
+@media screen and (max-width: 767px) {
+  body#courses.inner.show_enrolled {
+    .visual.visual-block {
+      background-size: cover;
+      padding-top: 0px;
+    }
+  }
+}

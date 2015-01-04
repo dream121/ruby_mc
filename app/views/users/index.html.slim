@@ -1,0 +1,22 @@
+div.page-header
+  h1= "#{@users.length} Users"
+
+table.table.table-striped
+  thead
+    tr
+      th
+      th ID
+      th Name
+      th Email
+      th Admin
+      th Comments
+
+  tbody
+  - @users.each do |user|
+    tr
+      td= user_avatar(user)
+      td= user.id
+      td= link_to user.full_name, user_path(user)
+      td= user.email
+      td= user.permissions['admin'] ? 'x' : nil
+      td= user.permissions['comments'] ? 'x' : nil

@@ -1,0 +1,13 @@
+.lesson-plan
+  h4.course-section-header
+    'Lesson Plan
+    small= "#{@course.chapters.length} lessons"
+  .lesson-plan-list
+    - @course.chapters.order(:number).each do |chapter|
+      .lesson-plan-list-row
+        .lesson-plan-chapter
+          span.lesson-plan-chapter-number= chapter.number
+
+        .lesson-plan-description
+          h4.lesson-plan-chapter-title= chapter.title
+          p.lesson-plan-chapter-abstract= chapter.abstract

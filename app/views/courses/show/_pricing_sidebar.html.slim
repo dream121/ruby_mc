@@ -1,0 +1,22 @@
+.pricing-container.pricing-narrow
+  header
+    .pricing-headline-wrapper
+      h3.pricing-headline= "#{@course.instructor_name} teaches #{@course.skill}"
+    .course-button
+      - first_chapter = @course.chapters.order(:number).first
+      - if first_chapter && policy(first_chapter).watch?
+        = link_to 'Go to Class', enrolled_course_path(@course), class: 'btn btn-lg btn-success btn-paid'
+      - else
+        = link_to 'Take the Class', add_product_path(@course.product.id), rel: 'nofollow', class: 'btn btn-lg btn-success track-outgoing'
+    .course-stats-pricing-wrapper
+      .course-pricing
+        .course-pricing-wrapper
+          h1= price_in_dollars(@course.price)
+          p Online class at your own pace
+
+      .course-stats
+        ul
+          - @course.facts.statistic.each do |statistic|
+            li.fa.fa-stop
+              span.number= statistic.number
+              span.kind= statistic.title

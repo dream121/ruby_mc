@@ -1,0 +1,20 @@
+div.page-header
+  h1= "#{@course.title}: Prospects"
+
+table.table.table-striped
+  thead
+    tr
+      th User
+      th Email
+      th User Created
+      th Cart Course
+      th Cart Created
+
+  tbody
+  - @users.each do |user|
+    tr
+      td= link_to user.name, user_path(user)
+      td= mail_to user.email, user.email
+      td= user.created_at
+      td= user.cart ? link_to(user.cart.course.title, edit_course_path(@course)) : nil
+      td= user.cart ? link_to(user.cart.created_at, user.cart) : nil

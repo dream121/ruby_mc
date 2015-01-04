@@ -1,0 +1,22 @@
+= form_for @profile, url: student_path, html: { class: 'edit-form' }, remote: true do |f|
+  .form-row
+    .col-full
+      .form-group
+        = f.text_field :display_name, class: 'form-control default', data: { "original-value" => @profile.display_name }
+  .form-row
+    .col-full
+      .form-group
+        = f.text_field :tagline, class: 'form-control default', data: { "original-value" => @profile.tagline }
+  .form-row
+    .col-half
+      .form-group
+        = f.text_field :city, class: 'form-control default', data: { "original-value" => @profile.city }
+    .col-half
+      .form-group
+        = f.text_field :country, class: 'form-control default', data: { "original-value" => @profile.country }
+        /! <span class="char-counter">15</span
+  .form-row.submit-holder
+    .col-half
+      input.button.reset type="reset" value="cancel"
+    .col-half
+      input.button.submit.headline-submit type="submit" value="update"

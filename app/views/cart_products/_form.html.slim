@@ -1,0 +1,14 @@
+= simple_form_for(@cart_product) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :price, autofocus: true
+    = f.input :qty
+    = f.association :cart
+    = f.association :product
+
+  .form-actions
+    = f.button :submit, class: 'btn btn-primary'
+    '
+    = link_to 'Back', cart_products_path, class: 'btn'
+

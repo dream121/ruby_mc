@@ -1,0 +1,10 @@
+.open-close
+  a.opener href="#"  Privacy
+  .slide
+    p This setting allows other students to see your profile from the comments 
+      you make on the site. If your profile is not visible, you cannot comment.
+    .form-row.big
+      = select_tag("user[privacy_settings][visibility]", \
+          options_for_select(user.profile_visibilities, user.privacy_settings_visibility), \
+          {} \
+        )

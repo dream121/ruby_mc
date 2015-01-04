@@ -1,0 +1,24 @@
+a.navbar-brand.logo href="#"
+  = image_tag "logo2.png",  alt: "image description", size: "439x56"
+.jumbotron
+/.cycle-gallery
+  .mask
+    .slideset
+      - @courses.each do |course|
+        - course = course.decorate
+        .slide
+          span data-alt=("image description") data-picture=""
+            span data-src=course.image_url(:class_skills) data-height="794" data-width="1376"
+            span data-height="141" data-media="(max-width:767px)" data-src=course.image_url(:class_skills) data-width="160" 
+            span data-media="(max-width:767px) and (-webkit-min-device-pixel-ratio:1.5)), (max-width:767px) and (min-resolution:144dpi)" data-src=course.image_url(:class_skills) 
+            /![if (lt IE 9) &amp; (!IEMobile)]
+              | <span data-src="images/img31.jpg"></span
+            /! Fallback content for non-JS browsers. Same img src as the initial, unqualified source element.
+            noscript
+              = image_tag course.image_url(:class_skills),  alt: "image description", size: "1220x704"
+          .link-holder
+            a.link href="#photo_section"
+              span.icon-svg3
+              | browse classes
+              span.icon-svg3
+          span.caption usher teaches you dancing

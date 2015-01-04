@@ -1,0 +1,6 @@
+.row
+  = form_for(message, { url: invites_path, method: :post, html: { class: 'form-inline' } }) do |f|
+    .form-group.col-sm-4
+      = f.text_field :from, placeholder: 'Enter your email here.', class: 'form-control'
+    .form-group.col-sm-2
+      = f.submit("Join", class: 'btn btn-large btn-success')

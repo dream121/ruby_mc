@@ -1,0 +1,23 @@
+.detail-container.col-md-10.col-sm-12
+  .instructor-statement
+    .course-overview
+      .statement= @course.class_overview
+
+      .what
+        h4.header
+          span what i'll teach you
+        .introduction== @course.course_structure
+
+        h4.header
+          span how we'll interact
+
+        .how.row
+          .col-md-4
+            h5 group hangouts
+            p Join me for group video chats.
+          .col-md-4
+            h5 one-on-one feedback
+            p Share your progress & get my feedback.
+          .col-md-4
+            h5 in-person exclusive
+            p Top students will have the opportunity to meet with me in person

@@ -1,0 +1,26 @@
+header#masterclass-notification-navbar
+  - if controller.action_name == 'root'
+    .tagline
+      | the world's finest teach the world's inquisitive
+  - else
+    .logo-box
+      = link_to(image_tag('mc-logo-nav@2x.png', class: 'logo-box-image'), root_path)
+  .header-content-container
+    ul.nav-module-element.nav-module-element-left
+      - unless current_user.nil?
+        li#menu-trigger.desktop-no-display.nav-module-element-top-level
+        li.mobile-hidden.nav-module-element-top-level
+          = link_to '« see more instructors', root_path, class: 'nav-module-element-top-level-link'
+    ul.nav-module-element.nav-module-element-right
+      - if current_user
+        li.mobile-hidden.nav-module-element-top-level = current_user.decorate.user_name
+        = render 'shared/navigation/navbar__courses'
+        = render partial: 'shared/navigation/navbar__notifications'
+      - else
+        li [
+          id="modal_button"
+          class="nav-module-element-top-level account"
+          data-target="#modal_sign_form"
+          data-toggle="modal"
+        ]
+          | Log in

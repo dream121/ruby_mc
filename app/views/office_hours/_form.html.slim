@@ -1,0 +1,48 @@
+script language="JavaScript" src="//ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js" 
+= render "header"
+- if @questions.size != 0
+  #questions-and-answers.container-fluid
+    - @questions.each do |question|
+      = render "question_and_answer", question: question, questions: @questions
+  - unless @showing_all
+    = render "show_more_divider"
+#new-question.container-fluid
+  .row
+    .submit-new-question.col-md-offset-4.col-md-5.col-xs-12 SUBMIT A NEW QUESTION
+  .row
+    .col-md-offset-1.col-md-2.profile-picture-container
+      = user_avatar_large(current_user)
+    //= form_for [@course, @question], :url => course_questions_path(@course_id), :html => { :multipart => true } do |f|
+    = form_for [@course, @question], :url => course_office_hours_path(@course,@question), :html => { :multipart => true } do |f|
+      .col-md-8.video-question-fields
+        .row
+          = f.text_field :subject, class: "subject form-control", placeholder: "Subject"
+        .row.video-fields
+          .webcam.video-field
+          .upload.video-field
+          = f.file_field :video, id: "video-upload", class: "hidden"
+        .row.text-question-field
+          = f.text_area :text_question, class: "new-text-question subject form-control", placeholder: "Or submit a text question"
+      = f.text_field :user_id, value: current_user.id, class: "hidden"
+      //= f.text_field :course_id, value: @course.id, class: "hidden"
+      = f.text_field :external_url, class: "hidden", id: "external-url"
+      = f.submit :submit, class: "hidden"
+#footer-buffer
+/! Button trigger modal
+button#webcam-modal-launcher.btn.btn-primary.btn-lg.hidden data-target="#myModal" data-toggle="modal" 
+/! Modal
+#myModal.modal.fade aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" 
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close data-dismiss="modal" type="button" 
+          span aria-hidden="true"  &times;
+          span.sr-only Close
+        h4#myModalLabel.modal-title Record a question
+      .modal-body
+        #webcam
+      .modal-footer
+        button#startRecording.left.btn.btn-danger.hidden type="button"  Start Recording
+        button#stopRecording.left.btn.btn-primary.hidden type="button"  Finish Recording
+        button.btn.btn-default data-dismiss="modal" type="button"  Close
+

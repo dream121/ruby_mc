@@ -1,0 +1,20 @@
+div.page-header
+  h1= "#{@course.title}: Email Templates"
+
+table.table.table-striped
+  thead
+    tr
+      th Course
+      th Kind
+      th Subject
+      th From
+
+  tbody
+  - @email_templates.each do |email_template|
+    tr
+      td= link_to email_template.course.title, edit_course_path(email_template.course)
+      td= email_template.kind
+      td= link_to email_template.subject, edit_course_email_template_path(email_template.course, email_template)
+      td= email_template.from
+
+= link_to 'New Email template', new_course_email_template_path(@course), class: 'btn btn-primary'

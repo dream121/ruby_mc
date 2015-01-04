@@ -1,0 +1,25 @@
+.page-header
+  h1 Coupon
+
+dl
+  dt Code
+  dd= @coupon.code
+  dt Redemptions
+  dd= @coupon.redemptions
+  dt Max redemptions
+  dd= @coupon.max_redemptions
+  dt Price
+  dd= @coupon.price
+  dt Course
+  dd= @coupon.course
+  dt Expires at
+  dd= @coupon.expires_at
+
+/- if can?(:edit, @coupon)
+  = link_to 'Edit', edit_coupon_path(@coupon), class: 'btn'
+  '
+= link_to 'Back', coupons_path, class: 'btn'
+
+/- if can?(:destroy, @coupon)
+  '
+  = link_to'Destroy', coupon_path(@coupon), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger'

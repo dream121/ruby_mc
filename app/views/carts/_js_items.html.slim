@@ -1,0 +1,30 @@
+javascript:
+  Stripe.setPublishableKey('#{ENV["STRIPE_PUBLIC_KEY"]}')
+
+  var google_conversion_language = "en";
+  var google_conversion_format = "3";
+  var google_conversion_color = "ffffff";
+  var google_conversion_label = "xfyLCI37kQcQo-r40AM";
+  var google_conversion_value = 20;
+  var google_remarketing_only = false;
+
+  var fb_param = {};
+  fb_param.pixel_id = '6009518801173';
+  fb_param.value = '1.00';
+  fb_param.currency = 'USD';
+  (function(){
+    var fpw = document.createElement('script');
+    fpw.async = true;
+    fpw.src = '//connect.facebook.net/en_US/fp.js';
+    var ref = document.getElementsByTagName('script')[0];
+    ref.parentNode.insertBefore(fpw, ref);
+  })();
+
+script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"
+
+noscript
+  div style="display:inline;"
+    img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/975058211/?value=20&amp;label=xfyLCI37kQcQo-r40AM&amp;guid=ON&amp;script=0"
+
+noscript
+  img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/offsite_event.php?id=6009518801173&amp;value=1&amp;currency=USD"

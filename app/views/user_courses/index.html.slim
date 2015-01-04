@@ -1,0 +1,22 @@
+div.page-header
+  h1= "#{@course.title}: Users"
+
+table.table.table-striped
+  thead
+    tr
+      th User
+      th Email
+      th Course
+      th Access
+      th Paid
+      th Created
+
+  tbody
+  - @user_courses.each do |user_course|
+    tr
+      td= link_to user_course.user.name, user_path(user_course.user)
+      td= mail_to user_course.user.email, user_course.user.email
+      td= link_to user_course.course.title, edit_course_path(user_course.course)
+      td= link_to user_course.access, edit_user_user_course_path(user_course.user, user_course)
+      td= link_to price_in_dollars(user_course.order.try(:payment).try(:amount)), user_course.order
+      td= user_course.created_at

@@ -1,0 +1,143 @@
+@mixin locked-bonus-icon {
+  width: 50px;
+  height: 50px;
+  background-image: url(icons/icon-locked-bonus.png);
+}
+
+@mixin unlocked-bonus-icon {
+  height: 50px;
+  width: 50px;
+  background-image: url(icons/icon-unlocked-bonus.png);
+}
+
+.flexible-image{
+  display:block;
+  width:100%;
+  height:auto;
+}
+.text-indent{
+  text-indent:-9999px;
+  overflow:hidden;
+  display:block;
+  height:0;
+}
+.button-style-mobile{
+  font-size:20px;
+  line-height:46px;
+  height:46px;
+  width:234px;
+}
+
+@mixin position($left:0, $top:0) {
+  position:absolute;
+  top:$top;
+  left:$left;
+}
+@mixin text-size($font-size:12px, $line-height:12px) {
+  font-size:$font-size;
+  line-height:$line-height;
+}
+@mixin list-style($margin:0, $padding:0) {
+  margin:$margin;
+  padding:$padding;
+  list-style:none;
+}
+@mixin box-shadow($shadows...) {
+  -webkit-box-shadow:$shadows;
+  box-shadow:$shadows;
+}
+/*! _mixins.css.scss */
+@mixin number {
+  font-family: $number-font-family;
+}
+
+@mixin vertical-align {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+@mixin gradient-vertical($start-color: #555, $end-color: #333, $start-percent: 0%, $end-percent: 100%) {
+  background-image: -webkit-linear-gradient(top, $start-color $start-percent, $end-color $end-percent);  // Safari 5.1-6, Chrome 10+
+  background-image: linear-gradient(to bottom, $start-color $start-percent, $end-color $end-percent); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($start-color)}', endColorstr='#{ie-hex-str($end-color)}', GradientType=0); // IE9 and down
+}
+
+@keyframes fadeout {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@-webkit-keyframes fadeout {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@-webkit-keyframes fadein {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@mixin fade-out($time) {
+  animation: fadeout $time;
+  -webkit-animation: fadeout $time;
+  opacity: 0;
+}
+
+@mixin fade-in($time) {
+  animation: fadein $time;
+  -webkit-animation: fadein $time;
+  opacity: 1;
+}
+
+.flexible-image{
+  display:block;
+  width:100%;
+  height:auto;
+}
+.text-indent{
+  text-indent:-9999px;
+  overflow:hidden;
+  display:block;
+  height:0;
+}
+.button-style-mobile{
+  font-size:20px;
+  line-height:46px;
+  height:46px;
+  width:234px;
+}
+@mixin position($left:0, $top:0) {
+  position:absolute;
+  top:$top;
+  left:$left;
+}
+@mixin text-size($font-size:12px, $line-height:12px) {
+  font-size:$font-size;
+  line-height:$line-height;
+}
+@mixin list-style($margin:0, $padding:0) {
+  margin:$margin;
+  padding:$padding;
+  list-style:none
+}
+@mixin box-shadow($shadows...) {
+  -webkit-box-shadow:$shadows;
+  box-shadow:$shadows;
+}
+@mixin placeholder($color: $input-color-placeholder) {
+  &::-moz-placeholder  {
+    color: $color;
+    opacity: 1;
+  }
+  &:-ms-input-placeholder { color: $color; }
+  &::-webkit-input-placeholder  { color: $color; }
+}

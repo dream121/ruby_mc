@@ -1,0 +1,22 @@
+<%= render "courses/office_hours_header" %>
+
+<div class = "container">
+  <h3>Upload video response for <%= @question.subject %></h3>
+
+  <%= form_for @answer, :url => question_answers_path(@question), method: :post, :html => { :multipart => true } do |f| %>
+
+    <%= f.label :brightcove_id, "Brightcove Video Id" %>
+    <%= f.text_field :brightcove_id %>
+
+    <%= f.text_field :question_id, value: @question.id, class: "hidden" %> 
+    <%= f.text_field :user_id, value: current_user.id, class: "hidden" %> 
+    <%= hidden_field_tag "course[id]", params[:course_id] %>
+    <br>
+
+    <%= f.submit :submit, class: "btn btn-primary" %>
+
+  <% end %>
+
+</div>
+
+<div id = "footer-buffer"></div>

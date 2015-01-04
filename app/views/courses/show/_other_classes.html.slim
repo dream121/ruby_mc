@@ -1,0 +1,11 @@
+.other-classes
+  .other-classes-headline Other Great Master Classes
+  // TODO: move query to controller
+  - other_courses = Course.where('id != ?', @course.id).limit(3)
+  - other_courses.each do |course|
+    - course = course.decorate
+    .other-class
+      .other-class-image-wrapper
+        = image_tag course.image_url(:banner), class: 'img-responsive'
+        h4.other-class-title= course.title
+      p.other-class-description= course.short_description

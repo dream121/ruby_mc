@@ -1,0 +1,24 @@
+h2 Documents
+
+p.help-block Upload course materials and add web links.
+
+p= link_to 'Add Document', send(new_path, parent), class: 'btn btn-default'
+
+- parent.documents.each_slice(4) do |group|
+  .row
+    - group.each do |d|
+      - d = d.decorate
+      .col-sm-6.col-md-3
+        .thumbnail
+          = image_tag(d.icon)
+          .caption
+            h3= d.title
+            p= d.filename
+            p= d.kind
+            p
+              - if policy(d).download?
+                span= link_to 'Download', download_course_document_path(@course, d), class: 'btn btn-default'
+                '
+              span= link_to 'Edit', edit_course_document_path(@course, d), class: 'btn btn-default'
+              '
+              span= link_to 'Delete', send(document_path, parent, d), method: :delete, class: 'btn btn-danger', confirm: 'Delete document?'

@@ -1,0 +1,86 @@
+= simple_form_for(@course) do |f|
+  = f.error_notification
+  .form-actions
+    = f.button :submit, class: 'btn btn-primary'
+
+  .form-inputs
+    h2 Course
+
+    p.help-block Basic info about the course.
+
+    = f.input :title
+    = f.input :category, hint: 'Used for grouping courses in the course list'
+    = f.input :slug, hint: 'Used in the course URL, created automatically if blank'
+    = f.input :start_date, hint: 'Course is not purchaseable until start date'
+    = f.input :available_now
+    = f.input :review_average_display
+    = f.input :student_count_display
+
+    h2 Instructors
+    = f.association :instructors
+
+    - unless @course.persisted?
+      p.text-warning
+        strong> Note:
+        | the fields for marketing page, chapters, images, and documents will appear once the new course has been saved.
+
+    = f.simple_fields_for(:detail) do |d|
+      / marketing
+      h2 Marketing Details
+
+      p.help-block Content mainly for use on the marketing page.
+
+      = d.input :headline, hint: 'May contain HTML (h1, h2, h3)'
+      = d.input :role, hint: 'Adjective that appears before instructor name'
+      = d.input :skill, hint: 'Noun that describes what the student will learn'
+      = d.input :overview, input_html: { cols: 80, rows: 3 }
+      = d.input :short_description, input_html: { cols: 80, rows: 3 }, hint: 'Displayed in the "related courses" list'
+      = d.input :featured_review, input_html: { cols: 80, rows: 3 }, hint: 'Short review that displays in sidebar in quotes'
+      = d.input :total_video_duration, hint: 'Total number of minutes of video for the course'
+      = d.input :intro_video_id, hint: 'Brightcove video ID that should be displayed on the marketing page'
+      = d.input :tweet_text, hint: 'Tweet text'
+
+      - if @course.persisted?
+        = render partial: 'manage_facts'
+
+      h2 Enrolled Details
+      / enrolled
+      = d.input :lessons_introduction, input_html: { cols: 80, rows: 10 }
+      = d.input :instructor_motivation, input_html: { cols: 80, rows: 3 }
+      = d.input :welcome_statement, input_html: { cols: 80, rows: 3 }, hint: 'Displayed to the user when no videos have been played'
+      = d.input :welcome_back_statement, input_html: { cols: 80, rows: 3 }, hint: 'Displayed to the user when videos have been played'
+
+  .form-actions
+    = f.button :submit, class: 'btn btn-primary'
+    '
+    - if policy(@course).destroy?
+      = link_to 'Delete', course_path(@course), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger'
+      '
+- if @course.persisted?
+  h2 Chapters
+
+  p.help-block Add chapters (each containing a reference to a video).
+
+  p= link_to 'Add Chapter', new_course_chapter_path(@course), class: 'btn btn-default'
+
+  .row
+    .col-md-6
+      table.table
+        /- @course.chapters.order(:position).each do |chapter|
+        - @course.chapters.order('position asc').each do |chapter|
+          tr
+            td= chapter.number
+            td= chapter.title
+            td= chapter.duration
+            td
+              span= link_to 'Edit', edit_course_chapter_path(@course, chapter), class: 'btn btn-primary'
+              '
+              span= link_to 'Delete', course_chapter_path(@course, chapter), method: :delete, data: { confirm: "Delete chapter?" }, class: 'btn btn-danger'
+              '
+              span= link_to 'Move Up', move_course_chapter_path(@course, chapter, direction: 'up'), method: :put, class: 'btn btn-info'
+              '
+              span= link_to 'Move Down', move_course_chapter_path(@course, chapter, direction: 'down'), method: :put, class: 'btn btn-info'
+
+  = render partial: 'shared/manage_uploads', locals: { parent: @course, new_path: :new_course_image_path, image_path: :course_image_path }
+  = render partial: 'shared/manage_images', locals: { parent: @course, new_path: :new_course_image_path, image_path: :course_image_path }
+  = render partial: 'shared/manage_documents', locals: { parent: @course, new_path: :new_course_document_path, document_path: :course_document_path }

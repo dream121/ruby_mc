@@ -1,0 +1,21 @@
+#controls.container-fluid
+  #course-controls.row
+    
+    span.col-md-2.col-md-offset-1.lesson-plan
+      a href="#" 
+        .glyphicon.glyphicon-play.left-arrow
+      = link_to "LESSON PLAN", "#"
+
+    span.col-md-2.col-md-offset-6.next-lesson
+      = link_to "NEXT LESSON", "#"
+      a href="#" 
+        .glyphicon.glyphicon-play
+
+  #office-hours-header.row
+    .col-md-offset-1.col-md-3
+      span.small-label.questions-answered 23 QUESTIONS ANSWERED
+    .col-md-4.office-hours OFFICE HOURS
+    .col-md-offset-1.col-md-3
+      span.small-label SORTED BY
+      = select_tag("seen", options_for_select(["Unseen by you", "Seen"], "Unseen by you"), class: "seen-select")
+

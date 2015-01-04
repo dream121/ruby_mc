@@ -1,0 +1,14 @@
+div.stars class="#{defined?(add_class) ? add_class : ''}"
+	ul.stars
+	  - num_full_stars_in_rating(rating).times do
+		li
+		  a href="#" 
+		    span.icon-svg10
+	  - num_half_stars_in_rating(rating).times do
+		li
+		  a href="#" 
+		    span.icon-svg6
+	  - num_empty_stars_in_rating(rating).times do
+		li
+		  a href="#"
+		    span.icon-svg10

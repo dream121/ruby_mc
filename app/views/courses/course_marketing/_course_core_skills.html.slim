@@ -1,0 +1,17 @@
+section.banner-section-module.core-skills
+  .banner-section-module-background-wrapper
+    = image_tag(course.image_url(:class_skills), class: "banner-section-module-image-bg")
+    .banner-section-module-container
+      input.content-box-module-click-event id="course-core-skills-trigger" type="checkbox"
+      .content-box-module-outer-wrapper
+        .content-box-module-inner-wrapper
+          - core_skills.each_with_index do |cs, index|
+            .content-box-module.text-center
+              .content-box-module-content
+                span.content-box-module-small-header core skills
+                h3.content-box-module-skill-header = cs.title
+                p.content-box-module-description = truncate(cs.description, length: 160, separator: ' ')
+                - unless index > 0
+                  label.content-box-module-link for="course-core-skills-trigger"
+                    | more core skills
+                    span.content-box-module-arrow.icon-svg3

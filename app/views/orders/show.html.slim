@@ -1,0 +1,55 @@
+.page-header
+  h1 Order
+  dl.dl-horizontal
+    dt ID
+    dd= @order.id
+    dt Created
+    dd= @order.created_at
+
+h3 User
+dl.dl-horizontal
+  dt Name
+  dd= link_to @order.user.name, @order.user
+  dt Email
+  dd= @order.user.email
+
+h3 Products
+- @order.order_products.each do |order_product|
+  dl.dl-horizontal
+    - if order_product.product.course.present?
+      dt Title
+      dd= order_product.product.course.title
+    - else
+      dt Name
+      dd= order_product.product.name
+    dt Price
+    dd= price_in_dollars order_product.price
+
+- if payment = @order.payment
+  h3 Payment
+  dl.dl-horizontal
+    dt Created
+    dd= payment.created_at
+    dt Paid
+    dd= payment.paid
+    dt Amount
+    dd
+      span.text-success= price_in_dollars payment.amount
+    dt Refunded
+    dd= payment.refunded
+    dt Amount Refunded
+    dd
+      span.text-danger= price_in_dollars payment.amount_refunded
+    dt Transaction
+    dd= payment.transaction_id
+    td
+    dd= link_to 'Edit Payment', edit_order_payment_path(@order, @order.payment), class: 'btn btn-default'
+
+- if policy(@order).index?
+  = link_to 'All Orders', orders_path, class: 'btn btn-default'
+  '
+  p
+
+- if policy(@order).destroy?
+  = link_to 'Delete', order_path(@order), method: :delete, data: { confirm: "Are you sure? (Only delete test orders!)" }, class: 'btn btn-danger'
+  '

@@ -1,0 +1,33 @@
+form#signin.form-horizontal action="/auth/identity/callback" method="post" role="form" 
+  /! Button trigger modal
+  #modal_sign_button data-target="#modal_sign_form" data-toggle="modal" 
+  /! Modal
+  #modal_sign_form.modal.fade.auth aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" style=("display: none;") tabindex="-1" 
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close aria-hidden="true" data-dismiss="modal" type="button" 
+          p#myModalLabel.modal-title Sign into your account
+        .modal-body
+          button.modal-button.singup_fb type="button" 
+            p Sign in with Facebook
+          p Master Class  will never post on your behalf.
+          p.or OR
+          .email.custom_input
+            input.email_input name="auth_key" placeholder="Email" type="text" /
+            span.caution
+            .error_tooltip Please enter a valid email address.
+          .password.custom_input
+            input.pw_input name="password" placeholder="Password" type="password" /
+            span.caution
+            .error_tooltip
+              | This password doesn't match.
+              span Forgot password?
+          p.forgot
+            | Forgot your password?
+            span Send a reset email.
+          button.modal-button.create type="submit" 
+            p Sign In
+          p.button_desc
+            | Need an account.?
+            span Create an account.

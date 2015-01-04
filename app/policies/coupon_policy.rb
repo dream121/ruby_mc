@@ -1,0 +1,2 @@
+class CouponPolicy < AdminPolicy
+end

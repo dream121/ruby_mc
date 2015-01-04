@@ -1,0 +1,73 @@
+.page-header
+  h2
+    = user_avatar(@user)
+    '
+    span= @user.name
+
+h3 Info
+dl.dl-horizontal
+  dt Email
+  dd= @user.email
+  dt Permissions
+  dd= @user.permissions
+  dt
+  dd
+    - if policy(@user).edit?
+      = link_to 'Edit User', edit_user_path(@user), class: 'btn btn-default'
+
+- @user.authentications.each do |auth|
+  h3= "Authentication (#{auth.provider.titleize})"
+  dl.dl-horizontal
+    dt Provider
+    dd= auth.provider
+    dt Uid
+    dd= auth.uid
+    dt Info
+    dd= auth.info
+    dt Credentials
+    dd= auth.credentials
+    - if auth.identity
+      dt Email
+      dd= auth.identity.email
+      dt Password
+      dd
+        '**********
+
+h3 Courses
+- @user.user_courses.each do |uc|
+  - uc = uc.decorate
+  dl.dl-horizontal
+    dt Course
+    dd= uc.course.title
+    dt Created
+    dd= uc.created_at
+    dt Access
+    dd= uc.access
+    dt Chapters Started
+    dd= "#{uc.chapters_started.length} / #{uc.chapters.length}"
+    dt Chapters Completed
+    dd= "#{uc.chapters_completed.length} / #{uc.chapters.length}"
+    dt
+    dd= link_to 'Edit Access', edit_user_user_course_path(@user, uc), class: 'btn btn-default'
+
+h3 Orders
+- @user.orders.each do |order|
+  dl.dl-horizontal
+    dt Course
+    dd= order.course.title
+    dt Created
+    dd= order.created_at
+    dt Amount Paid
+    dd
+      span.text-success= price_in_dollars order.payment.amount
+    dt Amount Refunded
+    dd
+      span.text-danger= price_in_dollars order.payment.amount_refunded
+    dt
+    dd= link_to 'Show Order', order_path(order), class: 'btn btn-default'
+
+
+- if policy(@user).destroy?
+  = link_to 'Delete', user_path(@user), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger'
+  '
+= link_to 'All Users', users_path, class: 'btn btn-default'

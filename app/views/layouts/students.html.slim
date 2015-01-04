@@ -1,0 +1,15 @@
+doctype html
+html lang="en"
+  = render partial: 'layouts/head'
+  body.profile
+    = render 'shared/navigation/navbar'
+    .push-wrapper
+      #wrapper
+        .visual.visual-block
+          .bg
+            = image_tag('img46.jpg', width: '1182', height: '735')
+          = render 'students/user_info'
+        = yield
+      = render 'shared/footer'
+    script type="text/javascript"src="//api.filepicker.io/v1/filepicker.js"
+

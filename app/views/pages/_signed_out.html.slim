@@ -1,0 +1,24 @@
+#photo_section.container
+  - if my_courses.present?
+    section.blocks-holder
+      h2 your classes
+      - my_courses.each do |course|
+        - instructor = course.instructors.first
+        - course = course.decorate
+        = render "instructor_block", instructor: instructor, course: course, progress_box: true
+  - if recommended_courses.present?
+    section.blocks-holder
+      - recommended_courses.each do |course|
+        - instructor = course.instructors.first
+        - course = course.decorate
+        = render "instructor_block", instructor: instructor, course: course, progress_box: false
+  - if coming_courses.present?
+    section.blocks-holder
+      h2 coming soon
+      - coming_courses.each do |course|
+        - instructor = course.instructors.first
+        - course = course.decorate
+        = render "instructor_block", instructor: instructor, course: course, progress_box: false
+
+  = render 'more_about_masterclass'
+  = render partial: 'social_area', locals: { home_page: home_page}

@@ -1,0 +1,16 @@
+== render 'courses/enrolled_header'
+
+.row
+  .col-lg-9.col-md-8.col-sm-12.comment-list
+    h2 Write a review
+    h3
+      a href=enrolled_course_path(@course)
+        span.icon.icon-chevron-left
+        ' Back To Class
+
+    == render 'form'
+
+  // sidebar content
+  .sidebar.col-lg-3.col-md-4.col-sm-12
+    ==render 'courses/contact_us'
+    ==render 'courses/sidebar'

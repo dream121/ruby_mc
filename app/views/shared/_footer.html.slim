@@ -1,0 +1,39 @@
+footer#footer
+  .logo-holder
+    .bottom-border-div
+      a.navbar-brand href="#"
+        = link_to(image_tag("mc-logo-nav@2x.png", class: 'center-image top-spacer-2', alt: "Master Class", id: 'mc-nav-image', onerror: "this.onerror=null; this.src='exampleimages/logo.png'"), root_path)
+  .container.footer-columns-container
+    .columns
+      .column
+        span.icon.icon-svg13
+        h3 questions
+        p.enrolled Our staff is happy to answer any questions.
+        a href="/contact"  contact us
+      .column
+        span.icon.icon-svg12
+        h3 our classes
+        p.enrolled We offer a variety of classes on arts &amp; skills.
+        a href="/how-it-works"  how classes work
+      .column
+        a.norton-logo href="#"  Norton secured
+        h3 your privacy
+        p.enrolled Your privacy and security are important to us
+        =link_to 'Privacy Policy', privacy_path
+    .footer-holder
+      .footer-frame
+        span Copyright 2014. Master Class, LLC.
+        nav
+          ul.footer-nav
+            li
+              =link_to 'Browse Classes', courses_path
+            li
+              =link_to 'About Us', '/about-us'
+            li
+              =link_to 'Privacy Policy', privacy_path
+            li
+              =link_to 'Terms of Use', terms_path
+            li
+              a href="/faq"  faq
+            li
+              a href="/contact"  Contact Us

@@ -1,0 +1,166 @@
+<% if @course_comment.depth > 2: %>
+  <% klass = 'reply' %>
+<% else: %>
+  <% klass = 'outer' %>
+<% end %>
+<% if @placement && (@placement == 'top' || @placement == 'bottom'): %>
+  <% visibility = 'hidden' %>
+<% end %>
+
+<% if @first_id == @course_comment.id && @items_before > 0:  %>
+<div class="show-block comment-collapse focused top"
+  id="<%= @uuid %>"
+  data-expanded="false"
+  data-items-before="<%= @items_before %>"
+  data-comment-ids=""
+  data-next-url="<%= @nextUrl %>"
+  data-prev-url="<%= @prevUrl %>"
+  data-view-template-path="views/course_comments/comment"
+  data-trigger-id="<%= @uuid %>"
+  data-view-container="<%= @viewContainerId %>"
+  data-root-node="course_comments"
+  data-object-node="course_comment"
+  data-depth="<%= @course_comment.depth %>"
+  data-comment-id="<%= @course_comment.id %>"
+  >
+  <div class="collapse-bar">
+    <span id="collapse-reply-text" class="reply-text">Expand <%= @collapseText %></span> 
+  </div><!-- end collapse-bar -->
+</div><!-- end show-block comment-collapse -->
+<% end %>
+
+<div class="post comment commentable <%= klass %> <%= visibility %>" data-comment-id="<%= @course_comment.id %>" data-depth="<%= @course_comment.depth %>" style="clear:both;" id="<%= @course_comment.id %>">
+  <div class="holder">
+    <!--<img src="<%= @course_comment.comment_user_profile_image_url %>" class="img avatar alignleft"/>-->
+    <img src="http://www.gravatar.com/avatar/6ea4618e756ea25c72ae0b27af237f05?s=50&d=identicon" class="img avatar alignleft" width=100 height=100/>
+
+    <div class="video">
+    <% if @course_comment.image_url && @course_comment.image_url.length > 0: %>
+
+      <div class="thumbnail-lightbox">
+        <a href="<%= @course_comment.image_url %>" data-lightbox="image-1">
+          <img src="<%= @course_comment.image_url %>" width="175" height="100"/>
+        </a>
+      </div><!-- end thumbnail-lightbox -->
+
+    <% end %>
+    </div><!-- end class video -->
+
+    <div class="text-holder">
+      <span class="name">
+        <strong><%= @course_comment.comment_user_user_name %></strong>
+      </span><!-- end span name -->
+      <p><%= @course_comment.comment %></p>
+      <ul class="like" id="likes-container-<%= @course_comment.id %>">
+        <li><%= @course_comment.created_at_human %></li> 
+        <% if @course_comment.allows_voting: %>
+          <li>
+            <% likeState = @course_comment.current_user_vote_type %>
+            <span class="likes-container">
+              <% if likeState == 'like': %>
+                <a href="#" class="like-text" >Like</a>
+              <% else: %>
+                <a href="#" class="unlike-text">Unlike</a>
+              <% end %>
+            </span><!-- end likes-container -->
+            <span class="text-muted">
+              (<%=@course_comment.tally_to_s %>)
+            </span>
+          </li>
+        <% end %>
+      </ul><!-- end ul like -->
+    </div><!-- end text-holder -->
+  </div><!-- end holder -->
+  <div class="post-block" id="post-block-<%=@course_comment.id %>"></div><!-- end post-block -->
+</div><!-- end post comment commentable outer -->
+
+<% if @course_comment.depth == 2: %>
+  <% location = 'outer' %>
+<% else: %>
+  <% location = 'inner' %>
+<% end %>
+
+<% if @last_id == @course_comment.id && @items_left > 0: %>
+<div class="show-block comment-collapse focused bottom <%= location %>"
+  id="<%= @uuid %>"
+  data-expanded="false"
+  data-comment-ids=""
+  data-remove-on-expanded=""
+  data-next-url="<%= @nextUrl %>"
+  data-prev-url="<%= @prevUrl %>"
+  data-view-template-path="views/course_comments/comment"
+  data-trigger-id="<%= @uuid %>"
+  data-view-container="<%= @viewContainerId %>"
+  data-root-node="course_comments"
+  data-object-node="course_comment"
+  data-depth="<%= @course_comment.depth %>"
+  data-comment-id="<%= @course_comment.id %>"
+  >
+  <div class="collapse-bar">
+    <span id="collapse-reply-text" class="reply-text">Expand <%= @collapseText %></span> 
+  </div><!-- end collapse-bar -->
+</div><!-- end show-block comment-collapse -->
+<% end %>
+
+<% if @course_comment.depth > 2: %>
+  <% type = 'reply' %>
+<% else: %>
+  <% type = 'comment' %>
+<% end %>
+
+<% if @last_id == @course_comment.id && @items_left > 0 && @course_comment.depth != 3: %>
+  <div class="post <%= type %> commentable new focused" id="comment-form-container">
+    <h2>Add a new comment</h2>
+    <div class="post new-comment">
+      <div class="input-wrapper topic-field">
+        <img src="http://www.gravatar.com/avatar/6ea4618e756ea25c72ae0b27af237f05?s=50&d=identicon" class="img avatar alignleft" width=100 height=100/>
+        <form class="simple_form">
+          <div class="area-block">
+            <textarea class="focused"
+              data-parent-id="<%= @course_comment.parent_id %>"
+              data-depth="<%= @course_comment.depth %>">
+            </textarea><!-- end textarea -->
+          </div><!-- end area-block -->
+          <div class="comment-box">
+            <div class="photo">
+              <div id="fp-thumb"></div><!-- end fp-thumb -->
+              <div class="file-upload-image" id="fp-clicker">
+                <a href="#">
+                  <img alt="file upload" src="/assets/exampleimages/icon2.svg" /> 
+                  <div class="file-upload-text">add a photo or video</div><!-- end file-upload-text -->
+                </a>
+              </div><!-- end fp-clicker -->
+            </div><!-- end photo -->
+            <input class="btn btn-default button course-comment-input" name="commit" type="submit" value="comment">
+          </div><!-- end comment-box -->
+        </form><!-- end form -->
+      </div><!-- end input-wrapper -->
+    </div><!-- end post new-comment -->
+  </div><!-- end comment-form-container -->
+<% else if @last_id == @course_comment.id && typeof @placement == 'undefined': %>
+  <div class="post <%= type %> post-reply reply latent commentable new focused" id="comment-form-container">
+    <h2>Add a new comment</h2>
+    <div class="post new-comment">
+      <div class="input-wrapper topic-field">
+        <img src="http://www.gravatar.com/avatar/6ea4618e756ea25c72ae0b27af237f05?s=50&d=identicon" 
+          class="img avatar alignleft"
+          width=100
+          height=100/>
+        <form class="reply-form">
+          <div class="area-block">
+            <textarea class="focused"
+              data-parent-id="<%= @course_comment.parent_id %>"
+              data-depth="<%= @course_comment.depth %>">
+            </textarea><!-- end textarea -->
+          </div><!-- end area-block -->
+          <div class="comment-box">
+            <input class="btn btn-default button course-comment-input" name="commit" type="submit" value="comment">
+          </div><!-- end comment-box -->
+        </form><!-- end form -->
+      </div><!-- end input-wrapper -->
+    </div><!-- end post new-comment -->
+  </div><!-- end comment-form-container -->
+  <div class="holder" style="clear-both; padding-top:25px;">
+    <a class="post-button reply">Reply to this comment</a> 
+  </div><!-- end holder-->
+<% end %>

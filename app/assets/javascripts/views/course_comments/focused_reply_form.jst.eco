@@ -1,0 +1,25 @@
+<div class="post-reply post reply reply commentable new focused latent" id="comment-form-container">
+  <h2>reply to this comment</h2>
+  <div class="post new-comment">
+    <div class="input-wrapper topic-field">
+      <img src="http://www.gravatar.com/avatar/6ea4618e756ea25c72ae0b27af237f05?s=50&d=identicon" 
+        class="img avatar alignleft"
+        width=100
+        height=100/>
+      <form class="simple_form">
+        <div class="area-block">
+          <textarea class="focused"
+            data-parent-id="<%= @requester_id %>"
+            data-depth="3">
+          </textarea><!-- end textarea -->
+        </div><!-- end area-block -->
+        <div class="comment-box">
+          <input class="button course-comment-input" name="commit" type="submit" value="comment">
+        </div><!-- end comment-box -->
+      </form><!-- end form -->
+    </div><!-- end input-wrapper -->
+  </div><!-- end post new-comment -->
+</div><!-- end comment-form-container -->
+<div class="holder" style="cleaar:both;padding-top:25px;">
+  <a class="post-button reply">Be the first to reply to this comment</a> 
+</div><!-- end holder-->

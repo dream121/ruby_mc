@@ -1,0 +1,11 @@
+section.banner-section-module.intro-section
+  .banner-section-module-background-wrapper
+    .container
+      = image_tag(course.image_url(:class_portrait), class: "banner-section-module-image-right #{course.instructor_first_name.downcase}")
+      .text-box-module
+        h2.text-box-module-intro-text-heading = course.welcome_statement
+        p.text-box-module-intro-text-body = course.overview
+        p.text-box-module-intro-text-body
+          = link_to(course.instructor.name, instructor_path(course.instructor), class: 'link-module-link-medium')
+          =<course.instructor_short_bio
+          = link_to("read more about #{course.instructor_first_name} »", instructor_path(course.instructor), class: 'link-module-link-normal')

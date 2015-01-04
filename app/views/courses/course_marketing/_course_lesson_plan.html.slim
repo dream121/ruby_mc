@@ -1,0 +1,31 @@
+section.list-section.course-marketing
+  .container
+    .list-row
+      .list-block
+        h2 video lesson Plan
+        .list
+          - chapters = course.chapters.order(:position).where(is_bonus: false)
+          - chapters[0..2].each do |chapter|
+            .holder
+              span.number= chapter.number.to_s.rjust(2, '0')
+              .frame
+                h3= chapter.title
+                = chapter.abstract
+          - if chapters.count > 4
+            - chapters[3..chapters.size-2].each do |chapter|
+              .holder.start-hidden
+                span.number= chapter.number.to_s.rjust(2, '0')
+                .frame
+                  h3= chapter.title
+                  = chapter.abstract
+            .show-block.course-collapse show all #{chapters.size} lessons
+            .holder
+              span.number= chapters.last.number.to_s.rjust(2, '0')
+              .frame
+                h3=chapters.last.title
+                = chapters.last.abstract
+        h2 &amp; unlimited Q&amp;A with #{course.instructor_first_name}
+        a.link href="#"
+          | see a sample of video Q&amp;A
+          span.icon-svg3
+

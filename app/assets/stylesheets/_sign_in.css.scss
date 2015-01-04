@@ -1,0 +1,209 @@
+//colors
+$color_0: #f6f2ed;
+$color_1: #4d5767;
+$color_2: #48588f;
+$color_3: #f2f2f2;
+$color_4: rgba(50, 50, 50, 0.5);
+$color_5: rgba(102, 102, 102, 1);
+$color_6: #a6a5a2;
+$color_7: #da9996;
+$color_8: #c55655;
+$color_9: #251717;
+$color_10: #fff;
+
+//fonts
+$font_0: Raleway,  sans-serif;
+
+@font-face {
+  font-family: $font_0;
+  /*src: url(Raleway-Regular.ttf);*/
+}
+#modal_sign_form {
+  .forgot {
+    margin-bottom: 16px;
+    span {
+      color: $color_8;
+      cursor: pointer;
+    }
+  }
+  .password input {
+    margin-bottom: 0;
+  }
+}
+.modal.auth {
+  background: $color_0;
+  width: 420px;
+  text-align: center;
+  color: $color_1;
+  left: 50%;
+  //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+  border-radius: 0 !important;
+  font-family: $font_0;
+  margin: 5% auto;
+  margin: 17vh auto;
+  margin-left: -210px;
+  margin-bottom: 0px;
+  position: absolute;
+  top: 0;
+  z-index: 1500;
+  overflow: initial;
+  right: initial;
+  bottom: initial;
+  p {
+    margin: 3px;
+    font-family: $font_0;
+    font-size: 0.9em;
+  }
+  .modal-dialog {
+    width: initial;
+    margin: initial;
+    .modal-content {
+      box-shadow: initial;
+      position: initial;
+      background-color: initial;
+      border: initial;
+      border-radius: initial;
+      background-clip: initial;
+      outline: initial;
+    }
+  }
+  .modal-body {
+    position: initial;
+    padding: 15px 35px 30px;
+    overflow: visible;
+  }
+  .modal-button {
+    width: 100%;
+    background: $color_2;
+    color: #F2F2F2;
+    margin: 0 auto;
+    padding: 8px 20px;
+    font-weight: normal;
+    text-transform: uppercase;
+    border: none;
+    //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+    border-radius: 0 !important;
+    //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+    box-shadow: 0 2px 2px 0 $color_4;
+  }
+  .modal-header {
+    border: none;
+    padding: 8px 18px 10px;
+    border-bottom: initial;
+    min-height: inherit;
+  }
+  .close {
+    background: url("icons/close.png") no-repeat;
+    width: 21px;
+    height: 21px;
+    opacity: 1;
+    margin-top: 10px;
+    border: none;
+    float: right;
+  }
+  .modal-title {
+    margin-top: 20px;
+    font-size: 1.2em;
+    text-transform: uppercase;
+    padding-left: 16px;
+    line-height: initial;
+  }
+  .singup_fb {
+    font-size: 1.2em;
+    p {
+      background: url("icons/facebook.png") no-repeat;
+      padding-left: 10px;
+      height: 38px;
+      line-height: 38px;
+      //Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+      text-shadow: 0 2px 1px $color_5;
+    }
+  }
+  .or {
+    margin: 15px 0;
+    font-size: 1.2em;
+  }
+  input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 24px;
+    font-family: $font_0;
+    height: auto;
+    //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+    border-radius: 0 !important;
+    border: 1px solid $color_6;
+  }
+  .create {
+    background: $color_7;
+    p {
+      padding-left: 10px;
+      height: 38px;
+      line-height: 38px;
+      font-size: 1.6em;
+      //Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+      text-shadow: 0 2px 1px $color_5;
+      font-weight: 300;
+    }
+  }
+  .custom_input {
+    position: relative;
+    .caution {
+      background: url("icons/caution.png") no-repeat;
+      height: 17px;
+      width: 17px;
+      display: block;
+      position: absolute;
+      top: 9px;
+      right: 9px;
+      display: none;
+    }
+  }
+  .error_tooltip {
+    position: absolute;
+    left: 370px;
+    white-space: nowrap;
+    top: 0;
+    line-height: 34px;
+    background: $color_9;
+    //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+    border-radius: 0 !important;
+    padding: 0 10px;
+    border: 1px solid $color_8;
+    color: $color_10;
+    font-size: 0.8em;
+    display: none;
+    span {
+      color: $color_8;
+    }
+    &:before {
+      content: "\A";
+      border-style: solid;
+      border-width: 9px 11px 9px 0;
+      border-color: transparent $color_8 transparent transparent;
+      position: absolute;
+      left: -15px;
+      left: -12px;
+      top: 9px;
+    }
+    &:after {
+      content: "\A";
+      border-style: solid;
+      border-width: 8px 10px 8px 0;
+      border-color: transparent $color_9 transparent transparent;
+      position: absolute;
+      left: -15px;
+      left: -10px;
+      top: 10px;
+    }
+  }
+  .reset_check {
+    background: url("icons/reset_check.png") no-repeat;
+    width: 51px;
+    height: 50px;
+    margin: 0 auto 20px;
+  }
+  .button_desc span {
+    color: $color_8;
+    cursor: pointer;
+  }
+}

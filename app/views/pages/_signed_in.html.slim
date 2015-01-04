@@ -1,0 +1,15 @@
+#photo_section.container ng-controller="CoursesListController"
+  section.blocks-holder#mc-your-courses ng-if="yourCourses.length > 0"
+    h2 your classes
+    .holder ng-repeat="yourCourse in yourCourses" mc-course-banner="yourCourse"
+
+  section.blocks-holder#mc-recommended-courses ng-if="recommendedCourses.length > 0"
+    h2 classes recommended for you
+    .holder ng-repeat="recommendedCourse in recommendedCourses" mc-course-banner="recommendedCourse"
+
+  section.blocks-holder#mc-coming-soon-courses ng-if="comingSoonCourses.length > 0"
+    h2 coming soon
+    .holder ng-repeat="comingSoonCourse in comingSoonCourses" mc-course-banner="comingSoonCourse"
+
+  = render partial: 'more_about_masterclass'
+  = render partial: 'social_area', locals: { home_page: home_page}

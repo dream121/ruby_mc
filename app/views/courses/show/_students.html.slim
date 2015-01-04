@@ -1,0 +1,7 @@
+.class-students
+  .class-students-count= @course.user_courses.count
+  .class-students-text students taking this class
+  .class-students-avatars
+    // TODO: move query to controller
+    - @course.user_courses.order('created_at DESC').limit(12).each do |user_course|
+      = image_tag user_course.user.decorate.avatar_url

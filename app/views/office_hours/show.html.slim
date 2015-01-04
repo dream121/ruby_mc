@@ -1,0 +1,26 @@
+.container
+  p#notice= notice
+  p
+    strong Course:
+    = @question.course_id
+  p
+    strong Video question:
+    = video_tag @question.video.url, controls: true
+  p
+    strong Text question:
+    = @question.text_question
+  p
+    strong Subject:
+    = @question.subject
+  p
+    strong Order:
+    = @question.position
+  p
+    strong Visibility:
+    = @question.visibility
+  p
+    strong User:
+    = @question.user_id
+  = link_to 'Edit', edit_course_office_hour_path(@course, @question)
+  br
+  = link_to "Back to Admin", admin_index_course_office_hours_path(@course)

@@ -1,0 +1,11 @@
+.gallery-holder.box-holder
+  .gallery.root_gallery
+    .mask
+      .slideset123
+        .slide.review-course-box
+          span.skills your class review
+          form ng-submit="submit()"
+            ul.stars ng-hide="isEditing"
+              li.rating-star ng-repeat="index in options" ng-click="rate($index)" ng-class="{'on': $index < courseReview.rating}"
+            textarea cols="30" rows="3" ng-model="courseReview.review" ng-focus="setIsEditing(true)" ng-blur="setIsEditing(false)" name="course_review[review]"
+            input.course-review-submit.button-link type="submit" value="Post" ng-show="isEditing"

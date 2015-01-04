@@ -1,0 +1,510 @@
+<section id="content">
+  <div class="container">
+    <section class="class-section">
+      <div class="item-block">
+        <span data-picture data-alt="image description">
+          <span data-src="<%= image_path('img47.jpg') %>" ></span>
+          <span data-src="<%= image_path('img47-2x.jpg') %>" data-media="(-webkit-min-device-pixel-ratio:1.5), (min-resolution:144dpi)" ></span>
+          <span data-src="<%= image_path('img36-small.jpg') %>" data-width="160" data-height="141" data-media="(max-width:767px)" ></span>
+          <span data-src="<%= image_path('img36-small2x.jpg') %>" data-media="(max-width:767px) and (-webkit-min-device-pixel-ratio:1.5), (max-width:767px) and (min-resolution:144dpi)" ></span>
+          <!--[if (lt IE 9) & (!IEMobile)]>
+            <span data-src="images/img47.jpg"></span>
+          <![endif]-->
+          <!-- Fallback content for non-JS browsers. Same img src as the initial, unqualified source element. -->
+          <noscript><%= image_tag('img47.jpg', width: '971', height: '351', alt: 'image description') %></noscript>
+        </span>
+        <div class="caption-box">
+          <h2 class="text-holder">
+            <span class="name">meryl streep</span>
+            teaches you acting
+          </h2>
+        </div>
+        <div class="box">
+          <form action="#">
+            <h3>YOUR class review</h3>
+            <ul class="stars">
+              <li>
+                <%= link_to image_tag(
+                  'star.svg',
+                  alt: 'image description',
+                  width: '30',
+                  height: '30',
+                  onerror: "this.onerror=null; this.src='./assets/star.png'"), '#' 
+                %> 
+              </li>
+              <li>
+                <%= link_to image_tag(
+                  'star.svg', 
+                  alt: 'image description', 
+                  width: '30', 
+                  height: '30', 
+                  onerror: "this.onerror=null; this.src='./assets/star.png'"), '#' 
+                %> 
+              </li>
+              <li>
+                <%= link_to image_tag(
+                  'star.svg', 
+                  alt: 'image description', 
+                  width: '30', 
+                  height: '30', 
+                  onerror: "this.onerror=null; this.src='./assets/star.png'"), '#' 
+                %> 
+              </li>
+              <li>
+                <%= link_to image_tag(
+                  'star.svg',
+                  alt: 'image description',
+                  width: '30',
+                  height: '30',
+                  onerror: "this.onerror=null; this.src='./assets/star.png'"), '#' 
+                %> 
+              </li>
+              <li>
+                <%= link_to image_tag(
+                  'star.svg',
+                  alt: 'image description',
+                  width: '30',
+                  height: '30',
+                  onerror: "this.onerror=null; this.src='./assets/star.png'"), '#'
+                %>
+              </li>
+            </ul><!-- end ul stars -->
+            <textarea cols="30" rows="7">Add your concise review</textarea>
+          </form><!-- end form action# -->
+        </div><!-- end box -->
+      </div><!-- end item-block -->
+      <div class="holder">
+        <h3>YOUR assignment showcase</h3>
+        <div class="class-gallery">
+          <div class="mask">
+            <div class="slideset">
+              <div class="slide">
+                <%= image_tag('img48.jpg', alt: 'image description', width: '177', height: '100') %>
+                <%= link_to(
+                    image_tag(
+                      'icons/icon5.svg',
+                      alt: 'image description',
+                      width: '26',
+                      height: '35',
+                      onerror:"this.onerror=null; this.src='images/icon5.png'" 
+                    ),
+                    '#', class: 'play'
+                  )
+                %>
+              </div><!-- end slide -->
+              <div class="slide">
+                <%= image_tag('img49.jpg', alt: 'image description', width: '177', height: '100') %>
+                <%= link_to(
+                    image_tag(
+                      'icons/icon5.svg',
+                      alt: 'image description',
+                      width: '26',
+                      height: '35',
+                      onerror:"this.onerror=null; this.src='images/icon5.png'" 
+                    ),
+                    '#', class: 'play'
+                  )
+                %>
+              </div><!-- end slide -->
+              <div class="slide">
+                <%= image_tag('img50.jpg', alt: 'image description', width: '177', height: '100') %>
+                <a class="play" href="#"><span class="icon-svg"></span>
+                </a>
+              </div><!-- end slide -->
+              <div class="slide">
+                <%= image_tag('img51.jpg', alt: 'image description', width: '177', height: '100') %>
+                <%= link_to(
+                    image_tag(
+                      'icons/icon5.svg',
+                      alt: 'image description',
+                      width: '26',
+                      height: '35',
+                      onerror:"this.onerror=null; this.src='images/icon5.png'" 
+                    ),
+                    '#', class: 'play'
+                  )
+                %>
+              </div><!-- end slide -->
+              <div class="slide">
+                <%= image_tag('img48.jpg', alt: 'image description', width: '177', height: '100') %>
+                <%= link_to(
+                    image_tag(
+                      'icons/icon5.svg',
+                      alt: 'image description',
+                      width: '26',
+                      height: '35',
+                      onerror:"this.onerror=null; this.src='images/icon5.png'" 
+                    ),
+                    '#', class: 'play'
+                  )
+                %>
+              </div><!-- end slide -->
+              <div class="slide">
+                <%= image_tag('img49.jpg', alt: 'image description', width: '177', height: '100') %>
+                <%= link_to(
+                    image_tag(
+                      'icons/icon5.svg',
+                      alt: 'image description',
+                      width: '26',
+                      height: '35',
+                      onerror:"this.onerror=null; this.src='images/icon5.png'" 
+                    ),
+                    '#', class: 'play'
+                  )
+                %>
+              </div><!-- end slide -->
+              <div class="slide">
+                <%= image_tag('img50.jpg', alt: 'image description', width: '177', height: '100') %>
+                <a class="play" href="#"><span class="icon-svg"></span></a>
+              </div><!-- end slide -->
+              <div class="slide">
+                <%= image_tag('img49.jpg', alt: 'image description', width: '177', height: '100') %>
+                <%= link_to(
+                    image_tag(
+                      'icons/icon5.svg',
+                      alt: 'image description',
+                      width: '26',
+                      height: '35',
+                      onerror:"this.onerror=null; this.src='images/icon5.png'" 
+                    ),
+                    '#', class: 'play'
+                  )
+                %>
+              </div><!-- end slide -->
+            </div><!-- end slideset -->
+          </div><!-- end mask -->
+          <a href="#" class="btn-prev">previous</a>
+          <a href="#" class="btn-next">next</a>
+        </div><!-- end class-gallery -->
+        <h3>YOUR discussion contributions</h3>
+        <div class="discussion-block">
+          <div class="post">
+            <div class="holder">
+              <%= image_tag('img45-md.jpg', alt: 'image description', width: '100', height: '100') %>
+              <div class="video">
+                <%= image_tag('exampleimages/img13.jpg', alt: 'image description', width: '177', height: '100') %>
+                <%= link_to(
+                    image_tag(
+                      'icons/icon5.svg',
+                      alt: 'image description',
+                      width: '26',
+                      height: '35',
+                      onerror:"this.onerror=null; this.src='images/icon5.png'" 
+                    ),
+                    '#', class: 'play'
+                  )
+                %>
+              </div><!-- end video -->
+              <div class="text-holder">
+                <span class="name">Posted on <a href="#">01. Assess Any Landscape</a></span>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas a purus leo. Pellentesq morbi trist...</p>
+                <a href="#" class="goto">Go to discussion <i class="iconn-arrow"></i></a>
+              </div><!-- end text-holder -->
+            </div><!-- end holder -->
+          </div><!-- end post -->
+          <div class="post">
+            <div class="holder">
+              <%= image_tag('img45-md.jpg',
+                  class: 'alignleft',
+                  alt: 'image description',
+                  width: '100',
+                  height: '100'
+                ) 
+              %>
+              <div class="text-holder">
+                <span class="name">Posted on <a href="#">01. Assess Any Landscape</a></span>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas.</p>
+                <a href="#" class="goto">Go to discussion <i class="iconn-arrow"></i></a>
+              </div><!-- end text-holder -->
+            </div><!-- end holder -->
+          </div><!-- end post -->
+          <div class="post">
+            <div class="holder">
+              <%= image_tag('img45-md.jpg',
+                  class: 'alignleft',
+                  alt: 'image description',
+                  width: '100',
+                  height: '100'
+                ) 
+              %>
+              <div class="video">
+                <%= image_tag('img50.jpg',
+                    alt: 'image description',
+                    width: '177',
+                    height: '100'
+                  ) 
+                %>
+                <a href="#" class="play"><span class="icon-svg"></span></a>
+              </div><!-- video -->
+              <div class="text-holder">
+                <span class="name">Posted on <a href="#">01. Assess Any Landscape</a></span>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas a purus leo.</p>
+                <a href="#" class="goto">Go to discussion <i class="iconn-arrow"></i></a>
+              </div><!-- text-holder -->
+            </div><!-- holder -->
+          </div><!-- post -->
+          <div class="show-block">
+            <a href="#"><span>show all 37 contributions</span></a>
+          </div><!-- show-block -->
+        </div><!-- discussion-holder -->
+      </div><!-- holder -->
+    </section><!-- end class-section -->
+    <section class="class-section">
+      <strong class="section-title">you have completed</strong>
+      <div class="item-block">
+        <span data-picture data-alt="image description">
+          <span data-src="<%= image_path('img52.jpg') %>"></span>
+          <span data-src="<%= image_path('img52-2x.jpg') %>" data-media="(-webkit-min-device-pixel-ratio:1.5), (min-resolution:144dpi)" ></span>
+          <span data-src="<%= image_path('img33-small.jpg') %>" data-width="160" data-height="141" data-media="(max-width:767px)" ></span>
+          <span data-src="<%= image_path('img33-small2x.jpg') %>" data-media="(max-width:767px) and (-webkit-min-device-pixel-ratio:1.5), (max-width:767px) and (min-resolution:144dpi)" ></span>
+          <!--[if (lt IE 9) & (!IEMobile)]>
+            <span data-src="<%= image_path('img52.jpg') %>"></span>
+          <![endif]-->
+          <!-- Fallback content for non-JS browsers. Same img src as the initial, unqualified source element. -->
+          <noscript><%= image_tag('img52.jpg', width: '971', height: '351', alt: 'image description') %></noscript>
+        </span>
+        <div class="caption-box">
+          <h2 class="text-holder">
+            <span class="name">oprah winfrey</span>
+            teaches you emotions
+          </h2>
+        </div>
+        <div class="box">
+          <h3>YOUR class review</h3>
+          <ul class="stars">
+            <li>
+              <%= link_to(
+                image_tag('star2.svg', 
+                   alt: 'image description', 
+                   width: 30,
+                   height: '30',
+                   onerror: "this.onerror=null; this.src='images/star2.png'" 
+                ),
+                '#')
+              %>
+            </li>
+            <li>
+              <%= link_to(
+                image_tag('star2.svg', 
+                   alt: 'image description', 
+                   width: 30, 
+                   height: '30', 
+                   onerror: "this.onerror=null; this.src='images/star2.png'" 
+                ),
+                '#')
+              %>
+            </li>
+            <li>
+              <%= link_to(
+                image_tag('star2.svg', 
+                   alt: 'image description', 
+                   width: 30, 
+                   height: '30', 
+                   onerror: "this.onerror=null; this.src='images/star2.png'" 
+                ),
+                '#')
+              %>
+            </li>
+            <li>
+              <%= link_to(
+                image_tag('star2.svg', 
+                   alt: 'image description', 
+                   width: 30, 
+                   height: '30', 
+                   onerror: "this.onerror=null; this.src='images/star2.png'" 
+                ),
+                '#')
+              %>
+            </li>
+            <li>
+              <%= link_to(
+                image_tag('star2.svg', 
+                   alt: 'image description', 
+                   width: 30, 
+                   height: '30', 
+                   onerror: "this.onerror=null; this.src='images/star2.png'" 
+                ),
+                '#')
+              %>
+            </li>
+          </ul>
+          <a href="#" class="edit"><i class="iconn-pencil"></i></a>
+          <p>I can’t believe that Meryl Streep actually critiqued my monologue! This is by far my favorite moment of learning about acting!</p>
+        </div>
+      </div>
+      <div class="holder">
+        <h3>YOUR assignment showcase</h3>
+        <div class="class-gallery">
+          <div class="mask">
+            <div class="slideset">
+              <div class="slide">
+                <%= image_tag('img53.jpg', alt: 'image description', width: '177', height: '100') %>
+                <%= link_to(
+                    image_tag(
+                      'icons/icon5.svg',
+                      alt: 'image description',
+                      width: '26',
+                      height: '35',
+                      onerror:"this.onerror=null; this.src='images/icon5.png'" 
+                    ),
+                    '#', class: 'play'
+                  )
+                %>
+              </div><!-- end slide -->
+              <div class="slide">
+                <%= image_tag('img54.jpg', alt: 'image description', width: '177', height: '100') %>
+                <%= link_to(
+                    image_tag(
+                      'icons/icon5.svg',
+                      alt: 'image description',
+                      width: '26',
+                      height: '35',
+                      onerror:"this.onerror=null; this.src='images/icon5.png'" 
+                    ),
+                    '#', class: 'play'
+                  )
+                %>
+              </div><!-- end slide -->
+              <div class="slide">
+                <%= image_tag('img55.jpg', alt: 'image description', width: '177', height: '100') %>
+                <a class="play" href="#"><span class="icon-svg"></span></a>
+              </div><!-- end slide -->
+              <div class="slide">
+                <%= image_tag('img56.jpg', alt: 'image description', width: '177', height: '100') %>
+                <%= link_to(
+                    image_tag(
+                      'icons/icon5.svg',
+                      alt: 'image description',
+                      width: '26',
+                      height: '35',
+                      onerror:"this.onerror=null; this.src='images/icon5.png'" 
+                    ),
+                    '#', class: 'play'
+                  )
+                %>
+              </div><!-- end slide -->
+              <div class="slide">
+                <%= image_tag('img48.jpg', alt: 'image description', width: '177', height: '100') %>
+                <%= link_to(
+                    image_tag(
+                      'icons/icon5.svg',
+                      alt: 'image description',
+                      width: '26',
+                      height: '35',
+                      onerror:"this.onerror=null; this.src='images/icon5.png'" 
+                    ),
+                    '#', class: 'play'
+                  )
+                %>
+              </div><!-- end slide -->
+              <div class="slide">
+                <%= image_tag('img49.jpg', alt: 'image description', width: '177', height: '100') %>
+                <%= link_to(
+                    image_tag(
+                      'icons/icon5.svg',
+                      alt: 'image description',
+                      width: '26',
+                      height: '35',
+                      onerror:"this.onerror=null; this.src='images/icon5.png'" 
+                    ),
+                    '#', class: 'play'
+                  )
+                %>
+              </div><!-- end slide -->
+              <div class="slide">
+                <%= image_tag('img50.jpg', alt: 'image description', width: '177', height: '100') %>
+                <a class="play" href="#"><span class="icon-svg"></span></a>
+              </div><!-- end slide -->
+              <div class="slide">
+                <%= image_tag('img51.jpg', alt: 'image description', width: '177', height: '100') %>
+                <%= link_to(
+                    image_tag(
+                      'icons/icon5.svg',
+                      alt: 'image description',
+                      width: '26',
+                      height: '35',
+                      onerror:"this.onerror=null; this.src='images/icon5.png'" 
+                    ),
+                    '#', class: 'play'
+                  )
+                %>
+              </div><!-- end slide -->
+            </div><!-- end slideset -->
+          </div><!-- end div mask -->
+          <a href="#" class="btn-prev">previous</a>
+          <a href="#" class="btn-next">next</a>
+        </div><!-- end class-gallery -->
+        <h3>YOUR discussion contributions</h3>
+        <div class="discussion-block">
+          <div class="post">
+            <div class="holder">
+              <%= image_tag('img45-md.jpg',
+                  class: 'alignleft',
+                  alt: 'image description',
+                  width: '100',
+                  height: '100'
+                )
+              %>
+              <div class="video">
+                <%= image_tag('img57.jpg', alt: 'image description', width: '177', height: '100') %>
+                <%= link_to(
+                    image_tag(
+                      'icons/icon5.svg',
+                      alt: 'image description',
+                      width: '26',
+                      height: '35',
+                      onerror:"this.onerror=null; this.src='images/icon5.png'" 
+                    ),
+                    '#', class: 'play'
+                  )
+                %>
+              </div><!-- end video -->
+              <div class="text-holder">
+                <span class="name">Posted on <a href="#">08. Assess Any Landscape</a></span>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas a purus leo. Pellentesq morbi trist...</p>
+                <a href="#" class="goto">Go to discussion <i class="iconn-arrow"></i></a>
+              </div><!-- end text-holder -->
+            </div><!-- end holder -->
+          </div><!-- end post -->
+          <div class="post">
+            <div class="holder">
+              <%= image_tag('img45-md.jpg',
+                  class: 'alignleft',
+                  alt: 'image description',
+                  width: '100',
+                  height: '100'
+                ) 
+              %>
+              <div class="text-holder">
+                <span class="name">Posted on <a href="#">11. Assess Any Landscape</a></span>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas.</p>
+                <a href="#" class="goto">Go to discussion <i class="iconn-arrow"></i></a>
+              </div><!-- end text-holder -->
+            </div><!-- end holder -->
+          </div><!-- end post -->
+          <div class="post">
+            <div class="holder">
+              <%= image_tag('img45-md.jpg',
+                  class: 'alignleft',
+                  alt: 'image description',
+                  width: '100',
+                  height: '100'
+                )
+              %>
+              <div class="video">
+                <%= image_tag('img58.jpg', alt: 'image description', width: '177', height: '100') %>
+                <a href="#" class="play"><span class="icon-svg"></span></a>
+              </div><!-- end video -->
+              <div class="text-holder">
+                <span class="name">Posted on <a href="#">01. Assess Any Landscape</a></span>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas a purus leo.</p>
+                <a href="#" class="goto">Go to discussion <i class="iconn-arrow"></i></a>
+              </div><!-- end text-holder -->
+            </div><!-- end holder -->
+          </div><!-- end post -->
+          <div class="show-block"><a href="#"><span>show all 14 contributions</span></a></div><!-- end show-block -->
+        </div><!-- end discussion-block -->
+      </div><!-- end holder -->
+    </section><!-- end section class-section -->
+  </div><!-- end container -->
+</section><!-- end section content-->

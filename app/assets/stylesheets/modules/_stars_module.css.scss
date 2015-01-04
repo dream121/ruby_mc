@@ -1,0 +1,27 @@
+/* Stars Module */
+@mixin review-stars($star-size: 28px, $star-color: #48588F, $tm: 10px, $rm: 0, $bm: 20px, $lm: 0) {
+  font-size: $star-size;
+  line-height: $star-size;
+  margin-top: $tm;
+  margin-right: $rm;
+  margin-bottom: $bm;
+  margin-left: $lm;
+  padding: 0;
+  list-style: none;
+  li {
+    display: inline-block; 
+  }
+  .stars-module-star {
+    color: $star-color;
+    padding: 2px; 
+    display: inline-block;
+  }
+}
+
+ul.stars-module {
+  // Take the defaults
+  @include review-stars();
+}
+/* Subclass as necessary in the following format: 
+   ul.stars.module.new-class-name { } */
+

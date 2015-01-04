@@ -1,0 +1,34 @@
+
+.row.question id=question.id 
+  .question-subject.col-md-12= question.subject.upcase
+.row.videos
+  .question-block
+    .question-container
+      .q.q-or-a
+      - if question.video.path.nil? and question.text_question.empty?
+        = video_tag question.external_url, controls: false, class: "video"
+        .col-md-offset-1.col-xs-10.question-submitted-by
+          span.blue-highlight> Video question submitted by #{question.user_name}
+      - elsif question.video.path.nil?
+        .text-question= question.text_question
+        .col-md-offset-1.col-xs-10.question-submitted-by
+          span.blue-highlight>  Question submitted by #{question.user_name}
+      - else
+        = video_tag question.video.url, controls: false, class: "video"
+        .col-md-offset-1.col-xs-10.question-submitted-by
+          span.blue-highlight> Video question submitted by #{question.user_name}
+  .answer-block
+    .answer-container
+      .a.q-or-a
+      /= video_tag question.answer.video.url, controls: false, class: "video"
+      = image_tag(question.thumb_url, class: 'img-responsive')
+      .col-md-offset-1.col-xs-10.answer-submitted-by
+        span.blue-highlight> Video answer submitted by #{question.answer_user_name}
+.row.submitters
+  .col-md-offset-1.col-md-5.question-submitted-by
+    span.blue-highlight> Video question submitted by #{question.user_name}
+  .col-md-offset-1.col-md-5.answer-submitted-by
+    span.blue-highlight> Video answer submitted by #{question.answer_user_name}
+- unless question == questions.last
+  .divider
+

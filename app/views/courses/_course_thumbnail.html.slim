@@ -1,0 +1,15 @@
+.thumbnail
+  .thumbnail-wrapper
+    img src=course.image_url(:banner) class="courseImage img-responsive" 
+    .thumbnail-caption 
+    	= course.instructor_name
+    	= " teaches"
+    	br
+    	= course.skill
+    	.coming-soon-text COMING SOON
+  / h5 LEARN HOW TO
+  / h2.title
+  /   span= course.title
+  /   ' /
+  /   br
+  /   span.instructor= " with #{course.role}"

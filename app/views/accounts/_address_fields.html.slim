@@ -1,0 +1,27 @@
+.form-row.big
+  = select_tag("user[address][country_id]", \
+      options_for_select(user.countries_sorted, user.address_country_id), \
+      { class: 'default', prompt: 'Country' } \
+    )
+.form-row
+  = text_field_tag "user[address][line_one]", \
+      user.address_line_one, \
+      { class: 'default', placeholder: 'Address line one' }
+.form-row
+  = text_field_tag "user[address][line_two]", \
+      user.address_line_two, \
+      { class: 'default', placeholder: 'Optional second address line'}
+.form-row.long
+  .col
+    = text_field_tag "user[address][city]", \
+        user.address_city, \
+        { class: 'default', placeholder: 'City'}
+  .col
+    = select_tag("user[address][state_id]", \
+        options_for_select(user.us_states_sorted, user.address_state_id), \
+        { class: 'default', prompt: 'State'} \
+      )
+  .col
+    = text_field_tag "user[address][zip_code]", \
+        user.address_zip_code, \
+        { class: 'default', placeholder: 'Zip Code'}

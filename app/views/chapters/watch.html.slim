@@ -1,0 +1,110 @@
+#chapter-metadata.hidden data-user-id=current_user.id data-user-course-id=@user_course.try(:id) data-chapter-id=@chapter.id data-chapter-position=@chapter_position data-chapter-title=@chapter.title data-course-title=@course.title
+#video-metadata.hidden data-video-id=@chapter.brightcove_id
+.container.top-spacer-65
+  .video-holder
+    .video-frame
+      .video-block
+        = link_to @prv_path, class: "link-prev" do
+          span.icon-svg3
+          = @prv_label
+        = link_to @next_path, class: "link-next" do
+          | next lesson
+          span.icon-svg3
+        .video-wide
+          = brightcove_script_source
+          = chapter_video_player @chapter.brightcove_id
+          / span.icon-svg3
+          / / img alt=("image description") height="579" src=image_path('exampleimages/img11.jpg') width="1031" 
+          /   .video-box
+              / a.arrow-link href="#" 
+              /   img alt=("image description") height="43" onerror=("this.onerror=null; this.src='images/icon4.png'") src=image_path('exampleimages/icon4.svg') width="35" /
+              / .top-text
+              /   a href="#"  watch next lesson
+              /   strong 04 An Overview of Color Theory
+              / .box
+              /   span.assignment your assignment
+              /   h3 give feedback
+              /   p Now it’s your turn to assess the following collection of faces and judge the photographer, not on the content of the face, but how they captured the character.
+              /   a.more href="#" 
+              /     span.icon-svg3
+              /     | start
+              /     span.icon-svg3
+        .text
+          h1
+            span =@chapter.number
+            | 
+            =@chapter.title
+          p =@chapter.abstract
+          .row-holder
+            img alt=("image description") height="44" src=image_path('exampleimages/ico.png') width="34" 
+              .holder
+                h3 = (@course.documents.last ? @course.documents.last.title : 'PLEASE ADD TITLE')
+                span
+                  | We need a description field amongst other things
+                  =< link_to 'Download PDF', download_course_document_path(@course, @course.documents.last)
+/.gallery-holder id="course_assignments"
+  .gallery
+    .mask
+      .slideset
+        .slide
+          .box
+            span.assignment your assignment
+            h3 give feedback
+            p Now it’s your turn to assess the following collection of faces and judge the photographer, not on the content of the face, but how they captured the character.
+        - @course.images.each do |img|
+          .slide
+            = image_tag img.image.url, alt: 'image description', size: "300x170" 
+            .holder
+              span Rate this photo’s use of tension
+              ul.stars
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star.png'") src=image_path('exampleimages/star.svg') width="30" /
+              a.comment href="#" 
+                | add a comment
+                span.icon-svg3
+
+    a.btn-prev href="#"  previous
+    a.btn-next href="#"  next
+.discussion-block id="discussion-container" data-p2h="skip" data-user-id="#{@user.id}" data-user-profile-image-url="#{@user.user_profile_img_url}" data-course-id="#{@course.id}" data-chapter-id="#{@chapter.id}" data-user-name="#{@user.user_name}"
+  .container.show id="course_comments"
+    .discussion-holder
+      .discussion-frame id="comments-view-container"
+        .heading
+          h2 lesson discussions
+          span.info
+            /- comment = @course.comments.find_by chapter_id: @chapter.id
+            /=> @comments.present? ? comment.children.size : 0
+            = @discussions_count
+            |  discussions sorted by
+            = link_to '#' do
+              |  most recent
+              span.icon-svg3
+        /-comment = @course.comments.find_by chapter_id: @chapter.id
+        /- if comment
+          - if params[:most_recent].present?
+            - comments = comment.children.sort_by(&:latest_comment_time).reverse
+          - else
+            - comments = comment.children.order(:created_at)
+          - comments.each do |comment|
+            = render 'course_comments/comment', comment: comment
+        - unless params[:comment_id]
+          - if @base_comment
+            .post.comment.commentable.new id="comment-form-container"
+              h2 Add a new comment
+              .post.new-comment
+                .input-wrapper.topic-field data-hide-after-submit="false"
+                  = image_tag current_user.decorate.avatar_url, class: 'img avatar alignleft', size: "100x100"
+                  = render 'course_comments/comment_input', comment: @base_comment

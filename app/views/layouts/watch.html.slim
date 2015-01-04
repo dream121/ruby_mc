@@ -1,0 +1,10 @@
+doctype html
+html lang="en"
+  = render partial: 'layouts/head'
+  body
+    = render 'shared/navigation/navbar'
+    .push-wrapper
+      #wrapper
+        = yield
+      = render 'shared/footer'
+    <script type="text/javascript"src="//api.filepicker.io/v1/filepicker.js"></script>

@@ -1,0 +1,28 @@
+- klassy = question == questions.last ? ' hidden' : ''
+.row.question id=question.id
+  .question-subject.col-md-12= question.subject.upcase
+.row.videos.mc-interaction
+.row.videos.mc-interaction2
+  .row
+    .col-xs-12.col-sm-6.col-sm-offset-0.col-md-6.col-md-offset-0.col-lg-6.col-lg-offset-0.mc-question
+      .office-hours-image-wrapper
+        = image_tag('q.png', class: 'img-responsive symbol')
+        = image_tag('//placehold.it/448x252/ffffff/ffffff', class: 'img-responsive dialog')
+        - if !question.brightcove_id.blank?
+          .q-and-a-video
+            = office_hours_video_player question.brightcove_id, "question-#{question.id}"
+        - else !question.text_question.blank?
+          .q-and-a-video.text = question.text_question
+      .col-xs-12.text-align-center.interaction-dialog
+        .span.blue-highlight.question-submitted-by Question submitted by #{question.user_name}
+    .col-xs-12.col-sm-6.col-sm-offset-0.col-md-6.col-md-offset-0.col-lg-6.col-lg-offset-0.mc-answer
+      .office-hours-image-wrapper
+        = image_tag('a.png', class: 'img-responsive symbol')
+        = image_tag('//placehold.it/448x252/ffffff/ffffff', class: 'img-responsive dialog')
+        .q-and-a-video
+          = office_hours_video_player(question.answer_brightcove_id, "answer-#{question.id}")
+    .col-xs-12.col-sm-6.col-sm-offset-0.col-md-6.col-md-offset-0.col-lg-6.col-lg-offset-0.text-align-center.interaction-dialog
+      .span.blue-highlight.answer-submitted-by Video answer submtted by #{question.answer_user_name}
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+      .office-hours-image-wrapper
+        div class="divider#{klassy}"

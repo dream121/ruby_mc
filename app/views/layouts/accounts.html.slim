@@ -1,0 +1,13 @@
+doctype 5
+html
+  = render partial: 'layouts/head'
+  body id=(controller.controller_name) class=([controller.action_name, @body_class].join(' '))
+    = render 'shared/navigation/navbar'
+    .push-wrapper
+      #wrapper data-version-one="true"
+        .container-root
+          - flash.each do |name, msg|
+            = content_tag :div, raw(msg), class: "alert #{alert_class(name)}"
+        = yield
+      = render 'shared/footer'
+    script type="text/javascript"src="//api.filepicker.io/v1/filepicker.js"

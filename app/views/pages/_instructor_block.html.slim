@@ -1,0 +1,26 @@
+.holder
+  .item-block
+    a href="#{course_path(course)}"
+      span data-alt=("image description") data-picture=""
+        span data-src=course.image_url(:banner)
+        span data-media="(-webkit-min-device-pixel-ratio:1.5), (min-resolution:144dpi)" data-src=course.image_url(:banner)
+        span data-height="141" data-media="(max-width:767px)" data-src=course.image_url(:banner) data-width="160"
+        span data-media="(max-width:767px) and (-webkit-min-device-pixel-ratio:1.5)), (max-width:767px) and (min-resolution:144dpi)" data-src=course.image_url(:banner)
+        /![if (lt IE 9) &amp; (!IEMobile)]
+          | <span data-src="images/img32.jpg"></span
+        /! Fallback content for non-JS browsers. Same img src as the initial, unqualified source element.
+        noscript
+          = image_tag course.image_url(:banner),  alt: "image description", size: "971x351"
+      / comment
+    .caption-box
+      = link_to course_path(course) do
+        span.name= instructor.name
+        | teaches you #{course.skill}
+    - if progress_box
+      - if course.completed_by_user(current_user) and course.reviewed_by_user(current_user)
+        = render "completed_box", course: course
+      - elsif course.completed_by_user(current_user)
+        = render "not_reviewed_box", course: course
+      - else
+        = render "in_progress_box", course: course
+        

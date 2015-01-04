@@ -1,0 +1,116 @@
+.list-row
+  .list-block
+    h2 Video lesson plan
+    .list
+      ul.plan-list
+        - @course.chapters.order(:position).each do |chapter|
+          - chapters_completed_count = @user_course.chapters_completed.count
+          - chapter_progress    = @user_course.progress_for_chapter(chapter.id)
+          - chapter_position    = chapter_progress.position
+          - total_user_comments = chapter.decorate.total_user_comments(current_user)
+          - disabled_klass = chapter.is_bonus == true ? 'disabled-handle' : ''
+          - go_nowhere_class = chapter.is_unlocked?(chapters_completed_count) == false ? 'go-nowhere' : ''
+          li
+            div class="handle #{disabled_klass} #{go_nowhere_class}"
+              - if chapter_progress.completed?
+                span.icon-checkmark.chapter-complete
+              - if chapter.is_bonus == false
+                span.icon-svg3
+                span.number= chapter.number.to_s.rjust(2, '0')
+              - else
+                - if chapter.is_unlocked?(chapters_completed_count) == true
+                  span.unlocked-icon
+                - else
+                  span.locked-icon
+
+              h3
+                -if chapter.is_unlocked?(chapters_completed_count) == true
+                  = link_to chapter.title, watch_course_chapter_path(@course, chapter)
+                - else 
+                  = link_to chapter.title, ''
+              div= chapter.abstract
+
+            - if chapter.is_bonus == false
+              .slide
+                .info-box
+                  .image-box id="image_box_id_#{chapter.brightcove_id}"
+                    span data-alt=("image description") data-picture=""
+                      span data-src= image_path(chapter.thumb_url)
+                      span data-media="(-webkit-min-device-pixel-ratio:1.5), (min-resolution:144dpi)" data-src=image_path("#{image_path(chapter.thumb_url)}")
+                      <!--[if (lt IE 9) & (!IEMobile)]>
+                        <span data-src="#{chapter.thumb_url}"></span>
+                      <![endif]-->
+                      <!-- Fallback content for non-JS browsers. Same img src as the initial, unqualified source element. -->
+                      noscript &lt;img src="#{chapter.thumb_url}" width="200" height="114" alt="image description" &gt;
+                    - if chapter_progress.completed?
+                      span.icon-checkmark.video-complete
+                    - else
+                      a.play href="#{watch_course_chapter_path(@course, chapter)}"
+                        span.icon-svg
+                  .text-wrapp
+                    strong.title
+                      = link_to "Lesson video", watch_course_chapter_path(@course, chapter)
+                    p= chapter.video_description
+                    p.activity
+                      a.more href="#{watch_course_chapter_path(@course, chapter)}"  Running time: #{chapter.duration}.
+                      - if chapter_position > 0
+                        = " You've completed: #{Time.at(chapter_position).utc.strftime("%-M:%S")}"
+                .info-box
+                  .image-box
+                    span.icons
+                      span data-alt=("image description") data-picture=""
+                        span data-src= image_path("icons/ico-pen.png")
+                        span data-height="21" data-media="(-webkit-min-device-pixel-ratio:1.5), (min-resolution:144dpi)" data-src=image_path("icons/ico-pen2x.png") data-width="16"
+                        <!--[if (lt IE 9) & (!IEMobile)]>
+                          <span data-src="images/ico-pen.png"></span>
+                        <![endif]-->
+                        <!-- Fallback content for non-JS browsers. Same img src as the initial, unqualified source element. -->
+                        noscript &lt;img src="../../images/ico-pen.png" width="16" height="21" alt="image description" &gt;
+                  .text-wrapp
+                    strong.title
+                      a href="#{watch_course_chapter_path(@course, chapter)}#course_assignments"  Feedback Assignment
+                .info-box
+                  .image-box
+                    - if total_user_comments > 0
+                      span.icon.lesson-watched
+                    -else
+                      span.icons.comm
+                        span data-alt=("image description") data-picture=""
+                          span data-src= image_path("icons/ico-comm.png")
+                          span data-height="18" data-media="(-webkit-min-device-pixel-ratio:1.5), (min-resolution:144dpi)" data-src=image_path("icons/ico-comm2x.png") data-width="19"
+                          <!--[if (lt IE 9) & (!IEMobile)]>
+                            <span data-src="images/ico-comm.png"></span>
+                          <![endif]-->
+                          <!-- Fallback content for non-JS browsers. Same img src as the initial, unqualified source element. -->
+                          noscript &lt;img src="../../images/ico-comm.png" width="19" height="18" alt="image description" &gt;
+
+                  .text-wrapp
+                    strong.title
+                      a href="#{watch_course_chapter_path(@course, chapter)}#course_comments"  Lesson Discussion
+                    - comments = chapter.comments
+                    - if comments.count > 0
+                      p Latest comment: #{comments.last.comment}
+                      p.activity
+                        a.more href="#{watch_course_chapter_path(@course, chapter)}#course_comments"
+                          = "#{chapter.decorate.total_comments}.#{' Go join the discussion!' if total_user_comments == 0}"
+                        - if total_user_comments > 0
+                          = " You contributed: #{total_user_comments} #{'comment'.pluralize(total_user_comments)}."
+                    - else
+                      p There are no comments for this chapter.
+                      a class="more" href="#{watch_course_chapter_path(@course, chapter)}#course_comments" Why not be the first to make one?
+
+
+
+javascript:
+  $(function() {
+    $( ".plan-list" ).accordion({heightStyle: 'content'});
+    $('.plan-list .handle').first().addClass('active');
+    $('.plan-list .handle').on('click', function(e){
+      $('.handle', '.plan-list').removeClass('active');
+      $(this).addClass('active');
+    })
+    $('.disabled-handle').addClass('ui-state-disabled')
+    $('.go-nowhere').on('click', function(e) {
+      e.preventDefault();
+    });
+  });

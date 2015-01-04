@@ -1,0 +1,26 @@
+= @questions.each do |question|
+  .row.question id=question.id 
+    .question-subject.col-md-12= question.subject.upcase
+  .row.videos
+    .col-md-6.question-block
+      = image_tag "q.png", size: "67x250", class: "q-or-a"
+      - if question.video.path.nil? and question.text_question.empty?
+        = video_tag question.external_url, controls: true
+      - elsif question.video.path.nil?
+        .text-quesiton= question.text_question
+      - else
+        = video_tag question.video.url, controls: true
+    .col-md-6.answer-block
+      div
+        = image_tag "a.png", size: "67x250", class: "q-or-a"
+        = video_tag question.answer.video.url, controls: true
+  .row.submitters
+    .col-md-offset-1.col-md-5.question-submitted-by
+      span.blue-highlight> Video question submitted
+      | by #{question.user.name}
+    .col-md-offset-1.col-md-5.answer-submitted-by
+      span.blue-highlight> Video answer submitted
+      | by #{question.answer.user.name}
+  - unless question == @questions.last
+    .divider
+

@@ -1,0 +1,192 @@
+/ .comment.commentable.post class="depth-#{comment.depth}" data-comment-id=comment.id
+- tooManyComments = comment.id == comment.parent.children.first.id && comment.parent.children.size > 2 && !comment.parent.position
+- if tooManyComments
+  .show-block.comment-collapse
+    .collapse-bar
+      span collapse replies
+- if !@chapter
+  - chapter = params[:chapter]
+- if comment.decorate.depth < 3 and comment.parent.children.count == 1
+o - is_first = 1
+- else
+  - is_first = 0
+.post.comment.commentable class=(comment.decorate.depth < 3 ? 'outer' : 'reply'),"depth-#{comment.depth}" data-comment-id=comment.id data-firstcomment=is_first
+  - comment = comment.decorate
+  - user = comment.user.decorate
+  - course = comment.course.decorate
+  - user_type = comment_user_type(user, course)
+  .holder
+    - if comment.visible || policy(comment).moderate?
+      = image_tag user.avatar_url, class: 'img avatar alignleft', size: "100x100"
+      .video
+        - if comment.persisted?
+          - if comment.image
+            .thumbnail-lightbox
+              a href="#{comment.image.image.url(:original)}" data-lightbox="image-1"
+                img src="#{comment.image.image.url(:thumb)}"
+      .text-holder
+        span.name
+          strong = user.name
+          - if user_type
+            =< user_type.titleize
+          - else
+            |
+        - if comment.visible
+          / - if comment.depth > 2
+          /   p
+          /     small.text-muted= "Re: #{comment.parent.user.name}'s comment"
+          p=comment.comment
+        - elsif policy(comment).moderate?
+          p.comment-hidden=comment.comment
+        - else
+          p= "(comment removed)"
+        ul.like
+          li #{time_ago_in_words(comment.created_at)} ago
+          - if policy(comment).vote? && comment.visible
+            - if comment.voters
+              li
+                span.text-muted= comment.tally_to_s
+            - if comment.can_vote?('up', current_user)
+              li = link_to course_comment_path(course_id: course.to_param, id: comment.to_param, course_comment: { vote: 'up' }), data: { method: 'PUT', remote: true } do
+                li Like
+            - else
+              span.text-muted
+                ' Likes
+
+        / - if policy(comment).edit?
+        /   a.small.show-edit href='#'
+        /     span.icon.icon-pencil
+        /     ' Edit
+
+        /- if policy(comment).moderate?
+          /- if comment.visible
+            /- link_text = 'Hide comment'
+            /- icon_class = 'icon-lock'
+          /- else
+            /- link_text = 'Unhide comment'
+            /- icon_class = 'icon-checkmark'
+          /= link_to course_comment_path(course_id: course.to_param, id: comment.to_param, course_comment: { visible: !comment.visible }), class: 'admin', data: { method: 'PUT', remote: true } do
+            /span= link_text
+    br
+    - if (comment.id == comment.parent.children.last.id && !comment.parent.position) || ( comment.parent.position && comment.children.size == 0 )
+      - if comment.parent.position
+        .post-block.reply class=(comment.decorate.depth < 3 ? 'outer' : 'reply')
+          .input-wrapper.for-input data-hide-after-submit="true"
+            = image_tag current_user.decorate.avatar_url, class: 'img avatar alignleft', size: "100x100"
+            = render 'course_comments/comment_input', comment: comment, chapter: chapter
+      - else
+        .post.reply class=(comment.decorate.depth < 3 ? 'outer' : 'reply')
+          .input-wrapper.for-input data-hide-after-submit="true"
+            = image_tag current_user.decorate.avatar_url, class: 'img avatar alignleft', size: "100x100"
+            = render 'course_comments/comment_input', comment: comment.parent, chapter: chapter
+    .spinner.hidden Submitting...
+  / TODO: Fix the below to only add a reply to the last in the chain of replies for that particular comment
+  - if (comment.id == comment.parent.children.last.id && !comment.parent.position) || ( comment.parent.position && comment.children.size == 0 )
+    .holder
+      a.post-button
+        - if comment.ancestors.count == 1
+          | Be the first to reply to this comment
+        - else
+          | Reply to this comment
+  .post-block
+    - comment.children.order(:created_at).each do |comment|
+      = render 'course_comments/comment', comment: comment
+
+
+//old version
+
+/ .comment.commentable class="depth-#{comment.depth}" data-comment-id=comment.id
+/   - comment = comment.decorate
+/   - user = comment.user.decorate
+/   - course = comment.course.decorate
+/   - user_type = comment_user_type(user, course)
+/   .row
+/     .user class=comment_user_columns(comment)
+/       - if comment.visible || policy(comment).moderate?
+/         = image_tag user.avatar_url, class: 'img-circle img-responsive'
+/         h3= user.name
+/         - if user_type
+/           h5= user_type.titleize
+/       - else
+/         h5= "(removed)"
+
+/     div class=comment_details_columns(comment)
+/       .details class=user_type
+/         - if comment.visible
+/           - if comment.depth > 2
+/             p
+/               small.text-muted= "Re: #{comment.parent.user.name}'s comment"
+/           p.words=comment.comment
+/         - elsif policy(comment).moderate?
+/           p.words.comment-hidden=comment.comment
+/         - else
+/           p.words= "(comment removed)"
+
+/         - if policy(comment).vote? && comment.visible
+/           - if comment.voters
+/             span.votes
+/               span class="#{comment.votes_class}"= comment.votes_with_sign
+/               '
+/               span.text-muted= comment.tally_to_s
+/               '
+
+/           - if comment.can_vote?('up', current_user)
+/             = link_to course_comment_path(course_id: course.to_param, id: comment.to_param, course_comment: { vote: 'up' }), class: 'small', data: { method: 'PUT', remote: true } do
+/               span.icon.icon-chevron-up
+/               ' Vote Up
+/           - else
+/             span.text-muted
+/               span.icon.icon-chevron-up
+/               ' Vote Up
+
+/           - if comment.can_vote?('down', current_user)
+/             = link_to course_comment_path(course_id: course.to_param, id: comment.to_param, course_comment: { vote: 'down' }), class: 'small', data: { method: 'PUT', remote: true } do
+/               span.icon.icon-chevron-down
+/               ' Vote Down
+/           - else
+/             span.text-muted
+/               span.icon.icon-chevron-down
+/               ' Vote Down
+
+
+/         - if comment.visible
+/           a.small.show-input href="#"
+/             span.icon.icon-reply
+/             ' Reply
+
+
+/         - if comment.persisted?
+/           p
+/           - if comment.image
+/             .row
+/               .col-sm-6.col-md-3
+/                 .thumbnail
+/                   a href="#{comment.image.image.url(:original)}" data-lightbox="image-1"
+/                     img src="#{comment.image.image.url(:thumb)}"
+
+/         / - if policy(comment).edit?
+/         /   a.small.show-edit href='#'
+/         /     span.icon.icon-pencil
+/         /     ' Edit
+
+/         - if policy(comment).moderate?
+/           - if comment.visible
+/             - link_text = 'Hide comment'
+/             - icon_class = 'icon-lock'
+/           - else
+/             - link_text = 'Unhide comment'
+/             - icon_class = 'icon-checkmark'
+/           = link_to course_comment_path(course_id: course.to_param, id: comment.to_param, course_comment: { visible: !comment.visible }), class: 'admin', data: { method: 'PUT', remote: true } do
+/             span= link_text
+/             '
+
+
+/         small.text-muted.pull-right.created-at #{time_ago_in_words(comment.created_at)} ago
+
+/         .input-wrapper.hidden data-hide-after-submit="true"
+/           = render 'course_comments/comment_input', comment: comment
+/         .spinner.hidden Submitting...
+
+/   .replies
+/     - comment.children.order(:created_at).each do |comment|
+/       = render 'course_comments/comment', comment: comment

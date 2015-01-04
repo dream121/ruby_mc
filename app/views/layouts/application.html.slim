@@ -1,0 +1,23 @@
+doctype html
+html lang="en"
+  = render partial: 'layouts/head'
+  body id="#{controller.controller_name}" class="#{[controller.action_name, @body_class].join(' ')}"
+    = render 'shared/navigation/navbar'
+    .push-wrapper
+      .wrap
+        = yield :jumbotron
+        .container-root
+          - flash.each do |name, msg|
+            = content_tag :div, raw(msg), class: "alert #{alert_class(name)}"
+          = yield
+        .push
+        - unless @body_class == 'admin'
+          = yield :sticky_footer
+          = render 'shared/footer'
+          = render partial: 'layouts/retargeting'
+
+        = render 'shared/sign_modals'
+        - if ENV['SKIP_INTERNET'] == 'true'
+          <script type="text/javascript"src="//api.filepicker.io/v1/filepicker.js"></script>
+  = yield :javascript
+

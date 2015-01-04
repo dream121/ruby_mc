@@ -1,0 +1,55 @@
+#thank-you-message-container.container
+  
+#new-question.container
+  .row id="result-container"
+    .row
+      .submit-new-question.col-md-12.col-xs-12 
+        h3 SUBMIT A NEW QUESTION
+  .row#question-form-grid data-userid="#{current_user.id}" data-courseid="#{@course.id}"
+    /= render partial: 'video_preview'
+    .row
+      .col-md-2.profile-picture-container.hidden-sm.hidden-xs
+        = user_avatar_large(current_user)
+      = form_for [course, question], :url => course_office_hours_path(course,question), :html => { :multipart => true } do |f|
+        = hidden_field_tag 'video-url'
+        .col-xs-12.col-sm-12.col-md-10.full-width.wider-column
+          span.hidden id="subject-counter-text" 140
+          = f.text_field :subject, class: "subject form-control counted", placeholder: "Subject"
+        .col-xs-12.col-sm-12.col-md-10
+          .row
+            #inputs-container 
+              #column-wrapper 
+                .col-sm-4.col-md-4.wider-column
+                  .input-container.webcam-input id="webcam-inputs"
+                    = image_tag('webcamicon.png', class: 'instruct')
+                    span.rerecord-text.hidden id="webcam-rerecord"
+                      = image_tag('rerecord.png')
+                      | rerecord 
+                    span.remove-text.hidden id="webcam-remove-text"
+                      | remove
+                      = image_tag('remove.png')
+                    span.instructional-text record with <br />your webcam
+                    span id="webcam-video-flash"
+                    = text_field_tag 'video-field',   nil, { class: 'subject form-control big-box'}
+                .col-sm-4.col-md-4.wider-column
+                  .input-container.upload-video-input id="upload-inputs"
+                    = image_tag('uploadicon.png', class: 'instruct')
+                    span.rerecord-text.hidden id="upload-rerecord"
+                      = image_tag('rerecord.png')
+                      | rerecord 
+                    span.remove-text.hidden id="upload-remove-text"
+                      | remove
+                      = image_tag('remove.png')
+                    span.instructional-text upload a <br />video question
+                    = text_field_tag 'upload-field',  nil, { class: 'subject form-control big-box' }
+                .col-sm-4.col-md-4.wider-column
+                  .input-container.text-question-input id="text-inputs"
+                    = image_tag('texticon.png', class: 'instruct')
+                    span.hidden id="text-question-counter-text" 140
+                    span.remove-text.hidden id="text-remove-text"
+                      | remove
+                      = image_tag('remove.png', class: 'removal')
+                    span.instructional-text write a <br />text question
+                    = text_area_tag 'text-question', nil, { class: 'subject form-control big-box counted' }
+                .col-md-12.wider-column
+                  = f.submit :submit, class: 'button-link mc-active-button', id: 'new-question-answer-form-submit'

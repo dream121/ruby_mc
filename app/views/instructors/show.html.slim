@@ -1,0 +1,102 @@
+section#content
+  .container
+    section.lesson-section
+      blockquote
+        q
+          span.icon-svg5
+          = @instructor.class_quote
+          span.icon-svg4
+        cite
+          = sanitize @instructor.class_quote_attribution, tags: ['em']
+      /! end blockquote
+      h2 learn more about #{@instructor.name}
+      p= @instructor.long_bio
+      - unless @instructor.office_hours_pitch.blank?
+        h2 #{@instructor.first_name.possessive} office hours for enrolled student
+        p= @instructor.office_hours_pitch
+      - unless @question.nil?
+        p= \
+          "Here's a sample of the questions #{@instructor.first_name.possessive} \
+            has answered as part of his class:"
+        .video-question.row
+          = brightcove_script_source
+          .col-sm-6
+            .video-block
+              span.video-title Q:
+              .holder
+                = office_hours_video_player @question.brightcove_id
+              /! end holder
+            /! end video-block
+            span.caption
+              | Video question submitted by
+              span.name = " #{@question.user_name}"
+          /! end col-sm-6
+          .col-sm-6
+            .video-block.pull-right
+              span.video-title A:
+              .holder
+                = office_hours_video_player @question.answer.brightcove_id
+              /! end holder
+            /! end video-block
+            span.caption
+              | Video answer submitted by
+              span.name = " #{@instructor.name}"
+          /! end col-sm-6
+        /! end video-question row
+      blockquote
+        q
+          span.icon-svg5
+          = @instructor.popular_quote
+          span.icon-svg4
+        - unless @instructor.popular_quote_logo_url.blank?
+          cite= image_tag @instructor.popular_quote_logo_url, alt: "Harvard Business Review", width: '148', height: '57'
+      /! end blockquote
+    /! end section lesson-section
+  /! end container
+/! end section content
+
+section.item-section
+  .container
+    .item-row
+      .item-holder
+        h3 Join the first-ever online CLass
+        h2.marketing #{@instructor.name} #{@course.title}
+        span.icon.icon-svg8.marketing
+          em>
+          = price_in_dollars(@course.price)
+        - first_chapter = @course.chapters.order(:number).first
+        - if first_chapter && policy(first_chapter).watch?
+          = link_to 'Go to Class', enrolled_course_path(@course), class: 'button-link'
+        - else
+          = link_to 'Take the Class', add_product_path(@course.product.id), rel: 'nofollow', class: 'button-link'
+        a.share href="#"
+          span.icon-svg2
+          | Share, gift or audit
+        .social-block.top-spacer-30
+          ul
+            li
+              a href="#"
+                span.ico-twitter
+            li
+              a href="#"
+                span.ico-facebook
+            li
+              a href="#"
+                span.ico-mail
+    section.list-section.no-background
+      h2.courses-page Other Classes
+      - @other_courses.each do |oc|
+        - instructor = oc.instructors.first
+        - oc = oc.decorate
+        = render "pages/instructor_block", instructor: instructor, course: oc, progress_box: false
+    a.more href="#"
+      | more classes
+      span.icon-svg2
+
+- unless logged_in?
+  javascript:
+    $(".button-link").click(function (e){
+      e.preventDefault();
+      document.cookie = "requested_path=" + $(this).attr("href") + "; path=/";
+      $("#modal_sign_button").trigger("click");
+    });

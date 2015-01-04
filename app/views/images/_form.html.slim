@@ -1,0 +1,19 @@
+= simple_form_for(@image_resource, html: { multipart: true }, url: @form_path) do |f|
+  = f.error_notification
+
+  .form-inputs
+    - if params[:home_page_id].present?
+      = f.input :kind, collection: @parent.image_kinds
+    - else
+      = f.input :kind, collection: @parent.image_kinds, hint: 'The "kind" determines how and where the image will be displayed. For example, a "class_hero" image for a course will be displayed at the top of the marketing page.'
+    
+    = f.file_field :image
+
+  p
+  .form-actions
+    = f.button :submit, class: 'btn btn-primary'
+    '
+    - if params[:home_page_id].present?
+      = link_to 'Back', home_page_edit_path, class: 'btn btn-default'
+    - else
+      = link_to 'Back', @course || @parent, class: 'btn btn-default'

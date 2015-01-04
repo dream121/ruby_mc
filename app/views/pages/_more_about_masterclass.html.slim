@@ -1,0 +1,18 @@
+section.blocks-holder
+  h2 more about master class
+  .holder
+    .item-block
+      span data-alt=("image description") data-picture=""
+        span data-src=image_path("exampleimages/img38.jpg")
+        span data-height="141" data-media="(max-width:767px)" data-src=image_path("exampleimages/img38-small.jpg") data-width="160"
+        /![if (lt IE 9) &amp; (!IEMobile)]
+          | <span data-src="images/img38.jpg"></span
+        /! Fallback content for non-JS browsers. Same img src as the initial, unqualified source element.
+        noscript
+          = image_tag "exampleimages/img38.jpg",  alt: "image description", size: "971x351"
+      .text-box
+        h3 insightful &amp; inspiring
+        p Master Class offers a series of online classes, created for students of all skill levels to learn from the the world’s finest artists &amp; creators.
+        a.more href="#"
+          | learn more
+          span.icon-svg2

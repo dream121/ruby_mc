@@ -1,0 +1,120 @@
+#student-assignment {
+  background: $student-body-bg;
+  color: $text-color;
+  font: $font;
+  padding-top: 50px;
+
+  h1, h2, h3, h4, h5,a {
+    text-transform: uppercase;
+  }
+  h2 {
+  }
+  h3 {
+  }
+  h4 {
+  }
+  h5 {
+    font-size: 15px;
+  }
+  p, li {
+    font-size: 22px;
+    line-height: 36px;
+  }
+  ul {
+    list-style-type: none;
+  }
+  ul.inline-list {
+    margin: 0;
+    padding: 0;
+    li {
+      display: inline-block;
+    }
+  }
+  ul.block-list {
+    margin: 0;
+    padding: 0;
+    li {
+      display: block;
+    }
+  }
+  a {
+    color: $link-color;
+    font-size: 16px;
+    font-weight: $body-font-weight-medium;
+    text-decoration: none;
+    &:hover {
+      color: $link-hover-color;
+      cursor: pointer;
+    }
+  }
+  .button-link, .reflect-button {
+    @include red-button(-52px, 260px);
+  }
+  .right {
+    float: right; 
+  } 
+  .not-current-step {
+    display:none;
+  }
+  .blocky {
+    display: block; 
+  }
+
+  #student-assignment-container {
+    background: $assignment-container-bg;
+    h3, h5, p, .white-example-box {
+      margin-top: 30px;
+    }
+    .white-example-box {
+      background: $white-color;
+      height:90px; 
+    }
+    .link-container {
+      display: block;
+      margin-bottom: 50px;
+      margin-top: 40px;
+    }
+
+    .modal-content {
+      background: $assignment-container-bg;
+      border-radius: 0;
+      left: -50%;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 40px;
+      padding-right: 40px;
+      width: 200%;
+    }
+
+    .modal-header, .modal-body, .modal-footer {
+      padding: 0;
+      p, h3 {
+        font-weight: $body-font-weight-light;
+      }
+      .close {
+        opacity: 1;
+      }
+      .white-example-box {
+        height: 80px;
+        margin-top: 0px;
+      }
+
+
+    }
+    .modal-header {
+      border-bottom: 2px solid #e5e5e5;
+      span.dismissal::before {
+        content: url(assignment-delete.gif);
+      }
+    }
+
+    .modal-footer {
+      border-top: 2px solid #e5e5e5;
+      padding-bottom: 30px;
+      h3 {
+        text-align: center;
+      }
+    }
+  }
+}
+

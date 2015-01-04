@@ -1,0 +1,64 @@
+<div class="row question thank-you-message" id="<%= @question.id %>">
+  <div class="question-subject col-md-12">
+    <%= @question.subject %>
+  </div>
+</div>
+<div class="row videos mc-interaction"></div>
+<div class="row videos mc-interaction2">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-sm-offset-0 col-md-6 col-md-offset-0 col-lg-6 col-lg-offset-0 mc-question">
+      <div class="office-hours-image-wrapper">
+        <img src="/assets/q.png" class="img-responsive symbol" />
+        <img src="//placehold.it/448x252/ffffff/ffffff" class="img-responsive dialog" />
+        <% if @question.text_question && @question.text_question.length > 0: %>
+          <div class="q-and-a-video text">
+            <%= @question.text_question %>
+          </div>
+        <% else if @question.source_url && @question.source_url.length > 0: %>
+          <video id="<%= @question.source_url.split('/')[@question.source_url.split('/').length - 1] %>"
+            class="video-js vjs-default-skin"
+            width="100%" height="100%">
+            <source src="<%= @question.source_url %>" type="video/x-flv" />
+          </video>
+        <% end %>
+      </div>
+      <div class="col-xs-12 text-align-center interaction-dialog">
+        <div class="span blue-highlight question-submitted-by">
+          Question submitted by <%= @question.user_name %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-6 col-sm-offset-0 col-md-6 col-md-offset-0 col-lg-6 col-lg-offset-0 mc-answer">
+      <div class="office-hours-image-wrapper" id="thank-you-message-image-container">
+        <img src="/assets/a.png" class="img-responsive symbol" />
+        <div class="thank-you-image-wrapper">
+          <h2 class="thank-you-message-text">THANKS!</h2>
+          <p class="thank-you-review-text">
+            Your question will be reviewed by the class
+            assistant and you will receive and email if <%= @question.instructor_name%> picks 
+            your question to answer!
+          </p>
+          <span class="thank-you-may-i-have-another">
+            <a href="#">ask another question</a>
+            <a href="#"><div class="glyphicon glyphicon-play"></div></a>
+          </span>
+          <img src="//placehold.it/448x252/ffffff/ffffff" class="img-responsive dialog" />
+        </div>
+      </div>
+
+    </div>
+    <div class="col-xs-12 col-sm-6 col-sm-offset-0 col-md-6 col-md-offset-0 col-lg-6 col-lg-offset-0 text-align-center interaction-dialog">
+      <div class="span blue-highlight answer-submitted-by">
+        Video question in review
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="office-hours-image-wrapper">
+        <div class="divider"></div>
+      </div>
+    </div>
+
+  </div>
+</div>

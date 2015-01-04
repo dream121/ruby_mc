@@ -1,0 +1,40 @@
+.gallery-holder.box-holder
+  .gallery.root_gallery
+    .mask
+      .slideset123
+        .slide
+          span.skills a special thank you for you!
+          p 
+          	| As a reward for completing this class, your friends & family can enroll for 
+          	span.red-color 50% off.
+          p.grey Share or gift to a friend:
+          .social-block
+	          ul
+	            li
+	              a href="http://twitter.com/share?text=#{course.detail.tweet_text}&url=''"  target="_blank"
+	                span.ico-twitter
+	            li
+	              a href="#" onclick="courseFbWallPost()"
+	                span.ico-facebook
+	            li
+	              a href="#" 
+	                span.ico-mail
+
+- content_for :javascript do
+  javascript:
+
+   function courseFbWallPost() {
+      scroll = $(window).scrollTop();
+      FB.ui({
+        method: 'feed',
+        app_id: "#{ENV['FACEBOOK_KEY']}",
+        name: "#{course.instructors.first.name}",
+        link: 'http://www.masterclass.com',
+        picture: "#{course.image_url(:banner)}",
+        caption: "teaches you #{course.skill}",
+        description: "#{course.detail.overview}"
+      }, function(response){
+        $(window).scrollTop(scroll);
+      })
+      return false;
+    }

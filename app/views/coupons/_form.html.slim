@@ -1,0 +1,17 @@
+= simple_form_for([@course, @coupon]) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :code, autofocus: true
+    = f.input :max_redemptions
+    = f.input :price
+    = f.input :expires_at
+
+  .form-actions
+    = f.button :submit, class: 'btn btn-primary'
+    '
+    - if @coupon.persisted?
+      '
+      = link_to 'Delete', course_coupon_path(@course, @coupon), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger'
+    '
+    = link_to 'List', course_coupons_path(@course), class: 'btn btn-default'

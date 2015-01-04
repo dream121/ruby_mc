@@ -1,0 +1,38 @@
+.list-section.course-marketing {
+  background: #170E0E;
+}
+.columns-holder.course-review-columns {
+  background: none;
+  position:absolute;
+  top: 425px;
+}
+.item-section.call-to-action {
+  .container.call-to-action-container {
+    margin-top: 165px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  body#courses.show {
+    .course-preview-button {
+      margin-top: 0px; 
+    }
+  }
+  .item-section.call-to-action {
+    .container.call-to-action-container {
+      margin-top: 315px; 
+    }
+  }
+}
+
+
+@media screen and (max-width: 423px) {
+  .item-section.call-to-action {
+    .container.call-to-action-container {
+      margin-top: 360px; 
+    }
+  }
+}
+
+
+

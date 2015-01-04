@@ -1,0 +1,20 @@
+.row
+  .col-md-6.col-md-offset-3.login
+    h6 Ready to get started?
+    .row
+      div.oauth-login.col-sm-6.col-sm-offset-3
+        .icon-facebook-2
+        = link_to 'Sign up using Facebook', '/auth/facebook', class: 'track-outgoing'
+    p.nospam
+      ' We will never spam you or post on your behalf.
+    p.show-email-form
+      ' Or
+      a.track-ui title='Email Sign Up' href="javascript:void(0);" sign up with your email address
+
+    #email-form.hide
+      = render partial: 'sign_up_form'
+
+    p.switch
+      ' Already have an account?
+      strong
+        = link_to 'Sign In »', sign_in_path, class: 'sign-in'

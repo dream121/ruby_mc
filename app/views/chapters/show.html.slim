@@ -1,0 +1,623 @@
+#chapter-metadata.hidden data-user-id=current_user.id data-user-course-id=@user_course.try(:id) data-chapter-id=@chapter.id data-chapter-position=@chapter_position data-chapter-title=@chapter.title data-course-title=@course.title
+#video-metadata.hidden data-video-id=@chapter.brightcove_id
+.container
+  .video-holder
+    .video-frame
+      .video-block
+        a.link-prev href="#" 
+          span.icon-svg3
+          | lesson plan
+        a.link-next href="#" 
+          | next lesson
+        .video-wide
+          = brightcove_script_source
+          = chapter_video_player @chapter.brightcove_id
+          / span.icon-svg3
+          / / img alt=("image description") height="579" src=image_path('exampleimages/img11.jpg') width="1031" 
+          /   .video-box
+              / a.arrow-link href="#" 
+              /   img alt=("image description") height="43" onerror=("this.onerror=null; this.src='images/icon4.png'") src=image_path('exampleimages/icon4.svg') width="35" /
+              / .top-text
+              /   a href="#"  watch next lesson
+              /   strong 04 An Overview of Color Theory
+              / .box
+              /   span.assignment your assignment
+              /   h3 give feedback
+              /   p Now it’s your turn to assess the following collection of faces and judge the photographer, not on the content of the face, but how they captured the character.
+              /   a.more href="#" 
+              /     span.icon-svg3
+              /     | start
+              /     span.icon-svg3
+        .text
+          h1
+            span =@chapter.number
+            | 
+            =@chapter.title
+          p =@chapter.abstract
+          .row-holder
+            img alt=("image description") height="44" src=image_path('exampleimages/ico.png') width="34" 
+              .holder
+                h3 = (@course.documents.last ? @course.documents.last.title : 'PLEASE ADD TITLE')
+                span
+                  | We need a description field amongst other things
+                  =< link_to 'Download PDF', download_course_document_path(@course, @course.documents.last)
+.gallery-holder
+  .gallery
+    .mask
+      .slideset
+        .slide
+          .box
+            span.assignment your assignment
+            h3 give feedback
+            p Now it’s your turn to assess the following collection of faces and judge the photographer, not on the content of the face, but how they captured the character.
+        .slide
+          img alt=("image description") height="170" src=image_path('exampleimages/img6.jpg') width="300" 
+            .holder
+              span Rate this photo’s use of tension
+              ul.stars
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star.png'") src=image_path('exampleimages/star.svg') width="30" /
+              a.comment href="#" 
+                | add a comment
+                span.icon-svg3
+        .slide
+          img alt=("image description") height="170" src=image_path('exampleimages/img7.jpg') width="300" 
+            .holder
+              span Rate this photo’s use of tension
+              ul.stars
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star.png'") src=image_path('exampleimages/star.svg') width="30" /
+              a.comment href="#" 
+                | add a comment
+                span.icon-svg3
+        .slide
+          img alt=("image description") height="170" src=image_path('exampleimages/img8.jpg') width="300" 
+            .holder
+              span Rate this photo’s use of tension
+              ul.stars
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star.png'") src=image_path('exampleimages/star.svg') width="30" /
+              a.comment href="#" 
+                | add a comment
+                span.icon-svg3
+        .slide
+          img alt=("image description") height="170" src=image_path('exampleimages/img9.jpg') width="300" 
+            .holder
+              span Rate this photo’s use of tension
+              ul.stars
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star.png'") src=image_path('exampleimages/star.svg') width="30" /
+              a.comment href="#" 
+                | add a comment
+                span.icon-svg3
+        .slide
+          img alt=("image description") height="170" src=image_path('exampleimages/img10.jpg') width="300" 
+            .holder
+              span Rate this photo’s use of tension
+              ul.stars
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star.png'") src=image_path('exampleimages/star.svg') width="30" /
+              a.comment href="#" 
+                | add a comment
+                span.icon-svg3
+        .slide
+          img alt=("image description") height="170" src=image_path('exampleimages/img6.jpg') width="300" 
+            .holder
+              span Rate this photo’s use of tension
+              ul.stars
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star.png'") src=image_path('exampleimages/star.svg') width="30" /
+              a.comment href="#" 
+                | add a comment
+                span.icon-svg3
+        .slide
+          img alt=("image description") height="170" src=image_path('exampleimages/img7.jpg') width="300" 
+            .holder
+              span Rate this photo’s use of tension
+              ul.stars
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star.png'") src=image_path('exampleimages/star.svg') width="30" /
+              a.comment href="#" 
+                | add a comment
+                span.icon-svg3
+    a.btn-prev href="#"  previous
+    a.btn-next href="#"  next
+.discussion-block
+  .container.show id="course_comments"
+    .discussion-holder
+      .discussion-frame
+        .heading
+          h2 lesson discussions
+          span.info
+            - comment = @course.comments.find_by position: @chapter.number
+            => comment.children.size
+            | discussions 
+            a href="#" 
+              | most recent
+              span.icon-svg3
+        -comment = @course.comments.find_by position: @chapter.number
+        - if comment
+          - comment.children.order(:created_at).each do |comment|
+            = render 'course_comments/comment', comment: comment
+        .post.comment.commentable
+          h2 Add a new comment
+          .holder
+          .post.reply
+            .input-wrapper.topic-field data-hide-after-submit="false"
+              - user = comment.user.decorate
+              -comment = @course.comments.find_by position: @chapter.number
+              = image_tag user.avatar_url, class: 'img avatar alignleft'
+              = render 'course_comments/comment_input', comment: comment
+.popup-holder
+  .popup
+    a.close href="#"  close
+    a.back-link href="#" 
+      span.icon-svg3
+      | back to this lesson’s discussion
+    .discussion-block
+      .post
+        .holder
+          img.alignleft alt=("image description") height="100" src=image_path('exampleimages/img16.jpg') width="100" 
+            .text-holder
+              span.name
+                strong Daniel Hayek
+                | Vimeo Community Editor. Wichita, USA.
+              p Vivamus dui metus, mattis eu quam quis, auctor porttitor purus. Nunc malesuada.
+              ul.like
+                li 1 minute ago
+                li
+                  a href="#"  Like
+                li
+                  a href="#"  Reply
+        .post-block
+          .image-block
+            img alt=("image description") height="474" src=image_path('exampleimages/img27.jpg') width="839" /
+          .rating-block
+            .col
+              span.item
+                | Overall
+                em (67 votes)
+              ul.stars
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star.png'") src=image_path('exampleimages/star.svg') width="30" /
+            .col
+              span.item
+                | Timing
+                em (34 votes)
+              ul.stars
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star.png'") src=image_path('exampleimages/star.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star.png'") src=image_path('exampleimages/star.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star.png'") src=image_path('exampleimages/star.svg') width="30" /
+            .col
+              span.item
+                | Character
+                em (55 votes)
+              ul.stars
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star.png'") src=image_path('exampleimages/star.svg') width="30" /
+        .post-block
+          .holder
+            img.alignleft alt=("image description") height="100" src=image_path('exampleimages/img14.jpg') width="100" 
+              .text-holder
+                span.name
+                  strong Aviva Rubin
+                  | Art Curator at Guggenheim. New York, USA.
+                p Maecenas a purus leo. Pellentesque habitant morbi?
+                ul.like
+                  li 1 minute ago
+                  li
+                    a href="#"  Like
+                    | (6)
+        .post-block
+          .holder
+            img.alignleft alt=("image description") height="100" src=image_path('exampleimages/img26.jpg') width="100" 
+              .text-holder
+                span.name
+                  strong Michaela Watkins
+                  | Actor. Los Angeles, USA.
+                p Nam a ligula eu dui tempor condimentum et sed metus. Donec ut sem quis libero placerat posuere. Morbi sagittis dui in massa tristique condimentum. Etiam lobortis malesuada quam, non facilisis nisl pretium ultrices. Vivamus dui metus, mattis eu quam quis, auctor porttitor purus. Nunc malesuada justo vel justo pretium ornare. Sed pharetra nisi faucibus purus porta egestas. Curabitur gravida vulputate turpis, a malesuada purus feugiat ut.
+                ul.like
+                  li 17 minute ago
+                  li
+                    a href="#"  Like
+                    | (6)
+        .post-block
+          .holder
+            img.alignleft alt=("image description") height="100" src=image_path('exampleimages/img12.jpg') width="100" 
+              .text-holder
+                span.name
+                  strong Aviva Rubin
+                  | Art Curator at Guggenheim. New York, USA.
+                p Maecenas a purus leo. Pellentesque habitant morbi? Etiam lobortis malesuada quam, non facilisis nisl pretium ultrices. Vivamus dui metus, mattis eu quam quis, auctor porttitor purus.
+                ul.like
+                  li 1 minute ago
+                  li
+                    a href="#"  Like
+                    | (8)
+        .post-block
+          .holder
+            img.alignleft alt=("image description") height="100" src=image_path('exampleimages/img14.jpg') width="100" 
+              .text-holder
+                span.name
+                  strong Aviva Rubin
+                  | Art Curator at Guggenheim. New York, USA.
+                p Maecenas a purus leo. Pellentesque habitant morbi?
+                ul.like
+                  li 1 minute ago
+                  li
+                    a href="#"  Like
+                    | (6)
+        .post-block
+          .holder
+            img.alignleft alt=("image description") height="100" src=image_path('exampleimages/img26.jpg') width="100" 
+              .text-holder
+                span.name
+                  strong Michaela Watkins
+                  | Actor. Los Angeles, USA.
+                p Nam a ligula eu dui tempor condimentum et sed metus. Donec ut sem quis libero placerat posuere. Morbi sagittis dui in massa tristique condimentum. Etiam lobortis malesuada quam, non facilisis nisl pretium ultrices. Vivamus dui metus, mattis eu quam quis, auctor porttitor purus. Nunc malesuada justo vel justo pretium ornare. Sed pharetra nisi faucibus purus porta egestas. Curabitur gravida vulputate turpis, a malesuada purus feugiat ut.
+                ul.like
+                  li 17 minute ago
+                  li
+                    a href="#"  Like
+                    | (6)
+        .post-block
+          form action="#" 
+            fieldset
+              img.alignleft alt=("image description") height="100" src=image_path('exampleimages/img18.jpg') width="100" 
+                .area-block
+                  textarea cols="30" rows="10" 
+                .comment-box
+                  a.button href="#"  comment
+    a.back-link href="#" 
+      span.icon-svg3
+      | back to this lesson’s discussion
+.popup-holder
+  .popup
+    a.close href="#"  close
+    a.back-link href="#" 
+      span.icon-svg3
+      | back to this lesson’s discussion
+    .discussion-block
+      .post
+        .holder
+          img.alignleft alt=("image description") height="100" src=image_path('exampleimages/img16.jpg') width="100" 
+            .text-holder
+              span.name
+                strong Daniel Hayek
+                | Vimeo Community Editor. Wichita, USA.
+              p Vivamus dui metus, mattis eu quam quis, auctor porttitor purus. Nunc malesuada.
+              ul.like
+                li 1 minute ago
+                li
+                  a href="#"  Like
+                li
+                  a href="#"  Reply
+        .post-block
+          .image-block
+            img alt=("image description") height="840" src=image_path('exampleimages/img28.jpg') width="840" /
+          .rating-block
+            .col
+              span.item
+                | Overall
+                em (67 votes)
+              ul.stars
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star.png'") src=image_path('exampleimages/star.svg') width="30" /
+            .col
+              span.item
+                | Timing
+                em (34 votes)
+              ul.stars
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star.png'") src=image_path('exampleimages/star.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star.png'") src=image_path('exampleimages/star.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star.png'") src=image_path('exampleimages/star.svg') width="30" /
+            .col
+              span.item
+                | Character
+                em (55 votes)
+              ul.stars
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star2.png'") src=image_path('exampleimages/star2.svg') width="30" /
+                li
+                  a href="#" 
+                    img alt=("image description") height="30" onerror=("this.onerror=null; this.src='images/star.png'") src=image_path('exampleimages/star.svg') width="30" /
+        .post-block
+          .holder
+            img.alignleft alt=("image description") height="100" src=image_path('exampleimages/img14.jpg') width="100" 
+              .text-holder
+                span.name
+                  strong Aviva Rubin
+                  | Art Curator at Guggenheim. New York, USA.
+                p Maecenas a purus leo. Pellentesque habitant morbi?
+                ul.like
+                  li 1 minute ago
+                  li
+                    a href="#"  Like
+                    | (6)
+        .post-block
+          .holder
+            img.alignleft alt=("image description") height="100" src=image_path('exampleimages/img26.jpg') width="100" 
+              .text-holder
+                span.name
+                  strong Michaela Watkins
+                  | Actor. Los Angeles, USA.
+                p Nam a ligula eu dui tempor condimentum et sed metus. Donec ut sem quis libero placerat posuere. Morbi sagittis dui in massa tristique condimentum. Etiam lobortis malesuada quam, non facilisis nisl pretium ultrices. Vivamus dui metus, mattis eu quam quis, auctor porttitor purus. Nunc malesuada justo vel justo pretium ornare. Sed pharetra nisi faucibus purus porta egestas. Curabitur gravida vulputate turpis, a malesuada purus feugiat ut.
+                ul.like
+                  li 17 minute ago
+                  li
+                    a href="#"  Like
+                    | (6)
+        .post-block
+          .holder
+            img.alignleft alt=("image description") height="100" src=image_path('exampleimages/img12.jpg') width="100" 
+              .text-holder
+                span.name
+                  strong Aviva Rubin
+                  | Art Curator at Guggenheim. New York, USA.
+                p Maecenas a purus leo. Pellentesque habitant morbi? Etiam lobortis malesuada quam, non facilisis nisl pretium ultrices. Vivamus dui metus, mattis eu quam quis, auctor porttitor purus.
+                ul.like
+                  li 1 minute ago
+                  li
+                    a href="#"  Like
+                    | (8)
+        .post-block
+          .holder
+            img.alignleft alt=("image description") height="100" src=image_path('exampleimages/img14.jpg') width="100" 
+              .text-holder
+                span.name
+                  strong Aviva Rubin
+                  | Art Curator at Guggenheim. New York, USA.
+                p Maecenas a purus leo. Pellentesque habitant morbi?
+                ul.like
+                  li 1 minute ago
+                  li
+                    a href="#"  Like
+                    | (6)
+        .post-block
+          .holder
+            img.alignleft alt=("image description") height="100" src=image_path('exampleimages/img26.jpg') width="100" 
+              .text-holder
+                span.name
+                  strong Michaela Watkins
+                  | Actor. Los Angeles, USA.
+                p Nam a ligula eu dui tempor condimentum et sed metus. Donec ut sem quis libero placerat posuere. Morbi sagittis dui in massa tristique condimentum. Etiam lobortis malesuada quam, non facilisis nisl pretium ultrices. Vivamus dui metus, mattis eu quam quis, auctor porttitor purus. Nunc malesuada justo vel justo pretium ornare. Sed pharetra nisi faucibus purus porta egestas. Curabitur gravida vulputate turpis, a malesuada purus feugiat ut.
+                ul.like
+                  li 17 minute ago
+                  li
+                    a href="#"  Like
+                    | (6)
+        / = render partial: 'courses/forum', locals: { course: @course }
+        .post-block
+          form action="#" 
+            fieldset
+              img.alignleft alt=("image description") height="100" src=image_path('exampleimages/img18.jpg') width="100" 
+                .area-block
+                  textarea cols="30" rows="10" 
+                .comment-box
+                  a.button href="#"  comment
+    a.back-link href="#" 
+      span.icon-svg3
+      | back to this lesson’s discussion
+
+
+
+
+/ #chapter-metadata.hidden data-user-id=current_user.id data-user-course-id=@user_course.try(:id) data-chapter-id=@chapter.id data-chapter-position=@chapter_position data-chapter-title=@chapter.title data-course-title=@course.title
+/ #video-metadata.hidden data-video-id=@chapter.brightcove_id
+
+/ .page-header
+/   =link_to '< BACK TO COURSE HOME', enrolled_course_path(@chapter.course), class: 'back'
+/   h3== "NOW WATCHING"
+/   .dropdown
+/     button#lessons-menu.dropdown-toggle data-toggle="dropdown" type='button'
+/       span.lesson-number==> "LESSON #{@chapter.number}:"
+/       == "#{@chapter.title}"
+/       span.icon-chevron-down
+/     ul.dropdown-menu role="menu" aria-labelledby="lessons-menu"
+/       - @chapter.course.chapters.order(:number).each do |chapter|
+/         li role="presentation"
+/           a role="menuitem" tabindex="-1" href="#{watch_course_chapter_url(@course.to_param, chapter)}"== "Lesson #{chapter.number} #{chapter.title}"
+
+/   .video
+/     = brightcove_script_source
+/     = chapter_video_player @chapter.brightcove_id
+
+/ .row.lesson-navigation
+/   - if path = @course.previous_chapter_path(@chapter)
+/     .col-xs-4.col-sm-2
+/       a href="#{path}" class='btn btn-default'
+/         span.icon-chevron-left
+/         | Previous
+/   - if path = @course.next_chapter_path(@chapter)
+/     .col-xs-4.col-sm-2.right
+/       a href="#{path}" class='btn btn-default'
+/         | Next
+/         span.icon-chevron-right
+/ h4.header.left: span Description
+/ div= @chapter.abstract
+/ p
+/  a#Intercom.btn.btn-lg.btn-default href="mailto:#{IntercomRails.config.app_id}@incoming.intercom.io" Contact Us
+
+
+
+/ .page-header
+/   h1 Chapter
+
+/ dl.dl-horizontal
+/   dt Number
+/   dd= @chapter.number
+/   dt Duration
+/   dd= @chapter.duration
+/   dt Title
+/   dd= @chapter.title
+/   dt Brightcove
+/   dd= @chapter.brightcove_id
+
+/ - if policy(@chapter).edit?
+/   = link_to 'Edit', edit_course_chapter_path(@course, @chapter), class: 'btn btn-primary'
+/   '
+/ = link_to 'Back', @course, class: 'btn btn-default'
